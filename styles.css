@@ -1,7 +1,7 @@
 :root{
   --bg:#0E1826; --bg-alt:#13233A; --surface:#1B2F4D; --surface-2:#21395C;
-  --text:#EAF2FB; --text-dim:#AFC4DE; --text-faint:#7E93AD;
-  --fern:#2E8B6F; --river:#4FB4D8; --clay:#C98A4B;
+  --text:#f6f6f6; --text-dim:#AFC4DE; --text-faint:#7E93AD;
+  --fern:#2E8B6F; --river:#2E8B6F; --clay:#C98A4B;
   --border:rgba(190,215,244,0.14); --shadow:rgba(0,0,0,0.35);
   --radius-sm:6px; --radius-md:14px; --radius-lg:26px;
   --maxw:1160px;
@@ -30,12 +30,12 @@ section{padding:90px 0;}
   transition:background .2s ease, border-color .2s ease; font-family:'Inter',sans-serif;
 }
 .btn-primary{background:var(--fern); color:#0E1F17;}
-.btn-primary:hover{background:#3EA383;}
+.btn-primary:hover{background:#2E8B6F;}
 .btn-outline{background:transparent; color:var(--text); border-color:var(--border);}
 .btn-outline:hover{border-color:var(--fern); color:var(--fern);}
 :focus-visible{outline:2px solid var(--river); outline-offset:3px;}
 body.light{
-  --bg:#F3F7FB; --bg-alt:#E8F0F8; --surface:#FFFFFF; --surface-2:#F5F9FC;
+  --bg:#F3F7FB; --bg-alt:#E8F0F8; --surface:#f9f9f9; --surface-2:#ffffff;
   --text:#12233A; --text-dim:#3E5875; --text-faint:#6C86A0;
   --fern:#2E8B6F; --river:#1E6FA8; --clay:#B5763A;
   --border:rgba(19,34,56,0.12); --shadow:rgba(40,60,90,0.18);
