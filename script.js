@@ -29,12 +29,13 @@ function openDetails(spot, seed){
   const meta = [
     { k: '📍 Location', v: spot.location },
     { k: '💰 Entrance fee', v: spot.entranceFee },
+    { k: ' Tourguide fee', v: spot.tourguide },
     { k: '🚗 Parking fee', v: spot.parkingFee },
     { k: '🕐 Opening hours', v: spot.hours },
     { k: 'Activities', v: spot.activities.join(', ') },
     { k: '🚗 How to get there', v: spot.howToGetThere },
     { k: '📞 Contact', v: spot.contact },
-    { k: 'Diistance', v: spot.distanceFromTownCenter }
+    { k: 'Distance', v: spot.distanceFromTownCenter }
   ];
   document.getElementById('dmMeta').innerHTML = meta.filter(m=>m.v).map(m=>`<div><div class="k">${m.k}</div><div class="v">${m.v}</div></div>`).join('');
   document.getElementById('dmDirections').href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(spot.mapQuery)}`;
@@ -97,6 +98,7 @@ SPOTS.forEach((s,i)=>{
       <p>${s.shortDesc}</p>
       <div class="spot-facts">
         <span>💰 ${s.entranceFee}</span>
+        <span>${s.tourguide}</span>
         <span>🕐 ${s.hours}</span>
       </div>
     </div>`;
