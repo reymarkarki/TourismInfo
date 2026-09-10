@@ -59,24 +59,6 @@ const SPOTS = [
   },
 
     /*Cave*/
-    {
-        id: 'puning-cave',
-        name: 'Puning Cave',
-        category: 'Cave',
-        barangay: 'Bayabas',
-        img: 'https://tse4.mm.bing.net/th/id/OIP.dfAKlQDTWra1GjAg8uW7GQHaEK?r=0&pid=Api&P=0&h=180',
-        shortDesc: 'A rugged cavern with rock formations, a short rainforest trek, and a small waterfall.',
-        fullDesc: 'A large natural cavern known for its stalactites and stalagmites, a refreshing small waterfall, and a short rainforest trek leading to its entrance. Guided-only, aimed at hikers and spelunkers.',
-        location: 'Barangay Bayabas, Doña Remedios Trinidad, Bulacan',
-        entranceFee: '₱50 – ₱100 per person',
-        parkingFee: 'None',
-        hours: '7:00 AM – 3:00 PM, dry season only',
-        activities: ['Spelunking', 'Trekking', 'Photography'],
-        howToGetThere: 'Guided-only; arrange through the Bayabas barangay tourism desk in advance.',
-        contact: 'Bayabas Barangay Tourism Desk',
-        distanceFromTownCenter: '~12 km from the Municipal Hall',
-        mapQuery: 'Puning Cave, Bayabas, Doña Remedios Trinidad, Bulacan'
-  },
     
 
 
@@ -86,7 +68,7 @@ const SPOTS = [
     {
         id: 'tila-pilon',
         name: 'Tila-Pilon Hills',
-        category: 'Mountain',
+        category: 'Mountains',
         barangay: 'Kalawakan',
         img: 'https://tse3.mm.bing.net/th/id/OIP.IyRcFlaagJqaFXnnvg2slwHaEK?r=0&pid=Api&P=0&h=180',
         shortDesc: 'A ridgeline viewpoint known as the "Baguio of Bulacan."',
@@ -104,7 +86,7 @@ const SPOTS = [
     {
         id: 'mt.corona',
         name: 'MT. Corona',
-        category: 'Mountain',
+        category: 'Mountains',
         barangay: 'Kalawakan',
         img: 'https://transitpinas.com/wp-content/uploads/2020/10/WipeOut56_14_2020_085617.534000_828682141826155-scaled.jpg',
         shortDesc: 'Mt. Corona — Bulacan’s breezy peak with Sierra Madre views."',
@@ -123,7 +105,7 @@ const SPOTS = [
     {
         id: 'mt.lawad',
         name: 'MT. Lawad',
-        category: 'Mountain',
+        category: 'Mountains',
         barangay: 'Kalawakan',
         img: 'https://tse4.mm.bing.net/th/id/OIP.4kmKlKQGXZlGNNRYQzrWKwHaEK?r=0&pid=Api&P=0&h=180',
         shortDesc: 'Mt. Lawad — Sierra Madre’s hidden trail.',
@@ -142,7 +124,7 @@ const SPOTS = [
     {
         id: 'mt. brigino',
         name: 'MT. Brigino',
-        category: 'Mountain',
+        category: 'Mountains',
         barangay: 'Sapang Bulac',
         img: 'https://i.ytimg.com/vi/XOW3nSD4ERc/maxresdefault.jpg',
         shortDesc: 'Mt. Brigino — Bulacan’s serene summit.',
@@ -161,7 +143,7 @@ const SPOTS = [
     {
         id: 'kalinaw',
         name: 'Kalinaw Campsite',
-        category: 'camp',
+        category: 'Camps',
         barangay: 'Kalawakan',
         img: 'https://tse2.mm.bing.net/th/id/OIP.gtQv2aQJza16sWtXBwYkFAHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
         shortDesc: 'Kalinaw Campsite — Find peace in the Sierra Madre.',
@@ -201,7 +183,7 @@ const SPOTS = [
     {
         id: 'caribbean-waves',
         name: 'Caribbean Waves Resort',
-        category: 'Resort',
+        category: 'Resorts',
         barangay: 'Pulong Sampalok',
         img: 'https://tse1.mm.bing.net/th/id/OIP.o98O490yPCc7-RgiprmmQQHaEK?r=0&pid=Api&P=0&h=180',
         shortDesc: 'A family-friendly swimming pool resort near the town center.',
@@ -222,7 +204,7 @@ const SPOTS = [
     {
         id: 'Mountainview',
         name: 'Mountainview Resort',
-        category: 'Resort',
+        category: 'Resorts',
         barangay: 'Sapang Bulac',
         img: 'https://th.bing.com/th/id/OIP.Y3QAgNzJCrH9CG08xqNg1QHaEK?w=320&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3',
         shortDesc: 'A family-friendly swimming pool resort near the town center.',
@@ -232,7 +214,7 @@ const SPOTS = [
         parkingFee: '₱30 per vehicle',
         hours: '6:00 AM – 6:00 PM daily',
         activities: ['Swimming', 'Family outing'],
-        howToGetThere: 'Roughly 2 km from the town center; accessible by tricycle or private vehicle.',
+        howToGetThere: 'Roughly 7 km from the town center; accessible by tricycle or private vehicle.',
         contact: 'Caribbean Waves Resort front desk',
         distanceFromTownCenter: '~6.5km from the Municipal Hall',
         mapQuery: 'MOUNTAINVIEW RESORT, Sapang Bulac, Dona Remedios Trinidad, Bulacan'
@@ -296,7 +278,6 @@ const INFO_CARDS = [
         ic: 'bag'
     }
 ];
-
 const RULES = [
   'Register with the barangay tourism desk before any trek or cave visit.',
   'Always go with a licensed local guide — several trails and cave systems are guided-only.',
@@ -305,7 +286,6 @@ const RULES = [
   'Bring cash; most barangays and guides do not accept cards.',
   'Respect barangay curfews and closing times listed for each spot.'
 ];
-
 /* ============================================================
    CONTACT
 ============================================================ */
