@@ -20,6 +20,7 @@
 </a>
     <ul class="navlinks" id="navlinks">
       <li><a href="#home">Home</a></li>
+      <li><a href="#orbit-gallery">Gallery</a></li>
       <li><a href="#spots">Tourist Spots</a></li>
       <li><a href="#map">Map</a></li>
       <li><a href="#getting-there">How to Get There</a></li>
@@ -27,6 +28,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    
     <div class="navtools">
       <button class="icon-btn" id="searchToggle" aria-label="Search" title="Search">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -75,6 +77,26 @@
     <div class="quicknav" id="quickNav"></div>
   </div>
 </section>
+<section id="orbit-gallery" class="drt-orbit-section">
+  <div class="drt-orbit-stage" id="drtOrbitStage">
+    <div class="drt-orbit-ring" id="drtOrbitRing">
+      <!-- orbit items are generated automatically by script.js -->
+    </div>
+ 
+    <div class="drt-orbit-center">
+      <h2>Doña Remedios Trinidad</h2>
+      <p>Gallery</p>
+      <a href="#spots" class="drt-orbit-btn">Explore</a>
+    </div>
+  </div>
+</section>
+ 
+<!-- Lightbox for the orbit gallery (separate from the grid gallery's lightbox) -->
+<div class="drt-orbit-lightbox" id="drtOrbitLightbox">
+  <button class="drt-orbit-lightbox-close" id="drtOrbitClose" aria-label="Close">&times;</button>
+  <img class="drt-orbit-lightbox-img" id="drtOrbitLightboxImg" src="" alt="">
+  <div class="drt-orbit-lightbox-caption" id="drtOrbitCaption"></div>
+</div>
 <!-- ============ TOURIST SPOTS ============ -->
 <section id="spots">
   <div class="wrap">
@@ -87,6 +109,7 @@
     <div class="spot-grid" id="spotGrid"></div>
   </div>
 </section>
+
 
 <!-- ============ MAP ============ -->
 <section id="map">

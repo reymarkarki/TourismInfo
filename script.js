@@ -210,3 +210,95 @@ themeToggle.addEventListener('click', ()=>{
   document.body.classList.toggle('light');
   themeToggle.classList.toggle('active');
 });
+(function () {
+  const stage = document.getElementById("drtOrbitStage");
+  const ring = document.getElementById("drtOrbitRing");
+  const lightbox = document.getElementById("drtOrbitLightbox");
+  const lightboxImg = document.getElementById("drtOrbitLightboxImg");
+  const caption = document.getElementById("drtOrbitCaption");
+  const closeBtn = document.getElementById("drtOrbitClose");
+ 
+  // Section not on this page — skip safely.
+  if (!stage || !ring || !lightbox) return;
+ 
+  // Hand-tuned scatter pattern (angle around circle, how far out,
+  // card size, and a slight tilt) — cycles if you have more photos.
+  const SLOTS = [
+    { angle: -15, radiusFactor: 0.60, size: 110, tilt: -8 },
+    { angle: 35,  radiusFactor: 0.55, size: 90,  tilt: 10 },
+    { angle: 75,  radiusFactor: 0.85, size: 120, tilt: -14 },
+    { angle: 110, radiusFactor: 0.75, size: 85,  tilt: 6 },
+    { angle: 150, radiusFactor: 0.90, size: 100, tilt: -10 },
+    { angle: 190, radiusFactor: 0.62, size: 90,  tilt: 12 },
+    { angle: 225, radiusFactor: 0.88, size: 125, tilt: -6 },
+    { angle: 255, radiusFactor: 0.68, size: 80,  tilt: 15 },
+    { angle: 290, radiusFactor: 0.82, size: 105, tilt: -12 },
+    { angle: 320, radiusFactor: 0.58, size: 95,  tilt: 8 }
+  ];
+ 
+  const items = GALLERY_DATA.map((photo, i) => {
+    const lap = Math.floor(i / SLOTS.length);
+    const slot = SLOTS[i % SLOTS.length];
+    return {
+      photo,
+      angle: slot.angle + lap * 18,
+      radiusFactor: Math.max(0.45, slot.radiusFactor - lap * 0.08),
+      size: slot.size,
+      tilt: slot.tilt
+    };
+  });
+ 
+  // Build DOM
+  items.forEach((it, i) => {
+    const item = document.createElement("div");
+    item.className = "drt-orbit-item";
+    item.dataset.angle = it.angle;
+    item.dataset.radiusFactor = it.radiusFactor;
+ 
+    const counter = document.createElement("div");
+    counter.className = "drt-orbit-counter";
+ 
+    const card = document.createElement("div");
+    card.className = "drt-orbit-card";
+    card.style.setProperty("--drt-size", it.size + "px");
+    card.style.setProperty("--drt-tilt", it.tilt + "deg");
+    card.innerHTML = '<img src="' + it.photo.src + '" alt="' + it.photo.spot + '" loading="lazy">';
+    card.addEventListener("click", () => openOrbitLightbox(i));
+ 
+    counter.appendChild(card);
+    item.appendChild(counter);
+    ring.appendChild(item);
+  });
+ 
+  function layoutOrbit() {
+    const size = stage.offsetWidth;
+    const baseRadius = size / 2;
+    ring.querySelectorAll(".drt-orbit-item").forEach((item) => {
+      const angle = parseFloat(item.dataset.angle);
+      const radius = baseRadius * parseFloat(item.dataset.radiusFactor);
+      item.style.transform =
+        "translate(-50%, -50%) rotate(" + angle + "deg) translate(" + radius + "px) rotate(" + (-angle) + "deg)";
+    });
+  }
+ 
+  window.addEventListener("resize", layoutOrbit);
+  layoutOrbit();
+ 
+  function openOrbitLightbox(index) {
+    const it = items[index];
+    lightboxImg.src = it.photo.src;
+    lightboxImg.alt = it.photo.spot;
+    caption.innerHTML =
+      '<span style="font-weight:600;display:block;">' + it.photo.spot + '</span>' +
+      '<span style="font-size:0.85rem;opacity:0.75;">Brgy. ' + it.photo.barangay + '</span>';
+    lightbox.classList.add("drt-open");
+  }
+ 
+  closeBtn.addEventListener("click", () => lightbox.classList.remove("drt-open"));
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) lightbox.classList.remove("drt-open");
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") lightbox.classList.remove("drt-open");
+  });
+})();

@@ -5,7 +5,15 @@
   --border:rgba(190,215,244,0.14); --shadow:rgba(0,0,0,0.35);
   --radius-sm:6px; --radius-md:14px; --radius-lg:26px;
   --maxw:1160px;
+
+  --drt-forest: #1f3a2e;
+  --drt-moss: #4c7a5d;
+  --drt-sand: #efe8d6;
+  --drt-paper: #faf8f2;
+  --drt-ochre: #c97d2e;
+  --drt-ink: #262218;
 }
+
 *{box-sizing:border-box; margin:0; padding:0;}
 html{scroll-behavior:smooth;}
      .logo img{ height:28px; width:auto; }
@@ -211,3 +219,156 @@ footer{padding:36px 0; border-top:1px solid var(--border);}
 .dm-meta .k{font-size:.7rem; color:var(--text-faint); font-weight:600;}
 .dm-meta .v{font-size:.86rem; margin-top:3px;}
 .dm-close{position:fixed; top:24px; right:clamp(20px,5vw,44px); color:#ECE7D6; background:none; border:none; font-size:1.1rem; cursor:pointer; z-index:20;}
+.drt-orbit-section {
+  color: #fff;
+  padding: 5rem 1rem;
+  overflow: hidden;
+  text-align: center;
+}
+ 
+.drt-orbit-stage {
+  position: relative;
+  width: min(92vw, 640px);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+ 
+.drt-orbit-ring {
+  position: absolute;
+  inset: 0;
+  animation: drt-orbit-spin 42s linear infinite;
+}
+ 
+.drt-orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  will-change: transform;
+}
+ 
+.drt-orbit-counter {
+  animation: drt-orbit-spin-reverse 42s linear infinite;
+}
+ 
+.drt-orbit-card {
+  width: var(--drt-size, 100px);
+  aspect-ratio: 4 / 5;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+  transform: rotate(var(--drt-tilt, 0deg));
+  transition: transform 0.3s ease;
+  background: #1a1a1a;
+}
+ 
+.drt-orbit-card:hover {
+  transform: rotate(var(--drt-tilt, 0deg)) scale(1.07);
+}
+ 
+.drt-orbit-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+ 
+.drt-orbit-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 62%;
+  z-index: 2;
+  pointer-events: none;
+}
+ 
+.drt-orbit-center h2 {
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+ 
+.drt-orbit-center p {
+  opacity: 0.7;
+  font-size: 0.85rem;
+  margin: 0 0 1.2rem;
+}
+ 
+.drt-orbit-btn {
+  pointer-events: auto;
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  transition: background 0.2s ease;
+}
+ 
+.drt-orbit-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+ 
+@keyframes drt-orbit-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+ 
+@keyframes drt-orbit-spin-reverse {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+ 
+@media (prefers-reduced-motion: reduce) {
+  .drt-orbit-ring,
+  .drt-orbit-counter {
+    animation: none;
+  }
+}
+ 
+/* Orbit lightbox */
+.drt-orbit-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem 1rem;
+}
+ 
+.drt-orbit-lightbox.drt-open {
+  display: flex;
+}
+ 
+.drt-orbit-lightbox-img {
+  max-width: min(90vw, 800px);
+  max-height: 72vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+ 
+.drt-orbit-lightbox-caption {
+  color: #f2ede0;
+  text-align: center;
+  margin-top: 1rem;
+  font-family: system-ui, sans-serif;
+}
+ 
+.drt-orbit-lightbox-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+ 
