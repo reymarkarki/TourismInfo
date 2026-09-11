@@ -35,9 +35,17 @@ function openDetails(spot, seed){
     { k: 'Activities', v: spot.activities.join(', ') },
     { k: '🚗 How to get there', v: spot.howToGetThere },
     { k: '📞 Contact', v: spot.contact },
+    { k: 'FaceBook', v: spot.facebook },
     { k: 'Distance', v: spot.distanceFromTownCenter }
   ];
-  document.getElementById('dmMeta').innerHTML = meta.filter(m=>m.v).map(m=>`<div><div class="k">${m.k}</div><div class="v">${m.v}</div></div>`).join('');
+  document.getElementById('dmMeta').innerHTML = meta.filter(m=>m.v).map(m=>{
+  let value = m.v;
+  if (m.k === 'FaceBook') {
+    const url = value.startsWith('http') ? value : `https://${value}`;
+    value = `<a href="${url}" target="_blank" rel="noopener">Visit Facebook Page →</a>`;
+  }
+  return `<div><div class="k">${m.k}</div><div class="v">${value}</div></div>`;
+}).join('');
   document.getElementById('dmDirections').href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(spot.mapQuery)}`;
   detailModal.classList.add('open');
 }
@@ -98,7 +106,6 @@ SPOTS.forEach((s,i)=>{
       <p>${s.shortDesc}</p>
       <div class="spot-facts">
         <span>💰 ${s.entranceFee}</span>
-        <span>${s.tourguide}</span>
         <span>🕐 ${s.hours}</span>
       </div>
     </div>`;
