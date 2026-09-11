@@ -16,13 +16,50 @@ function placeholderSVG(category, seed){
 function spotMedia(spot, seed){
   return spot.img ? `<img src="${spot.img}" alt="${spot.name}" loading="lazy">` : placeholderSVG(spot.category, seed);
 }
+function spotSlides(spot, seed){
+  const images = (spot.images && spot.images.length) ? spot.images : [spot.img].filter(Boolean);
+  if (!images.length) return placeholderSVG(spot.category, seed);
+  const slides = images.map((src,i) =>
+    `<img src="${src}" alt="${spot.name}" class="dm-slide" data-index="${i}" style="display:${i===0?'block':'none'}">`
+  ).join('');
+  const arrows = images.length > 1 ? `
+    <button class="dm-slide-prev" aria-label="Previous photo">&#8249;</button>
+    <button class="dm-slide-next" aria-label="Next photo">&#8250;</button>
+    <div class="dm-slide-dots">${images.map((_,i)=>`<span class="dm-dot${i===0?' active':''}" data-index="${i}"></span>`).join('')}</div>
+  ` : '';
+  return `<div class="dm-slider">${slides}${arrows}</div>`;
+}
 
+function setupDmSlider(){
+  const slider = document.querySelector('#dmMedia .dm-slider');
+  if(!slider) return;
+  const slides = slider.querySelectorAll('.dm-slide');
+  const dots = slider.querySelectorAll('.dm-dot');
+  let current = 0;
+  function show(i){
+    slides.forEach((s,idx)=> s.style.display = idx===i ? 'block' : 'none');
+    dots.forEach((d,idx)=> d.classList.toggle('active', idx===i));
+    current = i;
+  }
+  slider.querySelector('.dm-slide-prev')?.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    show((current - 1 + slides.length) % slides.length);
+  });
+  slider.querySelector('.dm-slide-next')?.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    show((current + 1) % slides.length);
+  });
+  dots.forEach(d=> d.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    show(parseInt(d.dataset.index));
+  }));
+}
 /* ============================================================
    PLACE DETAILS MODAL
 ============================================================ */
 const detailModal = document.getElementById('detailModal');
 function openDetails(spot, seed){
-  document.getElementById('dmMedia').innerHTML = spotMedia(spot, seed);
+  document.getElementById('dmMedia').innerHTML = spotSlides(spot, seed);
   document.getElementById('dmTag').textContent = `${spot.barangay} · ${spot.category}`;
   document.getElementById('dmTitle').textContent = spot.name;
   document.getElementById('dmDesc').textContent = spot.fullDesc;
@@ -44,6 +81,7 @@ function openDetails(spot, seed){
     const url = value.startsWith('http') ? value : `https://${value}`;
     value = `<a href="${url}" target="_blank" rel="noopener">Visit Facebook Page →</a>`;
   }
+setupDmSlider();
   return `<div><div class="k">${m.k}</div><div class="v">${value}</div></div>`;
 }).join('');
   document.getElementById('dmDirections').href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(spot.mapQuery)}`;
@@ -218,86 +256,57 @@ themeToggle.addEventListener('click', ()=>{
   themeToggle.classList.toggle('active');
 });
 (function () {
-  const stage = document.getElementById("drtOrbitStage");
-  const ring = document.getElementById("drtOrbitRing");
-  const lightbox = document.getElementById("drtOrbitLightbox");
-  const lightboxImg = document.getElementById("drtOrbitLightboxImg");
-  const caption = document.getElementById("drtOrbitCaption");
-  const closeBtn = document.getElementById("drtOrbitClose");
+  const grid = document.getElementById("drtMarqueeGrid");
+  const lightbox = document.getElementById("drtMarqueeLightbox");
+  const lightboxImg = document.getElementById("drtMarqueeLightboxImg");
+  const caption = document.getElementById("drtMarqueeCaption");
+  const closeBtn = document.getElementById("drtMarqueeClose");
  
   // Section not on this page — skip safely.
-  if (!stage || !ring || !lightbox) return;
+  if (!grid || !lightbox) return;
  
-  // Hand-tuned scatter pattern (angle around circle, how far out,
-  // card size, and a slight tilt) — cycles if you have more photos.
-  const SLOTS = [
-    { angle: -15, radiusFactor: 0.60, size: 110, tilt: -8 },
-    { angle: 35,  radiusFactor: 0.55, size: 90,  tilt: 10 },
-    { angle: 75,  radiusFactor: 0.85, size: 120, tilt: -14 },
-    { angle: 110, radiusFactor: 0.75, size: 85,  tilt: 6 },
-    { angle: 150, radiusFactor: 0.90, size: 100, tilt: -10 },
-    { angle: 190, radiusFactor: 0.62, size: 90,  tilt: 12 },
-    { angle: 225, radiusFactor: 0.88, size: 125, tilt: -6 },
-    { angle: 255, radiusFactor: 0.68, size: 80,  tilt: 15 },
-    { angle: 290, radiusFactor: 0.82, size: 105, tilt: -12 },
-    { angle: 320, radiusFactor: 0.58, size: 95,  tilt: 8 }
-  ];
+  const COLUMN_COUNT = 4;
+  const columns = Array.from({ length: COLUMN_COUNT }, () => []);
  
-  const items = GALLERY_DATA.map((photo, i) => {
-    const lap = Math.floor(i / SLOTS.length);
-    const slot = SLOTS[i % SLOTS.length];
-    return {
-      photo,
-      angle: slot.angle + lap * 18,
-      radiusFactor: Math.max(0.45, slot.radiusFactor - lap * 0.08),
-      size: slot.size,
-      tilt: slot.tilt
-    };
+  // Spread photos evenly across columns, cycling through if there
+  // aren't enough photos to fill every column uniquely.
+  GALLERY_DATA.forEach((photo, i) => {
+    columns[i % COLUMN_COUNT].push(photo);
   });
  
-  // Build DOM
-  items.forEach((it, i) => {
-    const item = document.createElement("div");
-    item.className = "drt-orbit-item";
-    item.dataset.angle = it.angle;
-    item.dataset.radiusFactor = it.radiusFactor;
- 
-    const counter = document.createElement("div");
-    counter.className = "drt-orbit-counter";
- 
-    const card = document.createElement("div");
-    card.className = "drt-orbit-card";
-    card.style.setProperty("--drt-size", it.size + "px");
-    card.style.setProperty("--drt-tilt", it.tilt + "deg");
-    card.innerHTML = '<img src="' + it.photo.src + '" alt="' + it.photo.spot + '" loading="lazy">';
-    card.addEventListener("click", () => openOrbitLightbox(i));
- 
-    counter.appendChild(card);
-    item.appendChild(counter);
-    ring.appendChild(item);
+  // Make sure every column has enough items to loop smoothly;
+  // repeat the column's own items if it's too short.
+  columns.forEach((col) => {
+    while (col.length < 4) col.push(...col);
   });
  
-  function layoutOrbit() {
-    const size = stage.offsetWidth;
-    const baseRadius = size / 2;
-    ring.querySelectorAll(".drt-orbit-item").forEach((item) => {
-      const angle = parseFloat(item.dataset.angle);
-      const radius = baseRadius * parseFloat(item.dataset.radiusFactor);
-      item.style.transform =
-        "translate(-50%, -50%) rotate(" + angle + "deg) translate(" + radius + "px) rotate(" + (-angle) + "deg)";
+  columns.forEach((colPhotos, colIndex) => {
+    const col = document.createElement("div");
+    col.className = "drt-marquee-col" + (colIndex % 2 === 1 ? " drt-reverse" : "");
+ 
+    const track = document.createElement("div");
+    track.className = "drt-marquee-track";
+ 
+    // Duplicate the list once so translateY(-50%) loops seamlessly.
+    const doubled = colPhotos.concat(colPhotos);
+    doubled.forEach((photo) => {
+      const item = document.createElement("div");
+      item.className = "drt-marquee-item";
+      item.innerHTML = '<img src="' + photo.src + '" alt="' + photo.spot + '" loading="lazy">';
+      item.addEventListener("click", () => openMarqueeLightbox(photo));
+      track.appendChild(item);
     });
-  }
  
-  window.addEventListener("resize", layoutOrbit);
-  layoutOrbit();
+    col.appendChild(track);
+    grid.appendChild(col);
+  });
  
-  function openOrbitLightbox(index) {
-    const it = items[index];
-    lightboxImg.src = it.photo.src;
-    lightboxImg.alt = it.photo.spot;
+  function openMarqueeLightbox(photo) {
+    lightboxImg.src = photo.src;
+    lightboxImg.alt = photo.spot;
     caption.innerHTML =
-      '<span style="font-weight:600;display:block;">' + it.photo.spot + '</span>' +
-      '<span style="font-size:0.85rem;opacity:0.75;">Brgy. ' + it.photo.barangay + '</span>';
+      '<span style="font-weight:600;display:block;">' + photo.spot + '</span>' +
+      '<span style="font-size:0.85rem;opacity:0.75;">Brgy. ' + photo.barangay + '</span>';
     lightbox.classList.add("drt-open");
   }
  
