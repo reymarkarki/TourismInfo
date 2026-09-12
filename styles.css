@@ -370,3 +370,45 @@ footer{padding:36px 0; border-top:1px solid var(--border);}
 }
 .dm-dot{ width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer; }
 .dm-dot.active{ background:#fff; }
+
+.emergency-hotlines {
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 12px;
+  background: #031b3d;
+  border: 1px solid rgba(11, 32, 236, 0.2);
+}
+
+.emergency-hotlines h3 {
+  margin-bottom: 1.2rem;
+  font-size: 1.4rem;
+}
+
+.hotline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.hotline-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.15);
+}
+#emergency{
+  color: rgba(239, 84, 84, 0.94);
+}
+.hotline-label {
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+.hotline-number {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+}
