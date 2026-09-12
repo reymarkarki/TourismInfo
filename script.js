@@ -145,8 +145,8 @@ SPOTS.forEach((s,i)=>{
       <h3>${s.name}</h3>
       <p>${s.shortDesc}</p>
       <div class="spot-facts">
-        <span><img src="icons/entrance-fee.png" class="meta-icon" alt="" />${s.entranceFee}</span>
-        <span><img src="icons/hours.png" class="meta-icon" alt="" />${s.hours}</span>
+        <span><img src="money.png" class="meta-icon" alt="" />${s.entranceFee}</span>
+        <span><img src="24-hour-clock.png" class="meta-icon" alt="" />${s.hours}</span>
       </div>
     </div>`;
   card.addEventListener('click', ()=>openDetails(s,i+1));
