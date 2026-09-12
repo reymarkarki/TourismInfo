@@ -1,4 +1,3 @@
-
 function placeholderSVG(category, seed){
   const palette = {
     Falls:['#2E8B6F','#132A20'], Cave:['#7A6142','#1A3527'],
@@ -64,26 +63,29 @@ function openDetails(spot, seed){
   document.getElementById('dmTitle').textContent = spot.name;
   document.getElementById('dmDesc').textContent = spot.fullDesc;
   const meta = [
-    { k: '📍 Location', v: spot.location },
-    { k: '💰 Entrance fee', v: spot.entranceFee },
-    { k: ' Tourguide fee', v: spot.tourguide },
-    { k: '🚗 Parking fee', v: spot.parkingFee },
-    { k: '🕐 Opening hours', v: spot.hours },
-    { k: 'Activities', v: spot.activities.join(', ') },
-    { k: '🚗 How to get there', v: spot.howToGetThere },
-    { k: '📞 Contact', v: spot.contact },
-    { k: 'FaceBook', v: spot.facebook },
-    { k: 'Distance', v: spot.distanceFromTownCenter }
+    { k: 'Location',         v: spot.location,                    icon: 'map.png' },
+    { k: 'Entrance fee',     v: spot.entranceFee,                 icon: 'money.png' },
+    { k: 'Tourguide fee',    v: spot.tourguide,                   icon: 'tourguide.png' },
+    { k: 'Parking fee',      v: spot.parkingFee,                  icon: 'fee.png' },
+    { k: 'Opening hours',    v: spot.hours,                       icon: '24-hour-clock.png' },
+    { k: 'Activities',       v: spot.activities.join(', '),       icon: 'team-building.png' },
+    { k: 'How to get there', v: spot.howToGetThere,               icon: 'direction.png' },
+    { k: 'Contact',          v: spot.contact,                     icon: 'contact-mail.png' },
+    { k: 'FaceBook',         v: spot.facebook,                    icon: 'facebook.png' },
+    { k: 'Distance',         v: spot.distanceFromTownCenter,      icon: 'direction.png' }
   ];
   document.getElementById('dmMeta').innerHTML = meta.filter(m=>m.v).map(m=>{
-  let value = m.v;
-  if (m.k === 'FaceBook') {
-    const url = value.startsWith('http') ? value : `https://${value}`;
-    value = `<a href="${url}" target="_blank" rel="noopener">Visit Facebook Page →</a>`;
-  }
-setupDmSlider();
-  return `<div><div class="k">${m.k}</div><div class="v">${value}</div></div>`;
-}).join('');
+    let value = m.v;
+    if (m.k === 'FaceBook') {
+      const url = value.startsWith('http') ? value : `https://${value}`;
+      value = `<a href="${url}" target="_blank" rel="noopener">Visit Facebook Page →</a>`;
+    }
+    return `<div>
+      <div class="k"><img src="${m.icon}" class="meta-icon" alt="" />${m.k}</div>
+      <div class="v">${value}</div>
+    </div>`;
+  }).join('');
+  setupDmSlider();
   document.getElementById('dmDirections').href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(spot.mapQuery)}`;
   detailModal.classList.add('open');
 }
@@ -143,8 +145,8 @@ SPOTS.forEach((s,i)=>{
       <h3>${s.name}</h3>
       <p>${s.shortDesc}</p>
       <div class="spot-facts">
-        <span>💰 ${s.entranceFee}</span>
-        <span>🕐 ${s.hours}</span>
+        <span><img src="icons/entrance-fee.png" class="meta-icon" alt="" />${s.entranceFee}</span>
+        <span><img src="icons/hours.png" class="meta-icon" alt="" />${s.hours}</span>
       </div>
     </div>`;
   card.addEventListener('click', ()=>openDetails(s,i+1));
@@ -261,32 +263,32 @@ themeToggle.addEventListener('click', ()=>{
   const lightboxImg = document.getElementById("drtMarqueeLightboxImg");
   const caption = document.getElementById("drtMarqueeCaption");
   const closeBtn = document.getElementById("drtMarqueeClose");
- 
+
   // Section not on this page — skip safely.
   if (!grid || !lightbox) return;
- 
+
   const COLUMN_COUNT = 4;
   const columns = Array.from({ length: COLUMN_COUNT }, () => []);
- 
+
   // Spread photos evenly across columns, cycling through if there
   // aren't enough photos to fill every column uniquely.
   GALLERY_DATA.forEach((photo, i) => {
     columns[i % COLUMN_COUNT].push(photo);
   });
- 
+
   // Make sure every column has enough items to loop smoothly;
   // repeat the column's own items if it's too short.
   columns.forEach((col) => {
     while (col.length < 4) col.push(...col);
   });
- 
+
   columns.forEach((colPhotos, colIndex) => {
     const col = document.createElement("div");
     col.className = "drt-marquee-col" + (colIndex % 2 === 1 ? " drt-reverse" : "");
- 
+
     const track = document.createElement("div");
     track.className = "drt-marquee-track";
- 
+
     // Duplicate the list once so translateY(-50%) loops seamlessly.
     const doubled = colPhotos.concat(colPhotos);
     doubled.forEach((photo) => {
@@ -296,11 +298,11 @@ themeToggle.addEventListener('click', ()=>{
       item.addEventListener("click", () => openMarqueeLightbox(photo));
       track.appendChild(item);
     });
- 
+
     col.appendChild(track);
     grid.appendChild(col);
   });
- 
+
   function openMarqueeLightbox(photo) {
     lightboxImg.src = photo.src;
     lightboxImg.alt = photo.spot;
@@ -309,7 +311,7 @@ themeToggle.addEventListener('click', ()=>{
       '<span style="font-size:0.85rem;opacity:0.75;">Brgy. ' + photo.barangay + '</span>';
     lightbox.classList.add("drt-open");
   }
- 
+
   closeBtn.addEventListener("click", () => lightbox.classList.remove("drt-open"));
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) lightbox.classList.remove("drt-open");
