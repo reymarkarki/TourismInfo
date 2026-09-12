@@ -20,6 +20,7 @@ const GALLERY_DATA = [
     { barangay: "Camachile", spot: "Secret Falls", src: "https://i.ytimg.com/vi/GaPwvEbljnM/maxresdefault.jpg"},
     { barangay: "Sapang Bulac", spot: "Villa Andrea Resort", src: "https://i.ytimg.com/vi/9YDbJbdZzzQ/maxresdefault.jpg" },
     { barangay: "Talbak", spot: "Verdibia Falls", src: "https://i.ytimg.com/vi/4gpAh2J1nns/maxresdefault.jpg" },
+    
 ];
 
 const SPOTS = [
