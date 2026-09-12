@@ -278,9 +278,9 @@ footer{padding:36px 0; border-top:1px solid var(--border);}
 }
  
 .drt-marquee-item {
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 8 / 3;
   cursor: pointer;
   flex-shrink: 0;
 }
