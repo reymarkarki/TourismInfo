@@ -146,6 +146,7 @@ const SPOTS = [
         category: 'Mountains',
         barangay: 'Camachile, So. Arm Strong',
         img: 'https://i.ytimg.com/vi/cwxRpuvAMSI/maxresdefault.jpg',
+        img: 'https://i.ytimg.com/vi/cwxRpuvAMSI/maxresdefault.jpg',
         images:[
             'https://scontent.fmnl4-1.fna.fbcdn.net/v/t39.30808-6/487807847_696188772923571_949710593654035142_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x2048&ctp=s2048x2048&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeFKe1Mc-GlbQsuVZbynZh0NYlrp4yuYj6tiWunjK5iPq7wEUCt7ii4-hqsjxTNB06p9HTKB-P0yajKP2lKEf7Kp&_nc_ohc=AJ5chBiRfwUQ7kNvwG9SVi2&_nc_oc=AdqRnw9ZkpVmh1IWz2QydHmtT0v2aVWJoTo0GtYfmoLHUksKpu4BfpufdqN3LvRQbmrGClOyletFPdBfVp9BY25w&_nc_zt=23&_nc_ht=scontent.fmnl4-1.fna&_nc_gid=-BnTTaQ_drAVNwKtu0W77g&_nc_ss=7b2a8&oh=00_AQKETX1IOi895mDT2VGDp7I2hRYe5r9diz2vmPwp8NXIrQ&oe=6AA97803',
             'https://scontent.fmnl4-3.fna.fbcdn.net/v/t39.30808-6/487544400_696188996256882_4189760780541825060_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx960x960&ctp=s960x960&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeH55N9Jq8FkgGNVKNCrMB3vIsPrtlK_U8Iiw-u2Ur9TwklUJdZ5LaeJHZb7SQ251_xvhAvD2clL5KNAVVjbxrmg&_nc_ohc=pjy59JnBEXgQ7kNvwEfPHGv&_nc_oc=Ado8LKbzmLuTpwocJRVOdQ61ji6owqzCJ1kJlQUWp-eDUbwEb3P92N3mDAteVBVB5rSfm0pQvEZ4qma7iEMV4aAD&_nc_zt=23&_nc_ht=scontent.fmnl4-3.fna&_nc_gid=yKcbX6d3C6LzW5mRvq8_Jg&_nc_ss=7b2a8&oh=00_AQI_P9lApvYqTCO-QZWZx-Wc3Z_oRWqOZvuGsnkb2uonHw&oe=6AA97DB1',
