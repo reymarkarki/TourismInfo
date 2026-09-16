@@ -5,7 +5,7 @@ const GALLERY_DATA = [
     { barangay: "Pulong Sampalok", spot: "Mama Piat", src: "https://i.ytimg.com/vi/yo_wubjH1UI/maxresdefault.jpg" },
     { barangay: "Pulong Sampalok", spot: "Kape Piat", src: "https://i.ytimg.com/vi/QZcJ9ymmqRY/maxresdefault.jpg" },
     { barangay: "Pulong Sampalok", spot: "Abo Spring", src: "https://i.ytimg.com/vi/dWgRt9s2DiY/maxresdefault.jpg" },
-    { barangay: "Camachin", spot: "Candle Monument", src: "https://scontent.fmnl4-5.fna.fbcdn.net/v/t39.30808-6/763684857_1475524217955107_2975815000551628723_n.jpg?stp=dst-jpg_tt6&cstp=mx1640x924&ctp=s1640x924&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeE9a5_9ocJ6tn8l4I8C-l3okk50l0e94eeSTnSXR73h53TmUX2VjrYDz-CT0akxCvRmNDPr_yGT2pirFZ8iW7dv&_nc_ohc=03O8TDG5I64Q7kNvwGR1amW&_nc_oc=AdqVzOFKFM6JCRT12FsGu4bPIMC5kDE_hqfTA4sQrcM2CK5QZsvOmn5nMIUO4X2nTQP-mnKNXKnzmSKo4nO_RzMs&_nc_zt=23&_nc_ht=scontent.fmnl4-5.fna&_nc_gid=X-gbHRA5Tm6B5x9haNrC2Q&_nc_ss=7b2a8&oh=00_AQLuBjBDvmuAWCwHNwUKw-fN04YiaVFaihqZDOYlIXkt9Q&oe=6AA95CFF" },
+    { barangay: "Camachin", spot: "Candle Monument", src: "" },
     { barangay: "Kalawakan", spot: "Sakbod Falls", src: "https://scontent.fmnl4-6.fna.fbcdn.net/v/t1.6435-9/139340834_162174625681869_6721321720128755992_n.jpg?stp=dst-jpg_tt6&cstp=mx1080x608&ctp=s1080x608&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeEuMY8CVEaaJono6E4fHSQN4Eyh3_PXY2LgTKHf89djYseiL_MzLw6IE0lz1CHizPEKdgjm1LV0dDRpWc5yU5HA&_nc_ohc=ghVDeBfvu8EQ7kNvwHISRM9&_nc_oc=Adp5rIyoFnTynmdTKnf2L-bRuJFbSt3Z-IXo9m0n1hTHZaLDgKCGn0Idd_k2pbXIMzZc34ZnAjoQ6opfDmLp7oPU&_nc_zt=23&_nc_ht=scontent.fmnl4-6.fna&_nc_gid=Q7SqtDztMRox0D0GxcsUmg&_nc_ss=7b2a8&oh=00_AQKaSO5_t5F-O2O2vopOLR_u5H9-gAEjElYgloFskKjWXQ&oe=6ACAFFB0" },
     { barangay: "Bayabas", spot: "Puning Cave", src: "https://i.ytimg.com/vi/TkX95o4Qfo0/maxresdefault.jpg" },
     { barangay: "Kabayunan", spot: "Kabayunin View Deck", src: 'https://i.ytimg.com/vi/NeDtoFifhaY/maxresdefault.jpg' },
@@ -30,10 +30,10 @@ const SPOTS = [
         barangay: 'Camachile',
         img: 'https://i.ytimg.com/vi/GaPwvEbljnM/maxresdefault.jpg',
         images: ['https://i.ytimg.com/vi/GaPwvEbljnM/maxresdefault.jpg',
-                 'https://i.ytimg.com/vi/UjChstzfV-g/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGFEgZSg9MA8=&rs=AOn4CLBwvFyAjdfYEiN_YCAcX3OO6SPl9Q',
+                'https://i.ytimg.com/vi/UjChstzfV-g/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGFEgZSg9MA8=&rs=AOn4CLBwvFyAjdfYEiN_YCAcX3OO6SPl9Q',
                 'https://i.ytimg.com/vi/Gf8rypl9-BE/maxresdefault.jpg',
                 'https://scontent.fmnl4-5.fna.fbcdn.net/v/t39.30808-6/557754727_122186826620353051_4210218743101126036_n.jpg?stp=dst-jpegr_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeH4YrrEtuRYzyoLI2AfpZnguR1dejWQmli5HV16NZCaWMaMy84XRBOAoeZUQjilJ8sXuc87pc7CLxGGZmBNzHPL&_nc_ohc=J3vVtKgCroEQ7kNvwFTemY1&_nc_oc=AdqlJktMPKPp8m5WI8AsuojhoYt_xu3yq_DY-7aYkJmrin7JHwZ8_8rdfhImuZYEFdbWa84i5zqASzYZPLB7sqXO&_nc_zt=23&se=-1&_nc_ht=scontent.fmnl4-5.fna&_nc_gid=trerWizzbwfax_EmvpIDWw&_nc_ss=7b2a8&oh=00_AQLQODB_qIj7HAAgelIjZoQaKxJLRwaBQVknzFZgHyJm4A&oe=6AA970E9',
-                 'https://scontent.fmnl4-6.fna.fbcdn.net/v/t39.30808-6/482221183_3497103970425790_4097319415870978428_n.jpg?stp=dst-jpg_tt6&cstp=mx720x960&ctp=s720x960&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeGpzp5JjfXvhLr7fz7nSGgMe6Lkgg4gxV97ouSCDiDFXyn2T-qgtPUwnD61BAlzN-ieAEt5Gm1k8Ss5q-A5kDs9&_nc_ohc=NMim4Y-jYgEQ7kNvwE_VEVL&_nc_oc=AdozIWDB6VKzv0iWBMwpZXWMoa0smp0U5hoWiJLK3f6CRknBUaK0yYrZbWDVinvHXtesh99wVGeERyWH9-zLG8hw&_nc_zt=23&_nc_ht=scontent.fmnl4-6.fna&_nc_gid=u3v8PQT_X5JFi14cuRXeFg&_nc_ss=7b2a8&oh=00_AQIT42M4O96AUBtd7PLiGQKytmrnHv-a6fQ_wlyUt4yIsw&oe=6AA972BD',
+                'https://scontent.fmnl4-6.fna.fbcdn.net/v/t39.30808-6/482221183_3497103970425790_4097319415870978428_n.jpg?stp=dst-jpg_tt6&cstp=mx720x960&ctp=s720x960&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeGpzp5JjfXvhLr7fz7nSGgMe6Lkgg4gxV97ouSCDiDFXyn2T-qgtPUwnD61BAlzN-ieAEt5Gm1k8Ss5q-A5kDs9&_nc_ohc=NMim4Y-jYgEQ7kNvwE_VEVL&_nc_oc=AdozIWDB6VKzv0iWBMwpZXWMoa0smp0U5hoWiJLK3f6CRknBUaK0yYrZbWDVinvHXtesh99wVGeERyWH9-zLG8hw&_nc_zt=23&_nc_ht=scontent.fmnl4-6.fna&_nc_gid=u3v8PQT_X5JFi14cuRXeFg&_nc_ss=7b2a8&oh=00_AQIT42M4O96AUBtd7PLiGQKytmrnHv-a6fQ_wlyUt4yIsw&oe=6AA972BD',
                 'https://scontent.fmnl4-4.fna.fbcdn.net/v/t39.30808-6/482199806_3493611780775009_967447565313552932_n.jpg?stp=dst-jpg_tt6&cstp=mx720x960&ctp=s720x960&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeE9B6MotDeko4hB2x8Bva20dVSr1KRUQQR1VKvUpFRBBNpe2F1eiKVSzNZ7qGHbDU4D4nf-NqKmrGLohSnqoAPL&_nc_ohc=Gbm9MamIjK4Q7kNvwFO0jhY&_nc_oc=AdonppMo4p4pCYaY2ocAuOYC8rBh0yoFH2HtgtQ3xTZXJltSObsztBFDjqC_8Y46JG9TUR_I0CrxobW0ctwky6GF&_nc_zt=23&_nc_ht=scontent.fmnl4-4.fna&_nc_gid=PBLTFLKXiCA1r600O7d3Rg&_nc_ss=7b2a8&oh=00_AQKLKaevriXWebn_7S_Lfl28H3Hf53CTQMa6lDbKXefVrw&oe=6AA99719'],
         shortDesc: 'A hidden waterfall wrapped in dense greenery, reached by a short, shaded trek.',
         fullDesc: 'A hidden waterfall wrapped in dense greenery — one of Bulacan\'s best-kept secrets. The trek in is short and shaded, and the pool at the bottom is calm enough for a long swim.',
@@ -47,7 +47,7 @@ const SPOTS = [
         facebook: 'https://www.facebook.com/people/Secret-FALLS/100063681378480/',
         distanceFromTownCenter: '~9 km from the Municipal Hall',
         mapQuery: 'Secret Falls, Camachile, Doña Remedios Trinidad, Bulacan'
-  },
+},
     /*Resorts */
     {
         id: 'caribbean-waves',
@@ -165,7 +165,7 @@ const SPOTS = [
         
         distanceFromTownCenter: '~4.9 km from the Municipal Hall',
         mapQuery: 'MT. Corona, Kalawakan, Doña Remedios Trinidad, Bulacan'
-   },
+},
     {
         id: 'kabayunan',
         name: 'Kabayuan View Deck',
@@ -174,7 +174,7 @@ const SPOTS = [
         img: 'https://i.ytimg.com/vi/owHO-F3E-kk/maxresdefault.jpg',
         images:[
             'https://i.ytimg.com/vi/owHO-F3E-kk/maxresdefault.jpg',
-           'https://i.ytimg.com/vi/NeDtoFifhaY/maxresdefault.jpg',
+            'https://i.ytimg.com/vi/NeDtoFifhaY/maxresdefault.jpg',
             'https://scontent.fmnl4-1.fna.fbcdn.net/v/t39.30808-6/518366876_778540017833258_3786254480707450494_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1536&ctp=s2048x1536&_nc_cat=105&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_ohc=j0yvNK54n6oQ7kNvwFhRciX&_nc_oc=AdpHDelyxqzRQoYLtTa0irZ-DTZUsxtlzS-aVKeYoBm1EKsSLyvdAlfMYJPyaa9TJzRK8bG2FYtLSV28CD4M3YGz&_nc_zt=23&_nc_ht=scontent.fmnl4-1.fna&_nc_gid=77KqUXKOKXNTqv-5wBTqAQ&_nc_ss=7b289&oh=00_AQJmsPeJs6iSOaKr4bbxZUHL2aJaT8SdO5jyMDjLALImxw&oe=6AA9C03D',
             'https://scontent.fmnl4-5.fna.fbcdn.net/v/t39.30808-6/515496148_778539997833260_220368399201677441_n.jpg?stp=dst-jpg_tt6&cstp=mx1170x877&ctp=s1170x877&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_ohc=wfU-585CGggQ7kNvwG0NC0C&_nc_oc=AdrS8vGrMKArezdZGuOa_3N2yYvq0Mdysikos8-vKMkNmYLVSu_yuScQPnhpsBMSY0mOwBTxEySQHQ_HQCU-mFLv&_nc_zt=23&_nc_ht=scontent.fmnl4-5.fna&_nc_gid=fZBiG4gAaqnPPgYRNZerZg&_nc_ss=7b289&oh=00_AQKb2YCONkQRRPxYR9xJkmHjiZlj1mKQAlBAz2AzDVvHVg&oe=6AA9B967',
             'https://scontent.fmnl4-1.fna.fbcdn.net/v/t39.30808-6/515439815_778540061166587_4322459787078759488_n.jpg?stp=dst-jpg_tt6&cstp=mx1204x912&ctp=s1204x912&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_ohc=e-TNL6uaHV4Q7kNvwELmxR7&_nc_oc=AdpyK5roj79uvGzLA2QfOzUBUiDEy2949SIWuCfVi0LryLtC6DbuqqyDvNB-AqRTXXeldSMzb6x6oWdV_caBMp5o&_nc_zt=23&_nc_ht=scontent.fmnl4-1.fna&_nc_gid=yiCWzph-0USCkgf8iLls5A&_nc_ss=7b289&oh=00_AQJD3vtvuzvi5XLWpzACLqpkd5vSHXvAKnEPwTcZqe1RWg&oe=6AA9B8CC',
@@ -192,7 +192,7 @@ const SPOTS = [
         facebook:'https://www.facebook.com/kabayunanview/',
         distanceFromTownCenter: '~15.5 km from the Municipal Hall',
         mapQuery: 'Kabayunan View Deck, Kabayunan, Doña Remedios Trinidad, Bulacan'
-   },
+},
     {
         id: 'mt.lawad',
         name: 'MT. Lawad',
@@ -219,7 +219,7 @@ const SPOTS = [
         facebook: 'https://www.facebook.com/mtlawadofficial/',
         distanceFromTownCenter: '~28.6 km from the Municipal Hall',
         mapQuery: 'MT. Lawad, Kalawakan, Doña Remedios Trinidad, Bulacan'
-   },
+},
     {
         id: 'mt. brigino',
         name: 'MT. Brigino',
@@ -246,7 +246,7 @@ const SPOTS = [
         facebook: 'https://www.facebook.com/MountBrigino/',
         distanceFromTownCenter: '~9.8 km from the Municipal Hall',
         mapQuery: 'MT. Brigino, Sapang Bulac, Doña Remedios Trinidad, Bulacan'
-   },
+    },
     {
         id: 'kalinaw',
         name: 'Kalinaw Campsite',
@@ -257,7 +257,7 @@ const SPOTS = [
             'https://scontent.fmnl4-7.fna.fbcdn.net/v/t39.30808-6/577688354_1221292850053594_5945220749437703802_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1536&ctp=s2048x1536&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeFMrqL9IKABSRB6z95VVnZoEA3oN499vV8QDeg3j329Xw6O2Er8BOBjV47fn420RfCZiY3_GyU9_hNpxjrJGPry&_nc_ohc=pSoRcWQwKjcQ7kNvwHCd7vD&_nc_oc=Ado7DT4t-uMe91k8yY-0DlVS0u9mdH_SYIRsXI6flls2AsflPdOUzYGeVw9vpN1BwHj_2g8jxe58jATpy_QLsHyk&_nc_zt=23&_nc_ht=scontent.fmnl4-7.fna&_nc_gid=APTewAiBisRkoDshSg-SuA&_nc_ss=7b2a8&oh=00_AQIM-yZhcPxeU57W2dbgDyBk-i4NAadWYr0ob7Eh3T4hoA&oe=6AA9A416',
             'https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/572018331_1212249400957939_7556270316281785372_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2048&ctp=s2048x2048&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeEVNjBW0qr0UZ9WPkYTX6UwV5Tbg08hdmVXlNuDTyF2ZSbncqqRZE8YhOKIVqboUN5AXoe58GCXAGcSOWg-em1Z&_nc_ohc=1Xxsv-1j1vwQ7kNvwG9YwTP&_nc_oc=Ado9hDf1-qBIbOMRErLk965hTccDEhAmg27xa0p7XAIL_MwxOv3naIMH507MJe77d6Y62Y1PRTaIQvg6T-7aV_Gk&_nc_zt=23&_nc_ht=scontent.fmnl4-2.fna&_nc_gid=FE0owMy60wwq89eV1srbSw&_nc_ss=7b2a8&oh=00_AQKlC3lICZ5jm8yS_2MAnUE-RJ6UW3tq52lWmpD8Ee8mYw&oe=6AA9B1B1',
             'https://scontent.fmnl4-1.fna.fbcdn.net/v/t39.30808-6/548270548_1177386771110869_1185059047372260484_n.jpg?stp=dst-jpg_tt6&cstp=mx1920x1080&ctp=s1920x1080&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFk2VeMuK24jvEonyy06v2K1gUYpB3qYZTWBRikHephlPDzGgKcN8tx9eCn03180NEijfCoZecuB9GI0-4n1lua&_nc_ohc=v2dfuhU9IpEQ7kNvwFrAH2a&_nc_oc=AdpjCtJtVf5_fklpAKdZhCDJaIF46f1sr8_OvA3MoYa5HNXIL_2dwezzzPvvA3MFr5OWocxhdvPIaPtFeofpbAtU&_nc_zt=23&_nc_ht=scontent.fmnl4-1.fna&_nc_gid=jOpoiGPriXZX_6rmUcBbVw&_nc_ss=7b2a8&oh=00_AQKM2Ojdpcrw-QjEcmceehBgYdqBD6jcQKybsAg4Z1cO3Q&oe=6AA9BB54',
-             'https://scontent.fmnl4-5.fna.fbcdn.net/v/t39.30808-6/662096826_1336300151886196_5898508476544793216_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1520&ctp=s2048x1520&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHi94HdeJuqAPlxhQSM-58rFKDJP6vG2lAUoMk_q8baUKxv0AdOQCQ5vGZTM-PCiB7WH-Fmc7C5Iw63NlzVSAkq&_nc_ohc=XZBfBSmz_T4Q7kNvwH3VIPI&_nc_oc=AdpJXv8duLP_a_dUlTrm7llE3EXQKNMUMXh714NdvPM6C8VFoS_O6OiTikLxMClP3lqYAqZGESAYSb7hsjwn28if&_nc_zt=23&_nc_ht=scontent.fmnl4-5.fna&_nc_gid=o6u5xcHf9DfI49eYD_RSLA&_nc_ss=7b2a8&oh=00_AQLoE6wwxpV_z76EY1ZoOwwkRLLRpru9vXq6bwy0ghMfmw&oe=6AA9A08D',
+            'https://scontent.fmnl4-5.fna.fbcdn.net/v/t39.30808-6/662096826_1336300151886196_5898508476544793216_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1520&ctp=s2048x1520&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHi94HdeJuqAPlxhQSM-58rFKDJP6vG2lAUoMk_q8baUKxv0AdOQCQ5vGZTM-PCiB7WH-Fmc7C5Iw63NlzVSAkq&_nc_ohc=XZBfBSmz_T4Q7kNvwH3VIPI&_nc_oc=AdpJXv8duLP_a_dUlTrm7llE3EXQKNMUMXh714NdvPM6C8VFoS_O6OiTikLxMClP3lqYAqZGESAYSb7hsjwn28if&_nc_zt=23&_nc_ht=scontent.fmnl4-5.fna&_nc_gid=o6u5xcHf9DfI49eYD_RSLA&_nc_ss=7b2a8&oh=00_AQLoE6wwxpV_z76EY1ZoOwwkRLLRpru9vXq6bwy0ghMfmw&oe=6AA9A08D',
         ],
         barangay: 'Kalawakan',
         img: 'https://tse2.mm.bing.net/th/id/OIP.gtQv2aQJza16sWtXBwYkFAHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',

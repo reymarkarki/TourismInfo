@@ -30,8 +30,8 @@ body.light {
     --surface: #dde1e4;
     --surface-2: #ffffff;
     --text: #242426;
-    --text-dim: #55585c;
-    --text-faint: #87888c;
+    --text-dim: #292d32;
+    --text-faint: #1f222e;
     --fern: #d6127e;
     --river: #c81570;
     --clay: #242426;
@@ -44,6 +44,7 @@ body.light {
     color: #fff;
     border-color: var(--fern);
 }
+
 
 @media (prefers-reduced-motion: reduce) {
     * {
@@ -698,6 +699,14 @@ section {
     vertical-align: -2px;
     margin-right: 5px;
 }
+.meta-icon {
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease;
+}
+
+body.light .meta-icon {
+    filter: none;
+}
 
 .dm-meta .k {
     display: flex;
@@ -1095,7 +1104,6 @@ footer {
 }
 
 .drt-marquee-section {
-    background: ;
     color: #fff;
     padding: 4.5rem 1.5rem;
     text-align: center;
@@ -1315,7 +1323,6 @@ footer {
     margin-top: 3rem;
     padding: 2rem;
     border-radius: 12px;
-    background: ;
     border: 1px solid rgba(11, 32, 236, 0.2);
 }
 
