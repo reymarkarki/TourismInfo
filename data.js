@@ -1,4 +1,3 @@
-const HERO_IMAGE = '';
 
 const GALLERY_DATA = [
     { barangay: "Pulong Sampalok", spot: "Carribean Resort", src: "https://i.ytimg.com/vi/Yj9p-zYescc/maxresdefault.jpg" },
@@ -20,7 +19,6 @@ const GALLERY_DATA = [
     { barangay: "Camachile", spot: "Secret Falls", src: "https://i.ytimg.com/vi/GaPwvEbljnM/maxresdefault.jpg"},
     { barangay: "Sapang Bulac", spot: "Villa Andrea Resort", src: "https://i.ytimg.com/vi/9YDbJbdZzzQ/maxresdefault.jpg" },
     { barangay: "Talbak", spot: "Verdibia Falls", src: "https://i.ytimg.com/vi/4gpAh2J1nns/maxresdefault.jpg" },
-    
 ];
 
 const SPOTS = [
@@ -57,7 +55,7 @@ const SPOTS = [
         category: 'Resorts',
         barangay: 'Pulong Sampalok',
         img: 'https://i.ytimg.com/vi/Yj9p-zYescc/maxresdefault.jpg',
-        images:[
+        images: [
             'https://i.ytimg.com/vi/Yj9p-zYescc/maxresdefault.jpg',
             'https://scontent.fmnl4-4.fna.fbcdn.net/v/t39.30808-6/481463927_122205574124044831_5018563083160637205_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1536&ctp=s2048x1536&_nc_cat=108&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeFFbHZdwR_ZEvJCxaTtzaiN5sI0xJ4tbL3mwjTEni1svYIrcT50qlrxXQ44_C6HsriOe0nDBSua8MLfjvVwNZ3r&_nc_ohc=8Guceik82X8Q7kNvwHlYYNv&_nc_oc=Adp5yrpgPgzYzPHz8ggNUTArDARVi-vOY_BDfB0kPCRoQeTP3dq9-di94Nh22wgg67BrMFnJF98t1lLwPPAvzxJA&_nc_zt=23&_nc_ht=scontent.fmnl4-4.fna&_nc_gid=vEbKJnG6-AkPv5kqNSiRZg&_nc_ss=7b2a8&oh=00_AQKW1_j66MJDtbyfPXVPiR-IrRIkOahtznBbppbi054lxQ&oe=6AA970BE',
             'https://scontent.fmnl4-4.fna.fbcdn.net/v/t39.30808-6/481675388_122205574034044831_119213585937043747_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1536&ctp=s2048x1536&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeHUKRuy-QNldNzCyR2LlHknLmP8LeTzSpcuY_wt5PNKl8Y2VrDZQBGvAPQsVMpX2wRqR4A0eqIhuw_Wyn8hPSdG&_nc_ohc=0ZirZ-75kxwQ7kNvwHAMPXw&_nc_oc=AdpP-ffO6e2KOUSSumuLZAW21e9bvFYxHdTYDMDG1a0cj8bOwcgUTxPtmbOiuqXoyufLgZbHMq7fYkslJ4MSzhRN&_nc_zt=23&_nc_ht=scontent.fmnl4-4.fna&_nc_gid=7-SxqumL5AHsRzcBu5DWTA&_nc_ss=7b2a8&oh=00_AQIkRlIV3kpA6lg1TpT7JU2aKwLZy4lH8AwuEMNjRdLvPw&oe=6AA974AE',
@@ -78,7 +76,7 @@ const SPOTS = [
         facebook: 'https://www.facebook.com/CaribbeanResortBulacan',
         distanceFromTownCenter: '~2 km from the Municipal Hall',
         mapQuery: 'Caribbean Waves Resort, Pulong Sampaloc, Doña Remedios Trinidad, Bulacan'
-  },
+    },
    
     {
         id: 'verdivia-falls',
@@ -146,7 +144,7 @@ const SPOTS = [
         category: 'Mountains',
         barangay: 'Camachile, So. Arm Strong',
         img: 'https://i.ytimg.com/vi/cwxRpuvAMSI/maxresdefault.jpg',
-        img: 'https://i.ytimg.com/vi/cwxRpuvAMSI/maxresdefault.jpg',
+        img: 'https://i.ytimg.com/vi/cwxRpuvAMSI/maxresdefault.jpg', 
         images:[
             'https://scontent.fmnl4-1.fna.fbcdn.net/v/t39.30808-6/487807847_696188772923571_949710593654035142_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x2048&ctp=s2048x2048&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeFKe1Mc-GlbQsuVZbynZh0NYlrp4yuYj6tiWunjK5iPq7wEUCt7ii4-hqsjxTNB06p9HTKB-P0yajKP2lKEf7Kp&_nc_ohc=AJ5chBiRfwUQ7kNvwG9SVi2&_nc_oc=AdqRnw9ZkpVmh1IWz2QydHmtT0v2aVWJoTo0GtYfmoLHUksKpu4BfpufdqN3LvRQbmrGClOyletFPdBfVp9BY25w&_nc_zt=23&_nc_ht=scontent.fmnl4-1.fna&_nc_gid=-BnTTaQ_drAVNwKtu0W77g&_nc_ss=7b2a8&oh=00_AQKETX1IOi895mDT2VGDp7I2hRYe5r9diz2vmPwp8NXIrQ&oe=6AA97803',
             'https://scontent.fmnl4-3.fna.fbcdn.net/v/t39.30808-6/487544400_696188996256882_4189760780541825060_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx960x960&ctp=s960x960&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeH55N9Jq8FkgGNVKNCrMB3vIsPrtlK_U8Iiw-u2Ur9TwklUJdZ5LaeJHZb7SQ251_xvhAvD2clL5KNAVVjbxrmg&_nc_ohc=pjy59JnBEXgQ7kNvwEfPHGv&_nc_oc=Ado8LKbzmLuTpwocJRVOdQ61ji6owqzCJ1kJlQUWp-eDUbwEb3P92N3mDAteVBVB5rSfm0pQvEZ4qma7iEMV4aAD&_nc_zt=23&_nc_ht=scontent.fmnl4-3.fna&_nc_gid=yKcbX6d3C6LzW5mRvq8_Jg&_nc_ss=7b2a8&oh=00_AQI_P9lApvYqTCO-QZWZx-Wc3Z_oRWqOZvuGsnkb2uonHw&oe=6AA97DB1',
@@ -364,7 +362,7 @@ const SPOTS = [
 ];
 
 /*
-   HOW TO GET THERE
+how to get there
 */
 const ROUTE_STEPS = [
     {
@@ -386,7 +384,7 @@ const ROUTE_STEPS = [
 ];
 
 /*
-   FEES & INFORMATION
+  fees
 */
 const INFO_CARDS = [
     {
@@ -428,9 +426,9 @@ const RULES = [
   'Bring cash; most barangays and guides do not accept cards.',
   'Respect barangay curfews and closing times listed for each spot.'
 ];
-/* ============================================================
-   CONTACT
-============================================================ */
+/* 
+   contact
+*/
 const CONTACT_CARDS = [
     {
         label: 'Municipal Tourism Office',
