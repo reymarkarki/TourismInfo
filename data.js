@@ -5,7 +5,7 @@ const GALLERY_DATA = [
     { barangay: "Pulong Sampalok", spot: "Mama Piat", src: "https://i.ytimg.com/vi/yo_wubjH1UI/maxresdefault.jpg" },
     { barangay: "Pulong Sampalok", spot: "Kape Piat", src: "https://i.ytimg.com/vi/QZcJ9ymmqRY/maxresdefault.jpg" },
     { barangay: "Pulong Sampalok", spot: "Abo Spring", src: "https://i.ytimg.com/vi/dWgRt9s2DiY/maxresdefault.jpg" },
-    { barangay: "Camachin", spot: "Candle Monument", src: "" },
+    { barangay: "Camachin", spot: "Candle Monument", src: "https://i.ytimg.com/vi/e84VTy8pOMM/maxresdefault.jpg" },
     { barangay: "Kalawakan", spot: "Sakbod Falls", src: "https://scontent.fmnl4-6.fna.fbcdn.net/v/t1.6435-9/139340834_162174625681869_6721321720128755992_n.jpg?stp=dst-jpg_tt6&cstp=mx1080x608&ctp=s1080x608&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeEuMY8CVEaaJono6E4fHSQN4Eyh3_PXY2LgTKHf89djYseiL_MzLw6IE0lz1CHizPEKdgjm1LV0dDRpWc5yU5HA&_nc_ohc=ghVDeBfvu8EQ7kNvwHISRM9&_nc_oc=Adp5rIyoFnTynmdTKnf2L-bRuJFbSt3Z-IXo9m0n1hTHZaLDgKCGn0Idd_k2pbXIMzZc34ZnAjoQ6opfDmLp7oPU&_nc_zt=23&_nc_ht=scontent.fmnl4-6.fna&_nc_gid=Q7SqtDztMRox0D0GxcsUmg&_nc_ss=7b2a8&oh=00_AQKaSO5_t5F-O2O2vopOLR_u5H9-gAEjElYgloFskKjWXQ&oe=6ACAFFB0" },
     { barangay: "Bayabas", spot: "Puning Cave", src: "https://i.ytimg.com/vi/TkX95o4Qfo0/maxresdefault.jpg" },
     { barangay: "Kabayunan", spot: "Kabayunin View Deck", src: 'https://i.ytimg.com/vi/NeDtoFifhaY/maxresdefault.jpg' },
