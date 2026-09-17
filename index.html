@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Doña Remedios Trinidad — Tourism Guide</title>
+<title>Doña Remedios Trinidad - Tourism Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,16 +11,14 @@
 </head>
 <body>
 
-<!-- ============ NAV ============ -->
 <nav id="nav">
   <div class="navwrap">
     <a href="#home" class="logo">
-  <img src="images/logo.png" alt="DRT Tourism">
+  <img src="Drtlogo.png" alt="DRT Tourism">
   Doña Remedios Trinidad
 </a>
     <ul class="navlinks" id="navlinks">
       <li><a href="#home">Home</a></li>
-      <li><a href="#orbit-gallery">Gallery</a></li>
       <li><a href="#spots">Tourist Spots</a></li>
       <li><a href="#map">Map</a></li>
       <li><a href="#getting-there">How to Get There</a></li>
@@ -49,19 +47,19 @@
   <div id="searchResults"></div>
 </div>
 
+<!--home-->
 
-<!-- ============ HOME ============ -->
 <section id="home">
-  <div class="hero-media"><img src="images/arko1.jpg" alt="Doña Remedios Trinidad" loading="lazy"></div>
+  <div class="hero-media"><img src="arko1.jpg" loading="lazy"></div>
   <div class="hero-scrim"></div>
   <div class="wrap hero-inner">
-    <div class="hero-eyebrow"><span class="dot"></span> Bulacan's largest municipality — 8 barangays, one wild edge of the province</div>
+    <div class="hero-eyebrow">Bulacan's largest municipality - 8 barangays, one wild edge of the province</div>
     <h1 class="hero-title">
-      <span class="line">Discover</span>
+      <span class="line" id="disc">Discover</span>
       <span class="line accent">Doña Remedios Trinidad</span>
     </h1>
-    <p class="hero-tagline">Bulacan's hidden paradise of nature &amp; adventure</p>
-    <p class="hero-desc">Three-quarters forest, laced with rivers and hidden falls — a two-hour escape from Manila into caves, mountain trails, and waterfalls this guide brings together in one place.</p>
+    <p class="hero-tagline" id="1">Bulacan's hidden paradise of nature &amp; adventure</p>
+    <p class="hero-desc" id="2">Three-quarters forest, laced with rivers and hidden falls - a two-hour escape from Manila into caves, mountain trails, and waterfalls this guide brings together in one place.</p>
     <div class="hero-ctas">
       <a href="#spots" class="btn btn-primary">See Tourist Spots</a>
       <a href="#getting-there" class="btn btn-outline">Plan Your Visit</a>
@@ -77,33 +75,28 @@
     <div class="quicknav" id="quickNav"></div>
   </div>
 </section>
-<section id="orbit-gallery" class="drt-orbit-section">
-  <div class="drt-orbit-stage" id="drtOrbitStage">
-    <div class="drt-orbit-ring" id="drtOrbitRing">
-      <!-- orbit items are generated automatically by script.js -->
-    </div>
+<section id="marquee-gallery" class="drt-marquee-section">
+  <p class="drt-marquee-eyebrow">Gallery</p>
+  <h2 class="drt-marquee-title">Doña Remedios Trinidad, Bulacan</h2>
  
-    <div class="drt-orbit-center">
-      <h2>Doña Remedios Trinidad</h2>
-      <p>Gallery</p>
-      <a href="#spots" class="drt-orbit-btn">Explore</a>
-    </div>
+  <div class="drt-marquee-grid" id="drtMarqueeGrid">
+    
   </div>
 </section>
- 
-<!-- Lightbox for the orbit gallery (separate from the grid gallery's lightbox) -->
-<div class="drt-orbit-lightbox" id="drtOrbitLightbox">
-  <button class="drt-orbit-lightbox-close" id="drtOrbitClose" aria-label="Close">&times;</button>
-  <img class="drt-orbit-lightbox-img" id="drtOrbitLightboxImg" src="" alt="">
-  <div class="drt-orbit-lightbox-caption" id="drtOrbitCaption"></div>
+
+
+<div class="drt-marquee-lightbox" id="drtMarqueeLightbox">
+  <button class="drt-marquee-lightbox-close" id="drtMarqueeClose" aria-label="Close">&times;</button>
+  <img class="drt-marquee-lightbox-img" id="drtMarqueeLightboxImg" src="" alt="">
+  <div class="drt-marquee-lightbox-caption" id="drtMarqueeCaption"></div>
 </div>
-<!-- ============ TOURIST SPOTS ============ -->
+<!--spots-->
 <section id="spots">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Tourist spots</div>
       <h2>All destinations in DRT</h2>
-      <p>Tap any spot for its full details — location, fees, hours, activities, and how to get there.</p>
+      <p>Tap any spot for its full details - location, fees, hours, activities, and how to get there.</p>
     </div>
     <div class="spot-filters" id="spotFilters"></div>
     <div class="spot-grid" id="spotGrid"></div>
@@ -111,7 +104,7 @@
 </section>
 
 
-<!-- ============ MAP ============ -->
+<!--maps-->
 <section id="map">
   <div class="wrap">
     <div class="section-head">
@@ -128,7 +121,7 @@
   </div>
 </section>
 
-<!-- ============ HOW TO GET THERE ============ -->
+<!--how to get there -->
 <section id="getting-there">
   <div class="wrap">
     <div class="section-head">
@@ -139,7 +132,7 @@
   </div>
 </section>
 
-<!-- ============ FEES & INFORMATION ============ -->
+<!-- fees -->
 <section id="fees">
   <div class="wrap">
     <div class="section-head">
@@ -155,7 +148,7 @@
   </div>
 </section>
 
-<!-- ============ ABOUT ============ -->
+<!--about drt -->
 <section id="about">
   <div class="wrap about-grid">
     <div>
@@ -173,7 +166,8 @@
   </div>
 </section>
 
-<!-- ============ CONTACT ============ -->
+
+<!-- contact -->
 <section id="contact">
   <div class="wrap">
     <div class="section-head small">
@@ -184,6 +178,26 @@
   </div>
 </section>
 
+
+<!-- hotlines -->
+<div class="emergency-hotlines">
+  <h3 id="emergency">Emergency Hotlines</h3>
+  <div class="hotline-grid">
+    <div class="hotline-card">
+      <span class="hotline-label">BFP (Bureau of Fire Protection)</span>
+      <a href="tel:09262810638" class="hotline-number">0926 281 0638</a>
+    </div>
+    <div class="hotline-card">
+      <span class="hotline-label">Police</span>
+      <a href="tel:09985985379" class="hotline-number">0998 5985 379</a>
+    </div>
+    <div class="hotline-card">
+      <span class="hotline-label">NDRRMC</span>
+      <a href="tel:09566796848" class="hotline-number">0956 679 6848</a>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="wrap footer-inner">
     <span>© 2026 Doña Remedios Trinidad Tourism — visitor's guide.</span>
@@ -191,7 +205,7 @@
   </div>
 </footer>
 
-<!-- ============ PLACE DETAILS MODAL ============ -->
+<!-- other details -->
 <div id="detailModal">
   <button class="dm-close" id="dmClose" aria-label="Close">✕</button>
   <div class="dm-inner">
