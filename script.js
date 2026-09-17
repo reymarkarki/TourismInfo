@@ -75,55 +75,56 @@ function openDetails(spot, seed) {
   document.getElementById("dmTitle").textContent = spot.name;
   document.getElementById("dmDesc").textContent = spot.fullDesc;
   const meta = [
+
     {
       k: "Location",
       v: spot.location,
-      icon: "map.png"
+      icon: "icon/map.png"
     },
     {
       k: "Entrance fee",
       v: spot.entranceFee,
-      icon: "money.png"
+      icon: "icon/money.png"
     },
     {
       k: "Tourguide fee",
       v: spot.tourguide,
-      icon: "tourguide.png"
+      icon: "icon/tourguide.png"
     },
     {
       k: "Parking fee",
       v: spot.parkingFee,
-      icon: "fee.png"
+      icon: "icon/fee.png"
     },
     {
       k: "Opening hours",
       v: spot.hours,
-      icon: "24-hour-clock.png"
+      icon: "icon/24-hour-clock.png"
     },
     {
       k: "Activities",
       v: spot.activities.join(", "),
-      icon: "team-building.png"
+      icon: "icon/team-building.png"
     },
     {
       k: "How to get there",
       v: spot.howToGetThere,
-      icon: "direction.png"
+      icon: "icon/direction.png"
     },
     {
       k: "Contact",
       v: spot.contact,
-      icon: "contact-mail.png"
+      icon: "icon/contact-mail.png"
     },
     {
       k: "FaceBook",
       v: spot.facebook,
-      icon: "facebook.png"
+      icon: "icon/facebook.png"
     },
     {
       k: "Distance",
       v: spot.distanceFromTownCenter,
-      icon: "direction.png"
+      icon: "icon/direction.png"
     }
   ];
   document.getElementById("dmMeta").innerHTML = meta
@@ -220,8 +221,8 @@ SPOTS.forEach((s, i) => {
       <h3>${s.name}</h3>
       <p>${s.shortDesc}</p>
       <div class="spot-facts">
-        <span><img src="money.png" class="meta-icon" alt="" />${s.entranceFee}</span>
-        <span><img src="24-hour-clock.png" class="meta-icon" alt="" />${s.hours}</span>
+        <span><img src="icon/money.png" class="meta-icon" alt="" />${s.entranceFee}</span>
+        <span><img src="icon/24-hour-clock.png" class="meta-icon" alt="" />${s.hours}</span>
       </div>
     </div>`;
   card.addEventListener("click", () => openDetails(s, i + 1));
