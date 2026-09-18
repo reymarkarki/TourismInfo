@@ -151,7 +151,7 @@ const SPOTS = [
            'images/MT.SECRET/Mt.secret.jpg',
             'images/MT.SECRET/Mt(1).jpg',
             'images/MT.SECRET/Mt(2).jpg',
-            'images/MT.SECRET/Mt(3).jpg',
+            'images/MT.SECRET/MT(3).jpg',
             'images/MT.SECRET/Mt(4).jpg',      
         ],
         shortDesc: 'Mt. Secret — Bulacan’s breezy peak with Sierra Madre views."',
