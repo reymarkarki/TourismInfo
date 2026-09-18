@@ -14,7 +14,7 @@ const GALLERY_DATA = [
     { barangay: "Camachin", spot: "13th Falls ", src: "images/gallery/13thFalls.jpg" },
     { barangay: "Camachin", spot: "Iket River Resort", src: "images/gallery/iketRiver.jpg" },
     { barangay: "Camachin", spot: "Mojako's Hills", src: "images/gallery/mojakoHills.jpg" },
-    { barangay: "Talbak", spot: "143 Steps", src: "images/gallery/143Steps.jpg" },
+    { barangay: "Talbak", spot: "143 Steps", src: "images/gallery/143steps.jpg" },
     { barangay: "Sapang Bulac", spot: "Mountain View", src: "images/gallery/mountainview.jpg" },
     { barangay: "Camachile", spot: "Secret Falls", src: "images/secretfall/secretfalls.jpg"},
     { barangay: "Sapang Bulac", spot: "Villa Andrea Resort", src: "images/gallery/villaAndrea.jpg" },
