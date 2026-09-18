@@ -346,7 +346,7 @@ const SPOTS = [
             'images/mountainView/mountainview.jpg',
             'images/mountainView/mv1.jpg',
             'images/mountainView/mv2.jpg',
-            'images/mountainView/mv3.jpg',
+            'images/mountainView/MV3.jpg',
             'images/mountainView/mv4.jpg',
         ],
         shortDesc: 'A family-friendly swimming pool.',
