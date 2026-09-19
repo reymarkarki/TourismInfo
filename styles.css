@@ -907,17 +907,8 @@ body.light .meta-icon {
     margin-bottom: 16px;
 }
 
-.rules-list li {
-    color: var(--text-dim);
-    font-size: .92rem;
-    line-height: 1.6;
-    padding: 10px 0;
-    border-top: 1px solid var(--border);
-}
-
-.rules-list li:first-child {
-    border-top: none;
-}
+.rules-list li{color:var(--text-dim); font-size:.92rem; line-height:1.6; padding:10px 0; border-top:1px solid var(--border);}
+.rules-list li:first-child{border-top:none;}
 
 .about-grid {
     display: grid;
@@ -1073,21 +1064,24 @@ footer {
 }
 
 .dm-meta div {
-    border-top: 1px solid var(--border);
-    padding-top: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.dm-meta div:last-child {
+    border-bottom: none;
 }
 
 .dm-meta .k {
-    font-size: .7rem;
+    font-size: .72rem;
     color: var(--text-faint);
     font-weight: 600;
 }
 
 .dm-meta .v {
     font-size: .86rem;
-    margin-top: 3px;
+    margin-top: 4px;
 }
-
 .dm-close {
     position: fixed;
     top: 24px;
