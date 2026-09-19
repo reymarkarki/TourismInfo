@@ -40,11 +40,19 @@ body.light {
     --shadow: rgba(16, 22, 26, 0.10);
 }
 .drt-marquee-eyebrow{
+    
     color: var(--text);
 }
-
+h2.drt-marquee-title,
 .drt-marquee-title{
+    color: var(--text) !important;
+    font-family: 'Shrikhand', cursive !important;
+    font-weight: 400 !important;
+    font-optical-sizing: auto;
+    font-variation-settings: normal;
+}.drt-marquee-title{
     color: var(--text);
+    font-family: 'Shrikhand', cursive;
 }
 .icon-btn.active {
     background: var(--fern);
@@ -467,15 +475,15 @@ section {
 }
 
 .hero-title .line.accent {
-    font-family: 'Switzer', sans-serif;
-    font-weight: 800px;
+    font-family: 'Shrikhand', cursive;
+    font-weight: 400;
     font-style: normal;
     color: white;
-    font-size: 50px;
-    line-height: 39.5px;
-    margin-top: -1px;
+    font-size: 44px;
+    line-height: 1.15;
+    margin-top: 2px;
     animation-delay: .08s;
-    letter-spacing: -1px;
+    letter-spacing: 0;
 }
 
 .hero-tagline {
