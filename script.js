@@ -89,7 +89,7 @@ function openDetails(spot, seed) {
     {
       k: "Tourguide fee",
       v: spot.tourguide,
-      icon: "icon/tourguide.png"
+      icon: "icon/photography.png"
     },
     {
       k: "Parking fee",

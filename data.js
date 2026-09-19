@@ -37,7 +37,7 @@ const SPOTS = [
             'images/secretfall/secretfalls4.jpg',
         ],
         shortDesc: 'A hidden waterfall wrapped in dense greenery, reached by a short, shaded trek.',
-        fullDesc: 'A hidden waterfall wrapped in dense greenery — one of Bulacan\'s best-kept secrets. The trek in is short and shaded, and the pool at the bottom is calm enough for a long swim.',
+        fullDesc: 'A hidden waterfall wrapped in dense greenery, one of Bulacan\'s best-kept secrets. The trek in is short and shaded, and the pool at the bottom is calm enough for a long swim.',
         location: 'Barangay Camachile, Doña Remedios Trinidad, Bulacan',
         entranceFee: '₱50 – ₱90 per person',
         parkingFee: 'None',
@@ -94,8 +94,8 @@ const SPOTS = [
             'images/verdivia/verdivia4.jpg',
         
         ],
-        shortDesc: 'DRT\'s adventure waterfall — cliff jumps, a wide pool, and bamboo rafts.',
-        fullDesc: 'Named for its green ("verde") waters, Verdivia is DRT\'s adventure waterfall — cliff jumps for the thrill-seekers, a wide swimming pool for everyone else, and bamboo rafts drifting the calmer stretch downstream.',
+        shortDesc: 'DRT\'s adventure waterfall: cliff jumps, a wide pool, and bamboo rafts.',
+        fullDesc: 'Named for its green ("verde") waters, Verdivia is DRT\'s adventure waterfall. Cliff jumps for the thrill-seekers, a wide swimming pool for everyone else, and bamboo rafts drifting the calmer stretch downstream.',
         location: 'Barangay Talbak, Doña Remedios Trinidad, Bulacan',
         entranceFee: '₱10 per person, plus ₱200 per group for a guide',
         parkingFee: '₱30 per vehicle',
@@ -321,7 +321,7 @@ const SPOTS = [
             'images/talonPari/TP3.jpg',
            ],
         shortDesc: 'A quieter waterfall with clear pools and a scenic mountain backdrop.',
-        fullDesc: 'A hidden natural gem — a waterfall surrounded by lush forest, reached by a short hike or motorbike. Known for its clear pools, relaxing atmosphere, and mountain backdrop.',
+        fullDesc: 'A waterfall surrounded by lush forest, reached by a short hike or motorbike. Known for its clear pools, relaxing atmosphere, and mountain backdrop.',
         location: 'Barangay Kalawakan, Doña Remedios Trinidad, Bulacan',
         entranceFee: '₱30 – ₱50 per person',
         parkingFee: 'None',
@@ -370,19 +370,19 @@ how to get there
 const ROUTE_STEPS = [
     {
         t: 'From Manila',
-        d: 'Roughly 2–3 hours by car via NLEX, exiting toward San Miguel, then continuing on to DRT along the Eastern Bulacan Road.'
+        d: 'Roughly 2–3 hours by car via NLEX, exiting at Sta. Rita or Bocaue, then continuing through Norzagaray or Angat toward DRT\'s Poblacion in Barangay Pulong Sampalok.'
     },
     {
         t: 'By public transport',
-        d: 'Take a bus bound for San Miguel, Bulacan, then transfer to a jeepney or tricycle heading into DRT proper or your target barangay.'
+        d: 'Take a Norzagaray- or Angat bus or van from Cubao, then transfer to a jeepney or tricycle heading into DRT proper or your target barangay.'
     },
     {
         t: 'By private vehicle',
-        d: 'NLEX straight through to the Eastern Bulacan Road, with paved sections into Sapang Bulak and Camachile.'
+        d: 'From NLEX, follow the road through Norzagaray (via Brgy. Matictic) or Angat into DRT — both routes lead into the municipality, with the Norzagaray side closer to Bayabas.'
     },
     {
         t: 'Once in DRT',
-        d: 'Register at the barangay hall nearest your destination — this is also where you arrange a local guide.'
+        d: 'Register at the barangay hall nearest your destination — this is also where you arrange a local guide and pay any entrance fee.'
     }
 ];
 
@@ -402,15 +402,13 @@ const INFO_CARDS = [
     },
     {
         t: 'Guide fees',
-        d: 'Falls and caves generally require a local guide, ₱200–₱900 shared per group depending on the trail.',
+        d: 'A local guide is required for most falls and caves, typically ₱150–₱500, shared by a group of 5–6, arranged at the barangay hall.',
         ic: 'guide'
-    },
-    {
+    }, {
         t: 'Opening hours',
-        d: 'Most spots welcome visitors from early morning until mid-afternoon — plan to register by 7–8 AM.',
+        d: 'Most spots welcome visitors from early morning until mid-afternoon. Plan to register by 7–8 AM so you\'re back before dark.',
         ic: 'clock'
-    },
-    {
+    }, {
         t: 'Best time to visit',
         d: 'November to February, when cooler, drier weather makes trails and river crossings easier.',
         ic: 'sun'
@@ -423,9 +421,9 @@ const INFO_CARDS = [
 ];
 const RULES = [
   'Register with the barangay tourism desk before any trek or cave visit.',
-  'Always go with a licensed local guide, several trails and cave systems are guided-only.',
+  'Always go with a licensed local guide. Several trails and cave systems are guided-only.',
+  'Avoid trekking or river crossings during heavy rain. Trails and rivers can rise quickly.',
   'Pack out everything you bring in; there are no waste bins at most falls and trails.',
-  'Avoid trekking or river crossings during heavy rain, trails and rivers can rise quickly.',
   'Bring cash, most barangays and guides do not accept cards.',
   'Respect barangay curfews and closing times listed for each spot.'
 ];
