@@ -38,7 +38,13 @@ body.light {
     --border: rgba(3, 3, 1, 0.12);
     --shadow: rgba(3, 3, 1, 0.10);
 }
+.drt-marquee-eyebrow{
+    color: var(--text);
+}
 
+.drt-marquee-title{
+    color: var(--text);
+}
 .icon-btn.active {
     background: var(--fern);
     color: #fff;
@@ -905,23 +911,14 @@ body.light .meta-icon {
     color: var(--text-dim);
     font-size: .92rem;
     line-height: 1.6;
-    padding: 10px 0 10px 22px;
+    padding: 10px 0;
     border-top: 1px solid var(--border);
-    position: relative;
 }
 
 .rules-list li:first-child {
     border-top: none;
 }
 
-.rules-list li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--fern);
-}
-
-/* ============ ABOUT ============ */
 .about-grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr;

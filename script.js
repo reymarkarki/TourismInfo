@@ -341,7 +341,7 @@ searchInput.addEventListener("input", () => {
     .slice(0, 8)
     .forEach((s) => {
       const el = document.createElement("div");
-      el.textContent = `${s.label} — ${s.sub}`;
+      el.textContent = `${s.label}: ${s.sub}`;
       el.addEventListener("click", () => {
         closeSearch();
         s.action();
