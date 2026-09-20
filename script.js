@@ -375,42 +375,10 @@ themeToggle.addEventListener("click", () => {
 
   if (!grid || !lightbox) return;
 
-  const COLUMN_COUNT = 4;
-  const columns = Array.from(
-    {
-      length: COLUMN_COUNT
-    },
-    () => []
-  );
-
-  GALLERY_DATA.forEach((photo, i) => {
-    columns[i % COLUMN_COUNT].push(photo);
-  });
-
-  columns.forEach((col) => {
-    while (col.length < 4) col.push(...col);
-  });
-
-  columns.forEach((colPhotos, colIndex) => {
-    const col = document.createElement("div");
-    col.className = "drt-marquee-col" + (colIndex % 2 === 1 ? " drt-reverse" : "");
-
-    const track = document.createElement("div");
-    track.className = "drt-marquee-track";
-
-    // Duplicate the list once so translateY(-50%) loops seamlessly.
-    const doubled = colPhotos.concat(colPhotos);
-    doubled.forEach((photo) => {
-      const item = document.createElement("div");
-      item.className = "drt-marquee-item";
-      item.innerHTML = '<img src="' + photo.src + '" alt="' + photo.spot + '" loading="lazy">';
-      item.addEventListener("click", () => openMarqueeLightbox(photo));
-      track.appendChild(item);
-    });
-
-    col.appendChild(track);
-    grid.appendChild(col);
-  });
+ 
+  function getColumnCount() {
+    return window.innerWidth <= 640 ? 3 : 4;
+  }
 
   function openMarqueeLightbox(photo) {
     lightboxImg.src = photo.src;
@@ -424,6 +392,62 @@ themeToggle.addEventListener("click", () => {
       "</span>";
     lightbox.classList.add("drt-open");
   }
+
+  function buildMarquee() {
+    grid.innerHTML = "";
+
+    const COLUMN_COUNT = getColumnCount();
+    const columns = Array.from({ length: COLUMN_COUNT }, () => []);
+
+    GALLERY_DATA.forEach((photo, i) => {
+      columns[i % COLUMN_COUNT].push(photo);
+    });
+
+    columns.forEach((col) => {
+            if (col.length === 0) return;
+      while (col.length < 4) col.push(...col);
+    });
+
+    columns.forEach((colPhotos, colIndex) => {
+      if (colPhotos.length === 0) return;
+
+      const col = document.createElement("div");
+      col.className = "drt-marquee-col" + (colIndex % 2 === 1 ? " drt-reverse" : "");
+
+      const track = document.createElement("div");
+      track.className = "drt-marquee-track";
+
+      // Duplicate the list once so translateY(-50%) loops seamlessly.
+      const doubled = colPhotos.concat(colPhotos);
+      doubled.forEach((photo) => {
+        const item = document.createElement("div");
+        item.className = "drt-marquee-item";
+        item.innerHTML = '<img src="' + photo.src + '" alt="' + photo.spot + '" loading="lazy">';
+        item.addEventListener("click", () => openMarqueeLightbox(photo));
+        track.appendChild(item);
+      });
+
+      col.appendChild(track);
+      grid.appendChild(col);
+    });
+  }
+
+  buildMarquee();
+
+  // Rebuild if the viewport crosses the mobile/desktop column-count
+  // threshold (e.g. phone rotation), debounced so resize doesn't spam it.
+  let resizeTimer;
+  let lastColumnCount = getColumnCount();
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const current = getColumnCount();
+      if (current !== lastColumnCount) {
+        lastColumnCount = current;
+        buildMarquee();
+      }
+    }, 200);
+  });
 
   closeBtn.addEventListener("click", () => lightbox.classList.remove("drt-open"));
   lightbox.addEventListener("click", (e) => {
