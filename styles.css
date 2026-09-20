@@ -46,7 +46,7 @@ body.light {
 h2.drt-marquee-title,
 .drt-marquee-title{
     color: var(--text) !important;
-    font-family: 'Shrikhand', cursive !important;
+    font-family: 'Shrikhand', cursive;
     font-weight: 400 !important;
     font-optical-sizing: auto;
     font-variation-settings: normal;
@@ -475,12 +475,12 @@ section {
 }
 
 .hero-title .line.accent {
-    font-family: 'Shrikhand', cursive;
-    font-weight: 400;
-    font-style: normal;
+    font-family: 'Fraunces', serif;
+    font-weight: bold;
+    font-style: italic;
     color: white;
-    font-size: 44px;
-    line-height: 1.15;
+    font-size: 50px;
+    line-height: 0.97;
     margin-top: 2px;
     animation-delay: .08s;
     letter-spacing: 0;

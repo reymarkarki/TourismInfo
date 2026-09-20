@@ -377,7 +377,7 @@ themeToggle.addEventListener("click", () => {
 
  
   function getColumnCount() {
-    return window.innerWidth <= 640 ? 3 : 4;
+    return window.innerWidth <= 630 ? 3 : 4;
   }
 
   function openMarqueeLightbox(photo) {
@@ -417,7 +417,6 @@ themeToggle.addEventListener("click", () => {
       const track = document.createElement("div");
       track.className = "drt-marquee-track";
 
-      // Duplicate the list once so translateY(-50%) loops seamlessly.
       const doubled = colPhotos.concat(colPhotos);
       doubled.forEach((photo) => {
         const item = document.createElement("div");
@@ -434,9 +433,7 @@ themeToggle.addEventListener("click", () => {
 
   buildMarquee();
 
-  // Rebuild if the viewport crosses the mobile/desktop column-count
-  // threshold (e.g. phone rotation), debounced so resize doesn't spam it.
-  let resizeTimer;
+    let resizeTimer;
   let lastColumnCount = getColumnCount();
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
