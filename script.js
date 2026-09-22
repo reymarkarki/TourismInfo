@@ -169,6 +169,10 @@ const quickNav = document.getElementById("quickNav");
     href: "#spots"
   },
   {
+    label: "Browse by barangay",
+    href: "barangay/index.html"
+  },
+  {
     label: "Map",
     href: "#map"
   },
