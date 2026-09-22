@@ -89,12 +89,27 @@ const BARANGAYS = [
             email: null,
             facebook: null
         },
-        packages: [],
+        packages: [
+            {
+                name: 'Monument Candle and 13th Falls, Tour',
+      price: '₱250 per person',
+      duration: '5-8 hours',
+      groupSize: 'Good for 4–6 people',
+      destinations: ['Monument Candle', '13th Falls'],        
+      tourGuide: 'Included, arranged by the barangay tourism desk',
+      transportation: 'Not included',
+      meals: '1 packed lunch included',
+      inclusions: ['Entrance fee','Enviroment fee', 'Local guide'],
+      exclusions: ['Transportation to DRT', 'Personal gear'],
+      contact: 'Camachin Barangay Tourism Desk'
+            }
+            
+        ],
         guides: [
             {
                 name: 'Nene',
                 image: 'images/guides/juan.jpg',
-                tourType: 'Cave & Spelunking Guide',
+                tourType: ['Trekking', 'Bath'],
                 specialization: ['Caving', 'Bat Watching'],
                 description: '8+ years sa Puning Cave trails.',
                 contact: '09XX XXX XXXX'
