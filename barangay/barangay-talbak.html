@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talbak — Doña Remedios Trinidad Tourism Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Montserrat:wght@400;500;600;700;800&family=Shrikhand&family=Beau+Rivage&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="barangays.css">
+</head>
+<body data-barangay="talbak">
+
+<nav id="nav">
+  <div class="navwrap">
+    <a href="../index.html" class="logo">
+      <img src="../icon/Drtlogo.png" alt="DRT Tourism">
+      Doña Remedios Trinidad
+    </a>
+    <ul class="navlinks" id="navlinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="index.html">Barangays</a></li>
+      <li><a href="#brgy-spots">Tourist Spots</a></li>
+      <li><a href="#brgy-packages">Tour Packages</a></li>
+      <li><a href="#brgy-guides">Tour Guides</a></li>
+      <li><a href="#brgy-contact">Contact</a></li>
+    </ul>
+    <div class="navtools">
+      <button class="icon-btn" id="searchToggle" aria-label="Search" title="Search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Dark / light mode">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12H1M23 12h-2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="4.4" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div id="searchBox">
+  <div class="wrap">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <input type="text" id="searchInput" placeholder="Search this barangay's spots, packages, guides…">
+    <button class="icon-btn" id="searchClose">✕</button>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+<section id="brgy-hero">
+  <div class="hero-media"><img id="brgyHeroImg" src="" alt="Talbak" loading="lazy"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <a href="index.html" class="brgy-back-link">&larr; All Barangays</a>
+    <h1 class="hero-title"><span class="line accent">Talbak</span></h1>
+    <p class="hero-desc">Home to Verdivia Falls, DRT’s adventure waterfall known for cliff jumps and bamboo rafting.</p>
+    <div class="brgy-stats">
+      <span class="brgy-stat" id="brgySpotCount">Tourist spots</span>
+      <span class="brgy-stat">Doña Remedios Trinidad, Bulacan</span>
+    </div>
+  </div>
+</section>
+
+<!-- tourist spots -->
+<section id="brgy-spots">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Tourist spots</div>
+      <h2>Destinations in Talbak</h2>
+      <p>Tap any spot for its full details — location, fees, hours, activities, and how to get there.</p>
+    </div>
+    <div id="brgySpotsBody"></div>
+  </div>
+</section>
+
+<!-- tour packages -->
+<section id="brgy-packages">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Tour packages</div>
+      <h2>Plan a visit to Talbak</h2>
+      <p>Package pricing and inclusions are set by the barangay tourism desk — confirm current rates before booking.</p>
+    </div>
+    <div class="package-grid" id="brgyPackageGrid"></div>
+  </div>
+</section>
+
+<!-- local tour guides -->
+<section id="brgy-guides">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Local tour guides</div>
+      <h2>Guides based in Talbak</h2>
+      <p>Local guides are required for most falls, caves, and mountain trails.</p>
+    </div>
+    <div class="guide-grid" id="brgyGuideGrid"></div>
+  </div>
+</section>
+
+<!-- mini gallery -->
+<section id="brgy-gallery">
+  <div class="wrap">
+    <div class="section-head small">
+      <div class="eyebrow">Gallery</div>
+      <h2>Photos from Talbak</h2>
+    </div>
+    <div class="brgy-gallery-grid" id="brgyGalleryGrid"></div>
+  </div>
+</section>
+
+<!-- barangay contact -->
+<section id="brgy-contact">
+  <div class="wrap">
+    <div class="section-head small">
+      <div class="eyebrow">Barangay contact</div>
+      <h2>Reach Talbak</h2>
+    </div>
+    <div class="contact-grid" id="brgyContactGrid"></div>
+    <p class="contact-fallback" id="brgyContactFallback">Contact details for this barangay haven't been confirmed yet — reach the <a href="../index.html#contact">Municipal Tourism Office</a> in the meantime.</p>
+  </div>
+</section>
+
+<!-- hotlines -->
+<div class="emergency-hotlines">
+  <h3 id="emergency">Emergency Hotlines</h3>
+  <div class="hotline-grid">
+    <div class="hotline-card">
+      <span class="hotline-label">BFP (Bureau of Fire Protection)</span>
+      <a href="tel:09262810638" class="hotline-number">0926 2810 638</a>
+    </div>
+    <div class="hotline-card">
+      <span class="hotline-label">Police</span>
+      <a href="tel:09985985379" class="hotline-number">0998 5985 379</a>
+    </div>
+    <div class="hotline-card">
+      <span class="hotline-label">NDRRMC</span>
+      <a href="tel:09566796848" class="hotline-number">0956 679 6848</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>&#xA9; 2026 Doña Remedios Trinidad Tourism, visitor's guide.</span>
+    <span>Municipal Hall, Pulong Sampalok, DRT, Bulacan</span>
+  </div>
+</footer>
+
+<div id="detailModal">
+  <button class="dm-close" id="dmClose" aria-label="Close">✕</button>
+  <div class="dm-inner">
+    <div class="dm-media" id="dmMedia"></div>
+    <div class="dm-body">
+      <p class="dm-tag" id="dmTag"></p>
+      <h3 id="dmTitle"></h3>
+      <p class="dm-desc" id="dmDesc"></p>
+      <div class="dm-meta" id="dmMeta"></div>
+      <a class="btn btn-primary dm-dir" id="dmDirections" target="_blank">Get Directions</a>
+    </div>
+  </div>
+</div>
+
+<div class="drt-marquee-lightbox" id="drtMarqueeLightbox">
+  <button class="drt-marquee-lightbox-close" id="drtMarqueeClose" aria-label="Close">&times;</button>
+  <img class="drt-marquee-lightbox-img" id="drtMarqueeLightboxImg" src="" alt="">
+  <div class="drt-marquee-lightbox-caption" id="drtMarqueeCaption"></div>
+</div>
+
+<script src="../data.js"></script>
+<script src="barangay-data.js"></script>
+<script src="barangay.js"></script>
+</body>
+</html>
