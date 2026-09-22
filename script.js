@@ -169,12 +169,12 @@ const quickNav = document.getElementById("quickNav");
     href: "#spots"
   },
   {
-    label: "Browse by barangay",
-    href: "barangay/index.html"
-  },
-  {
     label: "Map",
     href: "#map"
+  },
+  {
+    label: "Barangay",
+    href: "barangay/index.html"
   },
   {
     label: "How to get there",
@@ -364,12 +364,6 @@ window.addEventListener("scroll", () => {
   nav.classList.toggle("scrolled", window.scrollY > 40);
 });
 
-/* theme toggle */
-const themeToggle = document.getElementById("themeToggle");
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("light");
-  themeToggle.classList.toggle("active");
-});
 (function () {
   const grid = document.getElementById("drtMarqueeGrid");
   const lightbox = document.getElementById("drtMarqueeLightbox");
