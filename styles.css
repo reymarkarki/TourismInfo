@@ -173,6 +173,13 @@ section {
     border-color: var(--fern);
     color: var(--fern);
 }
+.btn-icon{
+    background-color: #C97D2E;
+    color: #fff;
+}
+.btn-icon:hover {
+    background: var(--river);
+}
 
 :focus-visible {
     outline: 2px solid var(--river);
@@ -1330,6 +1337,7 @@ footer {
 }
 
 .emergency-hotlines {
+    background-color: #04001d;
     margin-top: 3rem;
     padding: 2rem;
     border-radius: 12px;
@@ -1353,21 +1361,22 @@ footer {
     gap: 0.4rem;
     padding: 1rem;
     border-radius: 8px;
-    background: rgba(0, 0, 0, 0.15);
+    background: #011d3d;
 }
 
 #emergency {
-    color: rgba(239, 84, 84, 0.94);
+    color: rgba(255, 255, 255, 0.94);
 }
 
 .hotline-label {
     font-size: 0.85rem;
     opacity: 0.75;
+    color:#fff;
 }
 
 .hotline-number {
     font-size: 1.2rem;
     font-weight: 700;
     text-decoration: none;
-    color: inherit;
+    color: white;
 }

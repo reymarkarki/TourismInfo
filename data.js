@@ -423,7 +423,7 @@ const RULES = [
   'Register with the barangay tourism desk before any trek or cave visit.',
   'Always go with a licensed local guide. Several trails and cave systems are guided-only.',
   'Avoid trekking or river crossings during heavy rain. Trails and rivers can rise quickly.',
-  'Pack out everything you bring in; there are no waste bins at most falls and trails.',
+  'Leave No Trace.',
   'Bring cash, most barangays and guides do not accept cards.',
   'Respect barangay curfews and closing times listed for each spot.'
 ];
