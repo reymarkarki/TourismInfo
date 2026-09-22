@@ -305,6 +305,61 @@ const SPOTS = [
       distanceFromTownCenter: '~5.1 km from the Municipal Hall',
       mapQuery: 'Puning Cave, Bayabas, Doña Remedios Trinidad, Bulacan'
     },
+    {
+        id: '13th-falls',
+        name: '13th Falls',
+        category: 'Falls',
+        barangay: 'Camachin',
+        img: 'images/13thFalls/13thfalls.png',
+        images: [
+            'images/13thFalls/13thfalls.png',
+            'images/13thFalls/13thfalls3.jpg',
+            'images/13thFalls/13thfalls4.jpeg',
+            'images/13thFalls/13thfalls5.jpeg',
+            
+        ],
+        shortDesc: 'A hidden waterfall wrapped in dense greenery, reached by a short, shaded trek.',
+        fullDesc: 'A hidden waterfall wrapped in dense greenery, one of Bulacan\'s best-kept secrets. The trek in is short and shaded, and the pool at the bottom is calm enough for a long swim.',
+        location: 'Barangay Camachin, Doña Remedios Trinidad, Bulacan',
+        entranceFee: '₱50 – ₱90 per person',
+        parkingFee: 'None',
+        hours: '7:00 AM – 4:00 PM daily',
+        activities: ['Swimming', 'Photography', 'Trekking'],
+        howToGetThere: 'Register at the Camachin barangay hall, then a short guided trek to the falls.',
+        contact: 'Camachin Barangay Tourism Desk',
+        tourguide: '₱150 per head',
+        facebook: 'https://www.facebook.com/DRTBULACAN13falls/',
+        distanceFromTownCenter: '~23.7 km from the Municipal Hall',
+        mapQuery: '13th Falls, Camachin, Doña Remedios Trinidad, Bulacan'
+},
+    {
+        id: 'monument-candle',
+        name: 'Monument Candle',
+        category: 'History',
+        barangay: 'Camachin',
+        img: 'images/gallery/candleMonument.jpg',
+        images: [
+            'images/gallery/candleMonument.jpg',
+            'images/candle/candle2.jpg',
+            'images/candle/candle1.jpg',
+            'images/candle/candle3.jpeg',
+            
+        ],
+        shortDesc: 'The monument stands as a historical marker and symbol of remembrance for the lives lost during a battle against guerrillas in 1938',
+        fullDesc: ' Perched high on the mountain peak, it offers a breathtaking 360-degree panoramic view of the surrounding terrain, stretching across parts of Bulacan and neighboring areas like Pampanga and Metro Manila on clear days.',
+        location: 'Barangay Camachin, Doña Remedios Trinidad, Bulacan',
+        entranceFee: '60 per person',
+        parkingFee: 'None',
+        hours: '7:00 AM – 4:00 PM daily',
+        activities: ['Hiking', 'Camping', 'Trekking'],
+        howToGetThere: 'Register at the Camachin barangay hall, then a short guided trek to the falls.',
+        contact: '0965 665 6349',
+        tourguide: '₱150 per head',
+        facebook: 'https://www.facebook.com/13thfallsCandle/',
+        distanceFromTownCenter: '~23.7 km from the Municipal Hall',
+        mapQuery: 'Monuument Candle, Camachin, Doña Remedios Trinidad, Bulacan'
+},
+    
 
 
     

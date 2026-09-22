@@ -7,7 +7,7 @@
     --text-dim: rgba(4, 4, 3, 0.78);
     --text-faint: rgba(0, 0, 0, 0.55);
     --fern: #c97d2e;
-    --river: #58ebfd;
+    --river: #ff8507;
     --verdigris: #2C6E6A;
     --keppel: #3E8F79;
     --tea-green: #E4D9BE;
@@ -174,7 +174,7 @@ section {
     color: var(--fern);
 }
 .btn-icon{
-    background-color: #C97D2E;
+    background-color: #d66d00;
     color: #fff;
 }
 .btn-icon:hover {
@@ -188,12 +188,12 @@ section {
 
 /* ============ NAV ============ */
 #nav {
+    background-color: #fff;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 500;
-    background: transparent;
     border-bottom: 1px solid transparent;
     padding: 20px 0;
     transition: background .3s ease, padding .3s ease, border-color .3s ease;

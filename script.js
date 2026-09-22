@@ -459,6 +459,7 @@ window.addEventListener("scroll", () => {
       grid.appendChild(col);
     });
   }
+  
 
   buildMarquee();
 
@@ -474,6 +475,7 @@ window.addEventListener("scroll", () => {
       }
     }, 200);
   });
+  
 
   closeBtn.addEventListener("click", () => lightbox.classList.remove("drt-open"));
   lightbox.addEventListener("click", (e) => {
