@@ -1,4 +1,20 @@
+/*
+  barangay.js
+  -----------
+  Drives both barangays/index.html (the directory) and every
+  barangays/barangay-*.html detail page. Which mode runs is decided by what's
+  on the page: a #brgyDirectoryGrid element means "directory", a
+  body[data-barangay] attribute means "detail page".
 
+  This file is intentionally self-contained (it does not load the main
+  script.js) because script.js assumes home-page-only elements exist.
+  The spot-card / modal / nav markup and CSS classes are still the exact
+  ones from styles.css, so pages look and behave identically to the rest
+  of the site.
+*/
+
+/* All asset + data.js paths on these pages are one folder below the site
+   root, so every root-relative path (images, icons) needs this prefix. */
 const ROOT = '../';
 
 /* ---------- shared spot-card helpers (mirrors script.js, with the
@@ -111,11 +127,6 @@ navlinks?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () =>
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav?.classList.toggle('scrolled', window.scrollY > 40);
-});
-const themeToggle = document.getElementById('themeToggle');
-themeToggle?.addEventListener('click', () => {
-  document.body.classList.toggle('light');
-  themeToggle.classList.toggle('active');
 });
 
 /* ---------- mini gallery lightbox (reuses the same lightbox markup/CSS
