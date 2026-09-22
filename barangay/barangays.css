@@ -1,14 +1,4 @@
-/*
-  barangays.css
-  -------------
-  Styles for the new Barangay Tourism Directory pages only.
-  Reuses the existing design tokens from ../styles.css (--surface, --border,
-  --radius-md, --fern, --river, --text, --text-dim, --text-faint, --maxw)
-  and the existing .btn / .spot-card / .contact-card / .eyebrow patterns.
-  Nothing in ../styles.css is overridden here.
-*/
 
-/* ============ BARANGAY HERO ============ */
 #brgy-hero {
   position: relative;
   min-height: 58vh;

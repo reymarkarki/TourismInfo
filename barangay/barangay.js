@@ -1,20 +1,4 @@
-/*
-  barangay.js
-  -----------
-  Drives both barangays/index.html (the directory) and every
-  barangays/barangay-*.html detail page. Which mode runs is decided by what's
-  on the page: a #brgyDirectoryGrid element means "directory", a
-  body[data-barangay] attribute means "detail page".
 
-  This file is intentionally self-contained (it does not load the main
-  script.js) because script.js assumes home-page-only elements exist.
-  The spot-card / modal / nav markup and CSS classes are still the exact
-  ones from styles.css, so pages look and behave identically to the rest
-  of the site.
-*/
-
-/* All asset + data.js paths on these pages are one folder below the site
-   root, so every root-relative path (images, icons) needs this prefix. */
 const ROOT = '../';
 
 /* ---------- shared spot-card helpers (mirrors script.js, with the
@@ -373,8 +357,10 @@ function renderBarangayPage(slug) {
   /* tour packages */
   const packageGrid = document.getElementById('brgyPackageGrid');
   const packages = [...(brgy.packages || [])];
-  const auto = buildAutoPackage(brgy, spots);
-  if (auto) packages.unshift(auto);
+  if (packages.length === 0) {
+    const auto = buildAutoPackage(brgy, spots);
+    if (auto) packages.unshift(auto);
+  }
   packageGrid.innerHTML = packages.length
     ? packages.map(packageCard).join('')
     : `<div class="empty-state"><strong>No tour packages yet</strong>Tour packages for ${brgy.name} haven\u2019t been published yet. Contact the Municipal Tourism Office for current options.</div>`;
