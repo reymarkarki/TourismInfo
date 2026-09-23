@@ -47,7 +47,7 @@ const SPOTS = [
         contact: 'Camachile Barangay Tourism Desk',
         tourguide: '₱20 per head',
         facebook: 'https://www.facebook.com/people/Secret-FALLS/100063681378480/',
-        distanceFromTownCenter: '~9 km from the Municipal Hall',
+        distanceFromTownCenter: '~5 km from the Municipal Hall',
         mapQuery: 'Secret Falls, Camachile, Doña Remedios Trinidad, Bulacan'
 },
     /*Resorts */
@@ -169,6 +169,60 @@ const SPOTS = [
         mapQuery: 'MT. Corona, Kalawakan, Doña Remedios Trinidad, Bulacan'
 },
     {
+        id: 'angeland',
+        name: 'Angeland Kareta Falls',
+        category: 'Falls',
+        barangay: 'Camachile',
+        img: 'images/angeland/angeland.jpg',
+        images: [
+            'images/angeland/angeland.jpg',
+            'images/angeland/angeland1.jpg',
+            'images/angeland/angeland2.webp',
+            'images/angeland/angeland3.jpg',
+            'images/angeland/angeland4.jpg',
+        ],
+        shortDesc: 'Looking for a quick escape from the city? Tara na sa Angeland Kareta Falls Nature Park sa DRT, Bulacan!',
+        fullDesc: 'A hidden waterfall wrapped in dense greenery, one of Bulacan\'s best-kept secrets. The trek in is short and shaded, and the pool at the bottom is calm enough for a long swim.',
+        location: 'Barangay Camachile, Doña Remedios Trinidad, Bulacan',
+        entranceFee: '₱50 per person',
+        parkingFee: '₱20 motor',
+        hours: '7:00 AM – 4:00 PM daily',
+        activities: ['Swimming', 'Photography', 'Trekking'],
+        howToGetThere: 'Register at the Camachile barangay hall, then a short guided trek to the falls.',
+        contact: ['Email: angeland.011l@gmail.com <br> No: 0917 152 1126'],
+        tourguide: '₱300 per group',
+        facebook: 'https://www.facebook.com/AngelandKaretaFallsNatureParkOfficialPage/',
+        distanceFromTownCenter: '~5.5 km from the Municipal Hall',
+        mapQuery: 'Angeland, Camachile, Doña Remedios Trinidad, Bulacan'
+},
+    {
+        id: 'mandala',
+        name: `Antonio's Mandala Nature Park`,
+        category: 'Falls',
+        barangay: 'Camachile',
+        img: 'images/mandala/mandala.jpg',
+        images: [
+            'images/mandala/mandala.jpg',
+            'images/mandala/mandala1.jpg',
+            'images/mandala/mandala2.jpg',
+            'images/mandala/mandala3.jpg',
+            'images/mandala/mandala4.jpg',
+            
+        ],
+        shortDesc: '',
+        fullDesc: `Mandala Falls is a hidden 3-meter waterfall located in Antonio's Nature Park, Doña Remedios Trinidad, Bulacan, offering a serene nature escape with a small entry fee.`,
+        location: 'Barangay Camachile, Doña Remedios Trinidad, Bulacan',
+        entranceFee: '₱50 per person',
+        parkingFee: '₱20 motor',
+        hours: '7:00 AM – 4:00 PM daily',
+        activities: ['Swimming', 'Photography', 'Trekking', 'Camping'],
+        howToGetThere: 'Register at the Camachile barangay hall, then a short guided trek to the falls.',
+        tourguide: '₱300 per group',
+        facebook: 'https://www.facebook.com/mandalawaterfallsdrt/',
+        distanceFromTownCenter: '~5.6 km from the Municipal Hall',
+        mapQuery: 'Mandala Falls, Camachile, Doña Remedios Trinidad, Bulacan'
+},
+    {
         id: 'kabayunan',
         name: 'Kabayuan View Deck',
         category: 'Mountains',
@@ -201,6 +255,7 @@ const SPOTS = [
         name: 'MT. Lawad',
         category: 'Mountains',
         barangay: 'Kalawakan',
+        img:'images/mtLawad/thumbnailLawad.jpg',
         images:[
             'images/mtLawad/thumbnailLawad.jpg',
             'images/mtLawad/ML1.jpg',

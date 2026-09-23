@@ -212,7 +212,7 @@ function packageCard(pkg) {
       <span>Transport: ${pkg.transportation || 'Contact Tourism Office'}</span>
       <span>Meals: ${pkg.meals || 'Contact Tourism Office'}</span>
     </div>
-    <a class="btn btn-outline" href="${ROOT}index.html#contact">Book via ${pkg.contact || 'Tourism Office'}</a>
+    <a class="btn btn-outline" href="#brgy-contact">Book via ${pkg.contact || 'Tourism Office'}</a>
   </div>`;
 }
 

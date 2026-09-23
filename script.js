@@ -244,11 +244,48 @@ categories.forEach((c, i) => {
   spotFilters.appendChild(b);
 });
 
+/* explore per barangay */
+function brgySlug(name) {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+const brgyGrid = document.getElementById("brgyGrid");
+if (brgyGrid) {
+  const brgyGroups = {};
+  SPOTS.forEach((s) => {
+    const brgy = s.barangay.split(",")[0].trim();
+    if (!brgyGroups[brgy]) brgyGroups[brgy] = { count: 0, img: s.img };
+    brgyGroups[brgy].count += 1;
+  });
+
+  Object.keys(brgyGroups)
+    .sort()
+    .forEach((brgy) => {
+      const g = brgyGroups[brgy];
+      const href = `barangay/barangay-${brgySlug(brgy)}.html`;
+      const el = document.createElement("a");
+      el.className = "brgy-card";
+      el.href = href;
+      el.innerHTML = `
+        ${g.img ? `<img src="${g.img}" alt="${brgy}" loading="lazy">` : ""}
+        <div class="brgy-card-body">
+          <div class="brgy-count">${g.count} spot${g.count > 1 ? "s" : ""}</div>
+          <h4>${brgy}</h4>
+        </div>`;
+      brgyGrid.appendChild(el);
+    });
+}
+
 const spotGrid = document.getElementById("spotGrid");
 SPOTS.forEach((s, i) => {
   const card = document.createElement("div");
   card.className = "spot-card";
   card.dataset.cat = s.category;
+  card.dataset.brgy = s.barangay.split(",")[0].trim();
   card.innerHTML = `
     <div class="spot-media">${spotMedia(s, i + 1)}</div>
     <div class="spot-body">

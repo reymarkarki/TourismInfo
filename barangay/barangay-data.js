@@ -12,18 +12,18 @@ const BARANGAYS = [
             facebook: "https://www.facebook.com/p/Barangay-Bayabas-Do%C3%B1a-Remedios-Trinidad-Bulacan-61554412345071/"
         },
         packages: [
-           {
-      name: 'Puning Cave Adventure Tour',
-      price: '₱450 per person',
-      duration: '6–8 hours',
-      groupSize: 'Good for 4–6 people',
-      destinations: ['Puning Cave'],        
-      tourGuide: 'Included, arranged by the barangay tourism desk',
-      transportation: 'Not included',
-      meals: '1 packed lunch included',
-      inclusions: ['Entrance fee','Enviroment fee', 'Local guide', 'Lunch'],
-      exclusions: ['Transportation to DRT', 'Personal gear'],
-      contact: 'Bayabas Barangay Tourism Desk'
+            {
+                name: 'Puning Cave Adventure Tour',
+                price: '₱450 per person',
+                duration: '6–8 hours',
+                groupSize: 'Good for 4–6 people',
+                destinations: ['Puning Cave'],
+                tourGuide: 'Included, arranged by the barangay tourism desk',
+                transportation: 'Not included',
+                meals: '1 packed lunch included',
+                inclusions: ['Entrance fee', 'Enviroment fee', 'Local guide', 'Lunch'],
+                exclusions: ['Transportation to DRT', 'Personal gear'],
+                contact: 'Bayabas Barangay Tourism Desk'
     }
         ],
         guides: [
@@ -52,12 +52,27 @@ const BARANGAYS = [
         aliases: [],
         blurb: 'Falls and ridgelines across the barangay proper and Sitio Arm Strong, including Secret Falls and Mount Secret.',
         hall: {
-            address: null,
+            address: 'Barangay Hall, National Road, Brgy. Camachile, DRT, Bulacan',
             contact: null,
             email: null,
             facebook: null
         },
-        packages: [],
+        packages: [
+            {
+                name: 'Three Wonders, One Journey.',
+                description: 'Journey into the heart of nature with three enchanting waterfalls in one adventure. Feel the paradise embrace of Angeland Falls, uncover the hidden wonder of Secret Falls, and be captivated by the majestic flow of Mandala Falls. Three cascades, one unforgettable escape.',
+                price: '₱450 per person',
+                duration: '6–8 hours',
+                groupSize: 'Good for 4–6 people',
+                destinations: ['Angeland', 'Secret Falls', 'Mandala Falls'],
+                tourGuide: 'Included, arranged by the barangay tourism desk',
+                transportation: 'Not included',
+                meals: '1 packed lunch included',
+                inclusions: ['Entrance fee', 'Enviroment fee', 'Local guide', 'Lunch'],
+                exclusions: ['Transportation to DRT', 'Personal gear'],
+                contact: 'Barangay Camachile tourist dest'
+            }
+        ],
         guides: [
             {
                 name: 'Nene',
@@ -92,18 +107,18 @@ const BARANGAYS = [
         packages: [
             {
                 name: 'Monument Candle and 13th Falls, Tour',
-      price: '₱250 per person',
-      duration: '5-8 hours',
-      groupSize: 'Good for 4–6 people',
-      destinations: ['Monument Candle', '13th Falls'],        
-      tourGuide: 'Included, arranged by the barangay tourism desk',
-      transportation: 'Not included',
-      meals: '1 packed lunch included',
-      inclusions: ['Entrance fee','Enviroment fee', 'Local guide'],
-      exclusions: ['Transportation to DRT', 'Personal gear'],
-      contact: 'Camachin Barangay Tourism Desk'
+                price: '₱250 per person',
+                duration: '5-8 hours',
+                groupSize: 'Good for 4–6 people',
+                destinations: ['Monument Candle', '13th Falls'],
+                tourGuide: 'Included, arranged by the barangay tourism desk',
+                transportation: 'Not included',
+                meals: '1 packed lunch included',
+                inclusions: ['Entrance fee', 'Enviroment fee', 'Local guide'],
+                exclusions: ['Transportation to DRT', 'Personal gear'],
+                contact: 'Camachin Barangay Tourism Desk'
             }
-            
+
         ],
         guides: [
             {

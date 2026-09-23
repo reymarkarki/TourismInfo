@@ -1229,6 +1229,83 @@ footer {
     }
 }
 
+/* explore per barangay */
+#barangay-explore {
+    padding: 70px 0 90px;
+}
+
+.brgy-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.brgy-card {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--drt-forest);
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.brgy-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+}
+
+.brgy-card:hover img {
+    transform: scale(1.06);
+}
+
+.brgy-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, .75) 0%, rgba(0, 0, 0, .15) 55%, rgba(0, 0, 0, 0) 100%);
+}
+
+.brgy-card-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 16px;
+    z-index: 1;
+    color: #fff;
+}
+
+.brgy-card-body .brgy-count {
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+    opacity: .85;
+    text-transform: uppercase;
+}
+
+.brgy-card-body h4 {
+    font-size: 1.05rem;
+    margin-top: 2px;
+}
+
+@media (max-width: 900px) {
+    .brgy-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .brgy-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 /* Marquee lightbox */
 .drt-marquee-lightbox {
     display: none;
