@@ -609,8 +609,7 @@ const CIRCUITS = [
         id: 'cave-highlands',
         name: 'DRT Cave & Highlands Circuit',
         shortDesc: 'Explore the beauty of caves and the high view in the mountains.',
-        img: 'images/circuit-caves.png',
-        images: ['falls/secretfall/secretfalls.jpg'],
+        img: 'circuit/mountains.png',
         stops: [
             CIRCUIT_START,
             { type: 'spot', id: 'puning-cave' },
@@ -637,7 +636,7 @@ const CIRCUITS = [
         id: 'falls-mountains',
         name: 'DRT Falls & Mountains Circuit',
         shortDesc: 'Explore the beauty of the falls and the high view in the mountains.',
-        img: 'images/circuit,falls.png',
+        img:'circuit/camachile-circuit.png',
         stops: [
             CIRCUIT_START,
             { type: 'spot', id: 'secret-falls' },
