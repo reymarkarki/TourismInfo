@@ -1140,15 +1140,30 @@ footer {
 }
 
 .dm-close {
-    position: fixed;
-    top: 24px;
-    right: clamp(20px, 5vw, 44px);
-    color: var(--text);
-    background: none;
-    border: none;
-    font-size: 1.1rem;
+    position: absolute;
+    top: 26px;
+    right: 17px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    line-height: 1;
     cursor: pointer;
     z-index: 20;
+    backdrop-filter: blur(4px);
+    transition: background .2s ease, transform .2s ease;
+}
+
+.dm-close:hover {
+    background: var(--river);
+    border-color: var(--river);
+    transform: scale(1.08);
 }
 
 .drt-marquee-section {
@@ -1420,7 +1435,8 @@ footer {
 
 .dm-slide-prev:hover,
 .dm-slide-next:hover {
-    background: rgba(0, 0, 0, 0.65);
+    background: var(--river);
+    border-color: var(--river);   
 }
 
 .dm-slide-dots {
