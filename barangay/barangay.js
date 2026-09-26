@@ -283,7 +283,9 @@ function renderDirectory() {
     const spots = getSpotsForBarangay(brgy);
     const gallery = getGalleryForBarangay(brgy);
     const heroSpot = spots[0];
-    const media = heroSpot ? spotMedia(heroSpot, i + 1) : gallery.length ? `<img src="${ROOT}${gallery[0].src}" alt="${brgy.name}" loading="lazy">` : placeholderSVG('Falls', i + 1);
+    const media = brgy.heroImg
+      ? `<img src="${ROOT}${brgy.heroImg}" alt="${brgy.name}" loading="lazy">`
+      : heroSpot ? spotMedia(heroSpot, i + 1) : gallery.length ? `<img src="${ROOT}${gallery[0].src}" alt="${brgy.name}" loading="lazy">` : placeholderSVG('Falls', i + 1);
     const card = document.createElement('a');
     card.className = 'brgy-directory-card';
     card.href = `barangay-${brgy.slug}.html`;
@@ -317,7 +319,7 @@ function renderBarangayPage(slug) {
   /* hero image + stat */
   const heroImg = document.getElementById('brgyHeroImg');
   if (heroImg) {
-    const rep = spots[0] ? spots[0].img : gallery[0] ? gallery[0].src : null;
+    const rep = brgy.heroImg || (spots[0] ? spots[0].img : gallery[0] ? gallery[0].src : null);
     if (rep) heroImg.src = `${ROOT}${rep}`;
     else heroImg.closest('.hero-media').remove();
   }
