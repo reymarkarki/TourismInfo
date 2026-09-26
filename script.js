@@ -566,13 +566,18 @@ searchInput.addEventListener("input", () => {
 });
 
 /* for mobile  */
-const hamburger = document.getElementById("hamburger");
-const navlinks = document.getElementById("navlinks");
-hamburger.addEventListener("click", () => navlinks.classList.toggle("open"));
-navlinks.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => navlinks.classList.remove("open")));
-const nav = document.getElementById("nav");
-window.addEventListener("scroll", () => {
-  nav.classList.toggle("scrolled", window.scrollY > 40);
+const navLinks = document.querySelector('.navlinks');
+const hamburger = document.querySelector('.hamburger');
+
+hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navLinks.classList.toggle('open');
+});
+
+navLinks.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+    });
 });
 
 (function () {
