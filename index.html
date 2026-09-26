@@ -120,8 +120,10 @@ Doña Remedios Trinidad
 <div class="brgy-grid" id="brgyGrid"></div>
 </div>
 
+
 </section>
- <section id="circuits">
+<!-- circuit details -->
+<section id="circuits">
 <div class="wrap">
 <div class="section-head">
 <div class="eyebrow">Multi-stop routes</div>
@@ -131,6 +133,8 @@ Doña Remedios Trinidad
 <div class="circuit-grid" id="circuitGrid"></div>
 </div>
 </section>
+
+<!--spots-->
 <!--spots-->
 <section id="spots">
 <div class="wrap">
@@ -257,6 +261,27 @@ Doña Remedios Trinidad
 <a class="btn btn-primary dm-dir" id="dmDirections" target="_blank">Get Directions</a>
 </div>
 </div>
+</div>
+<div id="circuitModal">
+  <button class="dm-close" id="circClose" aria-label="Close">✕</button>
+  <div class="circ-inner">
+    <div class="circ-media" id="circMedia"></div>
+    <div class="circ-body">
+      <p class="dm-tag" id="circTag"></p>
+      <h3 id="circTitle"></h3>
+      <p class="dm-desc" id="circDesc"></p>
+
+      <div class="circ-subhead">Route</div>
+      <div class="circ-route" id="circRoute"></div>
+
+      <div class="circ-subhead">Stops</div>
+      <div class="circ-stops" id="circStops"></div>
+
+      <div class="circ-info-grid" id="circInfo"></div>
+
+      <a class="btn btn-primary dm-dir" id="circDirections" target="_blank">Get Directions</a>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>

@@ -70,6 +70,7 @@ html {
 }
 
 body {
+    overflow-x: hidden;
     font-family: "Montserrat", sans-serif;
     background: var(--bg);
     color: var(--text);
@@ -267,7 +268,6 @@ section {
     display: block;
     transition: .2s;
 }
-
 @media(max-width:900px) {
     .navlinks {
         position: fixed;
