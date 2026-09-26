@@ -8,7 +8,7 @@ const BARANGAYS = [
         name: 'Bayabas',
         // heroImg: 'images/your-photo.jpg', // optional — set this to force the card/hero image for Bayabas; leave unset to auto-use the first tourist spot's photo
         aliases: [],
-        heroImg:'images/bayabass.png',
+        heroImg:'brgyImg/bayabass.png',
         blurb: 'Home to Puning Cave, one of Central Luzon\u2019s most-visited cave systems and bat sanctuaries.',
         hall: {
             address: "Barangay Bayabas Hall, Dona Remedios Trinidad, Bulacan",
@@ -55,7 +55,7 @@ const BARANGAYS = [
         slug: 'camachile',
         name: 'Camachile',
         aliases: [],
-        heroImg: 'images/camachile.png',
+        heroImg: 'brgyImg/camachile.png',
         blurb: 'Falls and ridgelines across the barangay proper and Sitio Arm Strong, including Secret Falls and Mount Secret.',
         hall: {
             address: 'Barangay Hall, National Road, Brgy. Camachile, DRT, Bulacan',
@@ -103,7 +103,7 @@ const BARANGAYS = [
         slug: 'camachin',
         name: 'Camachin',
         aliases: [],
-        heroImg: 'images/camachin.png',
+        heroImg: 'brgyImg/camachin.png',
         blurb: 'One of DRT\u2019s eight barangays along the Sierra Madre foothills. Tourist spot listings for Camachin are coming soon.',
         hall: {
             address: null,
@@ -151,7 +151,7 @@ const BARANGAYS = [
         slug: 'kabayunan',
         name: 'Kabayunan',
         aliases: [],
-        heroImg: 'images/kabayunan.png',
+        heroImg: 'brgyImg/kabayunan.png',
         blurb: 'Home to Kabayunan View Deck, a ridgeline camp and viewpoint over the Sierra Madre.',
         hall: {
             address: null,
@@ -183,7 +183,7 @@ const BARANGAYS = [
     {
         slug: 'kalawakan',
         name: 'Kalawakan',
-                heroImg: 'images/kalawakan.png',
+                heroImg: 'brgyImg/kalawakan.png',
         aliases: [],
         blurb: 'DRT\u2019s most spot-dense barangay — waterfalls, mountain ridgelines, and a campsite on the way to Mt. Lawad.',
         hall: {
@@ -207,7 +207,7 @@ const BARANGAYS = [
     {
         slug: 'pulong-sampalok',
         name: 'Pulong Sampalok',
-        heroImg: 'images/sampalok.png',
+        heroImg: 'brgyImg/sampalok.png',
         aliases: [],
         blurb: 'DRT\u2019s town center, home to Caribbean Waves Resort and the Municipal Tourism Office.',
         hall: {
@@ -229,7 +229,7 @@ const BARANGAYS = [
     {
         slug: 'sapang-bulac',
         name: 'Sapang Bulac',
-        heroImg: 'images/bulac.png',
+        heroImg: 'brgyImg/bulac.png',
         aliases: ['Sapang Bulak'],
         blurb: 'Mountain views and a family resort at the foot of Mt. Brigino.',
         hall: {
@@ -251,7 +251,7 @@ const BARANGAYS = [
     {
         slug: 'talbak',
         name: 'Talbak',
-        heroImg: 'images/talbak.png',
+        heroImg: 'brgyImg/talbak.png',
         aliases: [],
         blurb: 'Home to Verdivia Falls, DRT\u2019s adventure waterfall known for cliff jumps and bamboo rafting.',
         hall: {
