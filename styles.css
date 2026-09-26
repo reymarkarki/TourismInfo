@@ -110,7 +110,7 @@ ul {
 }
 
 section {
-    padding: 90px 0;
+    padding: 51px 0 51px;
 }
 
 .eyebrow {
@@ -567,7 +567,7 @@ section {
 }
 
 .featured-card .fc-media {
-    height: 150px;
+    height: clamp(120px, 20vw, 150px);
 }
 
 .featured-card .fc-media img,
@@ -673,7 +673,7 @@ section {
 }
 
 .spot-media {
-    height: 180px;
+    height: clamp(140px, 25vw, 180px);
 }
 
 .spot-media img,
@@ -1052,7 +1052,7 @@ footer {
 }
 
 .dm-media {
-    height: 280px;
+    height: clamp(180px, 45vw, 280px);
 }
 
 .dm-media img,
@@ -1263,7 +1263,7 @@ footer {
 
 /* explore per barangay */
 #barangay-explore {
-    padding: 70px 0 90px;
+    padding: 35px 0 55px;
 }
 
 .brgy-grid {
@@ -1507,7 +1507,7 @@ footer {
 }
 
 .circuit-media {
-    height: 200px;
+    height: clamp(160px, 30vw, 200px);
 }
 
 .circuit-media img {
@@ -1526,6 +1526,12 @@ footer {
 
 .circuit-body h3 {
     font-size: 1.18rem;
+}
+
+.circuit-body .loc {
+    color: var(--river);
+    font-size: .76rem;
+    font-weight: 600;
 }
 
 .circuit-body p {
@@ -1659,7 +1665,7 @@ footer {
 }
 
 .circ-stop-media {
-    height: 84px;
+    height: clamp(70px, 18vw, 84px);
 }
 
 .circ-stop-media img {

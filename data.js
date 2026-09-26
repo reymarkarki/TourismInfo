@@ -483,12 +483,12 @@ const SPOTS = [
         name: 'Simbahang Bato',
         categories: ['Caves', 'Historical'],
         barangay: 'Camachile',
-        img: 'mountain/tilaPilon/tilaPilon.jpg',
+        img: 'cave/simb/simbahan1.jpg',
         images: [
-            'mountain/tilaPilon/tilaPilon.jpg',
-            'mountain/tilaPilon/tilaPilon1.jpg',
-            'mountain/tilaPilon/tilaPilon2.jpg',
-            'mountain/tilaPilon/tilaPilon3.jpg',
+            'cave/simb/simbahan1.jpg',
+            'cave/simb/simbahan.jpg',
+            'cave/simb/simbahan2.webp',
+            
         ],
         shortDesc: 'A hidden shrine carved by nature.',
         fullDesc: 'A cave with rugged rock formations, housing an image of the Nazareno. Discovered in the late 1970s by marble cutters from Bicol. Now a devotion site and nature attraction.',
