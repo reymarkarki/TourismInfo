@@ -210,6 +210,10 @@ const quickNav = document.getElementById("quickNav");
     href: "#spots"
   },
   {
+    label: "Circuits",
+    href: "#circuits"
+  },
+  {
     label: "Map",
     href: "#map"
   },
@@ -314,6 +318,125 @@ SPOTS.forEach((s, i) => {
   spotGrid.appendChild(card);
 });
 
+/* tourism circuits */
+function getSpotById(id) {
+  return SPOTS.find((s) => s.id === id) || null;
+}
+
+function circuitStops(circuit) {
+  return circuit.stops
+    .filter((s) => s.type === "spot")
+    .map((s) => getSpotById(s.id))
+    .filter(Boolean);
+}
+
+function circuitBarangays(circuit) {
+  const names = circuitStops(circuit).map((sp) => sp.barangay.split(",")[0].trim());
+  return [...new Set(names)];
+}
+
+const circuitModal = document.getElementById("circuitModal");
+
+function openCircuit(circuit, seed) {
+  const stops = circuitStops(circuit);
+
+  document.getElementById("circMedia").innerHTML = circuit.img
+    ? `<img src="${circuit.img}" alt="${circuit.name}" loading="lazy">`
+    : circuit.images && circuit.images[0]
+      ? `<img src="${circuit.images[0]}" alt="${circuit.name}" loading="lazy">`
+      : placeholderSVG("Falls", seed);
+  document.getElementById("circTag").textContent = circuitBarangays(circuit).join(" · ");
+  document.getElementById("circTitle").textContent = circuit.name;
+  document.getElementById("circDesc").textContent = circuit.shortDesc || "";
+
+  const start = circuit.stops[0];
+  document.getElementById("circRoute").innerHTML = [
+    `<div class="circ-step"><span class="circ-num">S</span><span class="circ-label">${start.label}</span></div>`,
+    ...stops.map(
+      (sp, i) =>
+        `<span class="circ-arrow">&rarr;</span><div class="circ-step"><span class="circ-num">${i + 1}</span><span class="circ-label">${sp.name}</span></div>`
+    )
+  ].join("");
+
+  document.getElementById("circStops").innerHTML = stops
+    .map(
+      (sp, i) => `
+      <div class="circ-stop-card" data-idx="${i}">
+        <div class="circ-stop-media">${spotMedia(sp, i + 1)}</div>
+        <div class="circ-stop-body"><h4>${sp.name}</h4><p>${sp.distanceFromTownCenter || sp.barangay}</p></div>
+      </div>`
+    )
+    .join("");
+  document.querySelectorAll("#circStops .circ-stop-card").forEach((card, i) => {
+    card.addEventListener("click", () => {
+      circuitModal.classList.remove("open");
+      openDetails(stops[i], i + 1);
+    });
+  });
+
+  const bring =
+    circuit.whatToBring && circuit.whatToBring.length
+      ? `<h5>What to bring</h5><ul>${circuit.whatToBring.map((x) => `<li>${x}</li>`).join("")}</ul>`
+      : "";
+  const sleep =
+    circuit.whereToSleep && circuit.whereToSleep.length
+      ? `<h5>Where to sleep</h5><ul>${circuit.whereToSleep.map((x) => `<li>${x}</li>`).join("")}</ul>`
+      : "";
+  document.getElementById("circInfo").innerHTML = `
+    <div class="circ-info-card">
+      <h4>What to expect</h4>
+      <p>${circuit.expectations || ""}</p>
+      ${bring}
+      ${sleep}
+    </div>
+    <div class="circ-info-card circ-info-why">
+      <h4>Why choose this circuit</h4>
+      <p>${circuit.whyChoose || ""}</p>
+    </div>`;
+
+  const points = [circuit.stops[0].mapQuery, ...stops.map((sp) => sp.mapQuery)].filter(Boolean);
+  const origin = points[0];
+  const destination = points[points.length - 1];
+  const waypoints = points.slice(1, -1);
+  document.getElementById("circDirections").href =
+    `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}` +
+    (waypoints.length ? `&waypoints=${waypoints.map(encodeURIComponent).join("|")}` : "");
+
+  circuitModal.classList.add("open");
+}
+
+document.getElementById("circClose")?.addEventListener("click", () => circuitModal.classList.remove("open"));
+circuitModal?.addEventListener("click", (e) => {
+  if (e.target === circuitModal) circuitModal.classList.remove("open");
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") circuitModal?.classList.remove("open");
+});
+
+const circuitGrid = document.getElementById("circuitGrid");
+if (circuitGrid && typeof CIRCUITS !== "undefined") {
+  CIRCUITS.forEach((c, i) => {
+    const stopCount = c.stops.filter((s) => s.type === "spot").length;
+    const media = c.img
+      ? `<img src="${c.img}" alt="${c.name}" loading="lazy">`
+      : c.images && c.images[0]
+        ? `<img src="${c.images[0]}" alt="${c.name}" loading="lazy">`
+        : placeholderSVG("Falls", i + 1);
+    const card = document.createElement("div");
+    card.className = "circuit-card";
+    card.innerHTML = `
+      <div class="circuit-media">${media}</div>
+      <div class="circuit-body">
+        <div class="loc">${circuitBarangays(c).join(" · ")}</div>
+        <h3>${c.name}</h3>
+        <p>${c.shortDesc || ""}</p>
+        <span class="circuit-count">${stopCount} stop${stopCount === 1 ? "" : "s"}</span>
+      </div>`;
+    card.addEventListener("click", () => openCircuit(c, i + 1));
+    circuitGrid.appendChild(card);
+  });
+}
+
 /* maps */
 const mapEmbed = document.getElementById("mapEmbed");
 const mapList = document.getElementById("mapList");
@@ -380,6 +503,13 @@ const SEARCHABLE = [
     sub: `${s.barangay} · ${s.categories.join(", ")}`,
     action: () => openDetails(s, i + 1)
   })),
+  ...(typeof CIRCUITS !== "undefined"
+    ? CIRCUITS.map((c, i) => ({
+        label: c.name,
+        sub: "Tourism circuit",
+        action: () => openCircuit(c, i + 1)
+      }))
+    : []),
   {
     label: "How to get there",
     sub: "Travel guide",

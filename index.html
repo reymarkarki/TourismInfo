@@ -32,6 +32,7 @@ Doña Remedios Trinidad
 <ul class="navlinks" id="navlinks">
 <li><a href="#home">Home</a></li>
 <li><a href="#spots">Tourist Spots</a></li>
+<li><a href="#circuits">Circuits</a></li>
 <li><a href="barangay/index.html">Barangays</a></li>
 <li><a href="#map">Map</a></li>
 <li><a href="#getting-there">How to Get There</a></li>
@@ -132,6 +133,36 @@ Doña Remedios Trinidad
 <div class="spot-grid" id="spotGrid"></div>
 </div>
 </section>
+
+<!--tourism circuits-->
+<section id="circuits">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">Multi-stop routes</div>
+<h2>Tourism circuits</h2>
+<p>A full day, several stops, one loop from the town center — pick a circuit to see the route, what to bring, and where to sleep.</p>
+</div>
+<div class="circuit-grid" id="circuitGrid"></div>
+</div>
+</section>
+
+<div id="circuitModal">
+<button class="dm-close" id="circClose" aria-label="Close">✕</button>
+<div class="circ-inner">
+<div class="circ-media" id="circMedia"></div>
+<div class="circ-body">
+<p class="dm-tag" id="circTag"></p>
+<h3 id="circTitle"></h3>
+<p id="circDesc"></p>
+<div class="circ-subhead">Route</div>
+<div class="circ-route" id="circRoute"></div>
+<div class="circ-subhead">Stops</div>
+<div class="circ-stops" id="circStops"></div>
+<div class="circ-info-grid" id="circInfo"></div>
+<a class="btn btn-primary" id="circDirections" target="_blank">Get Directions</a>
+</div>
+</div>
+</div>
 
 <!--maps-->
 <section id="map">
