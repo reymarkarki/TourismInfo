@@ -1107,6 +1107,38 @@ footer {
     font-size: .86rem;
     margin-top: 4px;
 }
+
+.dm-rules {
+    margin-bottom: 24px;
+}
+
+.dm-rules h4 {
+    font-size: .78rem;
+    color: var(--text-faint);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    margin-bottom: 10px;
+}
+
+.dm-rules ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dm-rules li {
+    color: var(--text-dim);
+    font-size: .86rem;
+    line-height: 1.6;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+}
+
+.dm-rules li:first-child {
+    border-top: none;
+}
+
 .dm-close {
     position: fixed;
     top: 24px;
@@ -1456,4 +1488,268 @@ footer {
     font-weight: 700;
     text-decoration: none;
     color: white;
+}
+/* ============ TOURISM CIRCUITS ============ */
+.circuit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.circuit-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.circuit-media {
+    height: 200px;
+}
+
+.circuit-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.circuit-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.circuit-body h3 {
+    font-size: 1.18rem;
+}
+
+.circuit-body p {
+    color: var(--text-dim);
+    font-size: .9rem;
+    line-height: 1.55;
+}
+
+.circuit-count {
+    align-self: flex-start;
+    margin-top: 4px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: .76rem;
+    color: var(--text-faint);
+    font-weight: 600;
+}
+
+@media(max-width:760px) {
+    .circuit-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* circuit detail modal */
+#circuitModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 14, 10, .88);
+    z-index: 900;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+#circuitModal.open {
+    display: flex;
+}
+
+.circ-inner {
+    max-width: 760px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+}
+
+.circ-media {
+    height: 240px;
+}
+
+.circ-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.circ-body {
+    padding: 26px 28px 30px;
+}
+
+.circ-subhead {
+    font-size: .78rem;
+    color: var(--text-faint);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    margin: 22px 0 12px;
+}
+
+.circ-route {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.circ-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 14px 8px 8px;
+    background: var(--bg);
+}
+
+.circ-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--fern);
+    color: #fff;
+    font-size: .74rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.circ-label {
+    font-size: .82rem;
+    font-weight: 600;
+}
+
+.circ-arrow {
+    color: var(--text-faint);
+    font-size: .95rem;
+}
+
+.circ-stops {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.circ-stop-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--bg);
+}
+
+.circ-stop-media {
+    height: 84px;
+}
+
+.circ-stop-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.circ-stop-body {
+    padding: 10px 12px 12px;
+}
+
+.circ-stop-body h4 {
+    font-size: .82rem;
+    line-height: 1.3;
+}
+
+.circ-stop-body p {
+    color: var(--text-faint);
+    font-size: .72rem;
+    margin-top: 4px;
+}
+
+.circ-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.circ-info-card {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--clay);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    background: var(--bg);
+}
+
+.circ-info-card.circ-info-why {
+    border-left-color: var(--verdigris);
+}
+
+.circ-info-card h4 {
+    font-size: .9rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.circ-info-card h5 {
+    font-size: .78rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    margin: 12px 0 6px;
+    color: var(--text-faint);
+}
+
+.circ-info-card p {
+    color: var(--text-dim);
+    font-size: .84rem;
+    line-height: 1.55;
+}
+
+.circ-info-card ul {
+    margin-top: 6px;
+}
+
+.circ-info-card li {
+    color: var(--text-dim);
+    font-size: .82rem;
+    line-height: 1.6;
+    padding: 4px 0 4px 14px;
+    position: relative;
+}
+
+.circ-info-card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: .5;
+}
+
+@media(max-width:700px) {
+    .circ-info-grid {
+        grid-template-columns: 1fr;
+    }
 }

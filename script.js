@@ -32,9 +32,12 @@ async function loadDestinations() {
 function placeholderSVG(category, seed) {
   const palette = {
     Falls: ["#2E8B6F", "#132A20"],
+    Caves: ["#7A6142", "#1A3527"],
     Cave: ["#7A6142", "#1A3527"],
-    Mountain: ["#4FB4D8", "#13233A"],
-    Resort: ["#C98A4B", "#20402F"]
+    Mountains: ["#4FB4D8", "#13233A"],
+    Resorts: ["#C98A4B", "#20402F"],
+    Camps: ["#7A9B5C", "#1E2E18"],
+    Historical: ["#A6763F", "#241A10"]
   };
   const [c1, c2] = palette[category] || ["#2E8B6F", "#132A20"];
   return `<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -47,12 +50,12 @@ function placeholderSVG(category, seed) {
 }
 
 function spotMedia(spot, seed) {
-  return spot.img ? `<img src="${spot.img}" alt="${spot.name}" loading="lazy">` : placeholderSVG(spot.category, seed);
+  return spot.img ? `<img src="${spot.img}" alt="${spot.name}" loading="lazy">` : placeholderSVG(spot.categories[0], seed);
 }
 
 function spotSlides(spot, seed) {
   const images = spot.images && spot.images.length ? spot.images : [spot.img].filter(Boolean);
-  if (!images.length) return placeholderSVG(spot.category, seed);
+  if (!images.length) return placeholderSVG(spot.categories[0], seed);
   const slides = images
     .map(
       (src, i) =>
@@ -102,7 +105,7 @@ const detailModal = document.getElementById("detailModal");
 
 function openDetails(spot, seed) {
   document.getElementById("dmMedia").innerHTML = spotSlides(spot, seed);
-  document.getElementById("dmTag").textContent = `${spot.barangay} · ${spot.category}`;
+  document.getElementById("dmTag").textContent = `${spot.barangay} · ${spot.categories.join(", ")}`;
   document.getElementById("dmTitle").textContent = spot.name;
   document.getElementById("dmDesc").textContent = spot.fullDesc;
   const meta = [
@@ -172,6 +175,13 @@ function openDetails(spot, seed) {
     </div>`;
     })
     .join("");
+  const dmRules = document.getElementById("dmRules");
+  if (dmRules) {
+    dmRules.innerHTML =
+      spot.rules && spot.rules.length
+        ? `<h4>Rules &amp; Reminders</h4><ul>${spot.rules.map((r) => `<li>${r}</li>`).join("")}</ul>`
+        : "";
+  }
   setupDmSlider();
   document.getElementById("dmDirections").href =
     `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(spot.mapQuery)}`;
@@ -227,7 +237,7 @@ const quickNav = document.getElementById("quickNav");
 });
 
 /* tourist spots */
-const categories = ["All", ...new Set(SPOTS.map((s) => s.category))];
+const categories = ["All", ...new Set(SPOTS.flatMap((s) => s.categories))];
 const spotFilters = document.getElementById("spotFilters");
 categories.forEach((c, i) => {
   const b = document.createElement("button");
@@ -238,7 +248,8 @@ categories.forEach((c, i) => {
     document.querySelectorAll(".filter-btn").forEach((x) => x.classList.remove("active"));
     b.classList.add("active");
     document.querySelectorAll(".spot-card").forEach((card) => {
-      card.style.display = c === "All" || card.dataset.cat === c ? "" : "none";
+      const cardCats = card.dataset.cat.split("|");
+      card.style.display = c === "All" || cardCats.includes(c) ? "" : "none";
     });
   });
   spotFilters.appendChild(b);
@@ -266,12 +277,14 @@ if (brgyGrid) {
     .sort()
     .forEach((brgy) => {
       const g = brgyGroups[brgy];
+      const brgyRecord = typeof BARANGAYS !== "undefined" ? BARANGAYS.find((b) => barangayFieldMatches(brgy, b)) : null;
+      const img = (brgyRecord && brgyRecord.heroImg) || g.img;
       const href = `barangay/barangay-${brgySlug(brgy)}.html`;
       const el = document.createElement("a");
       el.className = "brgy-card";
       el.href = href;
       el.innerHTML = `
-        ${g.img ? `<img src="${g.img}" alt="${brgy}" loading="lazy">` : ""}
+        ${img ? `<img src="${img}" alt="${brgy}" loading="lazy">` : ""}
         <div class="brgy-card-body">
           <div class="brgy-count">${g.count} spot${g.count > 1 ? "s" : ""}</div>
           <h4>${brgy}</h4>
@@ -284,7 +297,7 @@ const spotGrid = document.getElementById("spotGrid");
 SPOTS.forEach((s, i) => {
   const card = document.createElement("div");
   card.className = "spot-card";
-  card.dataset.cat = s.category;
+  card.dataset.cat = s.categories.join("|");
   card.dataset.brgy = s.barangay.split(",")[0].trim();
   card.innerHTML = `
     <div class="spot-media">${spotMedia(s, i + 1)}</div>
@@ -364,7 +377,7 @@ const searchResults = document.getElementById("searchResults");
 const SEARCHABLE = [
   ...SPOTS.map((s, i) => ({
     label: s.name,
-    sub: `${s.barangay} · ${s.category}`,
+    sub: `${s.barangay} · ${s.categories.join(", ")}`,
     action: () => openDetails(s, i + 1)
   })),
   {

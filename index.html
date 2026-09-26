@@ -13,15 +13,11 @@
       imagesrcset="arko/arko1-640.webp 640w, arko/arko1-1080.webp 1080w, arko/arko1-1600.webp 1600w, arko/arko1-2560.webp 2560w"
       imagesizes="100vw" fetchpriority="high">
 
-<!-- Preconnect to every external origin we actually load from -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-<!-- Trimmed to only the weights styles.css actually uses: Switzer 800 only (hero title);
-     Fraunces 600/700/900 only (headings use 900 by default, two spots use 600, one uses bold);
-     Montserrat 400/500/600/700 (body font + nav/labels/hotline number) -->
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@800&display=swap">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Montserrat:wght@400;500;600;700&family=Shrikhand&family=Beau+Rivage&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -245,6 +241,7 @@ Doña Remedios Trinidad
 <h3 id="dmTitle"></h3>
 <p class="dm-desc" id="dmDesc"></p>
 <div class="dm-meta" id="dmMeta"></div>
+<div class="dm-rules" id="dmRules"></div>
 <a class="btn btn-primary dm-dir" id="dmDirections" target="_blank">Get Directions</a>
 </div>
 </div>
@@ -253,6 +250,7 @@ Doña Remedios Trinidad
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script src="supabase.js" defer></script>
 <script src="data.js" defer></script>
+<script src="barangay/barangay-data.js" defer></script>
 <script src="script.js" defer></script>
 </body>
 </html>
