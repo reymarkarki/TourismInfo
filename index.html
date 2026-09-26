@@ -7,8 +7,11 @@
 <meta name="google-site-verification" content="P0dgLpGMWsLiXskzpO_BP8j19hp_2osZcboId7dhQ0w" />
 <meta name="msvalidate.01" content="FDBFBFBB916D1C356C876370F8D4CD67" />
 
-<!-- Preload the LCP hero image so the browser starts fetching it immediately -->
-<link rel="preload" as="image" href="images/arko1.jpg" fetchpriority="high">
+<!-- Preload the LCP hero image (webp, responsive) so the browser starts fetching the right size immediately -->
+<link rel="preload" as="image" type="image/webp"
+      href="arko/arko1-1600.webp"
+      imagesrcset="arko/arko1-640.webp 640w, arko/arko1-1080.webp 1080w, arko/arko1-1600.webp 1600w, arko/arko1-2560.webp 2560w"
+      imagesizes="100vw" fetchpriority="high">
 
 <!-- Preconnect to every external origin we actually load from -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,8 +19,11 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Montserrat:wght@400;500;600;700;800&family=Shrikhand&family=Beau+Rivage&display=swap" rel="stylesheet">
+<!-- Trimmed to only the weights styles.css actually uses: Switzer 800 only (hero title);
+     Fraunces 600/700/900 only (headings use 900 by default, two spots use 600, one uses bold);
+     Montserrat 400/500/600/700 (body font + nav/labels/hotline number) -->
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@800&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Montserrat:wght@400;500;600;700&family=Shrikhand&family=Beau+Rivage&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -57,7 +63,17 @@ Doña Remedios Trinidad
 
 <!--home-->
 <section id="home">
-<div class="hero-media"><img src="images/arko1.jpg" fetchpriority="high" decoding="async" alt="Doña Remedios Trinidad landscape"></div>
+<div class="hero-media">
+<picture>
+<source type="image/webp" sizes="100vw"
+        srcset="arko/arko1-640.webp 640w, arko/arko1-1080.webp 1080w, arko/arko1-1600.webp 1600w, arko/arko1-2560.webp 2560w">
+<img src="arko/arko1-1600.jpg"
+     srcset="arko/arko1-640.jpg 640w, arko/arko1-1080.jpg 1080w, arko/arko1-1600.jpg 1600w, arko/arko1-2560.jpg 2560w"
+     sizes="100vw"
+     fetchpriority="high" decoding="async"
+     alt="Welcome arch entrance to Doña Remedios Trinidad, Bulacan">
+</picture>
+</div>
 <div class="hero-scrim"></div>
 <div class="wrap hero-inner">
 <div class="hero-eyebrow">Bulacan's largest municipality - 8 barangays, one wild edge of the province</div>
@@ -226,7 +242,6 @@ Doña Remedios Trinidad
 <div class="dm-media" id="dmMedia"></div>
 <div class="dm-body">
 <p class="dm-tag" id="dmTag"></p>
-<h3 id="dmTitle"></h3>
 <h3 id="dmTitle"></h3>
 <p class="dm-desc" id="dmDesc"></p>
 <div class="dm-meta" id="dmMeta"></div>
