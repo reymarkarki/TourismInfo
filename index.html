@@ -6,238 +6,238 @@
 <title>Doña Remedios Trinidad, Tourism Infomation</title>
 <meta name="google-site-verification" content="P0dgLpGMWsLiXskzpO_BP8j19hp_2osZcboId7dhQ0w" />
 <meta name="msvalidate.01" content="FDBFBFBB916D1C356C876370F8D4CD67" />
+
+<!-- Preload the LCP hero image so the browser starts fetching it immediately -->
+<link rel="preload" as="image" href="images/arko1.jpg" fetchpriority="high">
+
+<!-- Preconnect to every external origin we actually load from -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700,800&display=swap">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Montserrat:wght@400;500;600;700;800&family=Shrikhand&family=Beau+Rivage&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
 <nav id="nav">
-  <div class="navwrap">
-    <a href="#home" class="logo">
-  <img src="icon/Drtlogo.png" alt="DRT Tourism">
-  Doña Remedios Trinidad
+<div class="navwrap">
+<a href="#home" class="logo">
+<img src="icon/Drtlogo.png" alt="DRT Tourism" width="32" height="32">
+Doña Remedios Trinidad
 </a>
-    <ul class="navlinks" id="navlinks">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#spots">Tourist Spots</a></li>
-      <li><a href="barangay/index.html">Barangays</a></li>
-      <li><a href="#map">Map</a></li>
-      <li><a href="#getting-there">How to Get There</a></li>
-      <li><a href="#fees">Fees</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    
-    <div class="navtools">
-      <button class="icon-btn" id="searchToggle" aria-label="Search" title="Search">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-    </div>
-  </div>
+<ul class="navlinks" id="navlinks">
+<li><a href="#home">Home</a></li>
+<li><a href="#spots">Tourist Spots</a></li>
+<li><a href="barangay/index.html">Barangays</a></li>
+<li><a href="#map">Map</a></li>
+<li><a href="#getting-there">How to Get There</a></li>
+<li><a href="#fees">Fees</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<div class="navtools">
+<button class="icon-btn" id="searchToggle" aria-label="Search" title="Search">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+</button>
+<button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div>
+</div>
 </nav>
+
 <div id="searchBox">
-  <div class="wrap">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-    <input type="text" id="searchInput" placeholder="Search tourist spots, barangays, activities…">
-    <button class="icon-btn" id="searchClose">✕</button>
-  </div>
-  <div id="searchResults"></div>
+<div class="wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+<input type="text" id="searchInput" placeholder="Search tourist spots, barangays, activities…">
+<button class="icon-btn" id="searchClose">✕</button>
+</div>
+<div id="searchResults"></div>
 </div>
 
 <!--home-->
-
 <section id="home">
-  <div class="hero-media"><img src="images/arko1.jpg" loading="lazy"></div>
-  <div class="hero-scrim"></div>
-  <div class="wrap hero-inner">
-    <div class="hero-eyebrow">Bulacan's largest municipality - 8 barangays, one wild edge of the province</div>
-    <h1 class="hero-title">
-      <span class="line" id="disc">Discover</span>
-      <span class="line accent">Doña Remedios Trinidad, Bulacan</span>
-    </h1>
-    <p class="hero-tagline" id="1">Bulacan's hidden paradise of nature &amp; adventure</p>
-    <p class="hero-desc" id="2">Three-quarters forest, laced with rivers and hidden falls - a two-hour escape from Manila into caves, mountain trails, and waterfalls this guide brings together in one place.</p>
-    <div class="hero-ctas">
-      <a href="#spots" class="btn btn-primary">See Tourist Spots</a>
-      <a href="#getting-there" class="btn btn-outline">Plan Your Visit</a>
-      <a href="barangay/index.html" class="btn btn-icon">Barangay</a>
-    </div>
-  </div>
-
-  <div class="wrap home-below">
-    <div class="section-head small">
-      <div class="eyebrow">Popular spots</div>
-      <h2>Featured tourist spots</h2>
-    </div>
-    <div class="featured-grid" id="featuredGrid"></div>
-    <div class="quicknav" id="quickNav"></div>
-  </div>
+<div class="hero-media"><img src="images/arko1.jpg" fetchpriority="high" decoding="async" alt="Doña Remedios Trinidad landscape"></div>
+<div class="hero-scrim"></div>
+<div class="wrap hero-inner">
+<div class="hero-eyebrow">Bulacan's largest municipality - 8 barangays, one wild edge of the province</div>
+<h1 class="hero-title">
+<span class="line" id="disc">Discover</span>
+<span class="line accent">Doña Remedios Trinidad, Bulacan</span>
+</h1>
+<p class="hero-tagline" id="1">Bulacan's hidden paradise of nature &amp; adventure</p>
+<p class="hero-desc" id="2">Three-quarters forest, laced with rivers and hidden falls - a two-hour escape from Manila into caves, mountain trails, and waterfalls this guide brings together in one place.</p>
+<div class="hero-ctas">
+<a href="#spots" class="btn btn-primary">See Tourist Spots</a>
+<a href="#getting-there" class="btn btn-outline">Plan Your Visit</a>
+<a href="barangay/index.html" class="btn btn-icon">Barangay</a>
+</div>
+</div>
+<div class="wrap home-below">
+<div class="section-head small">
+<div class="eyebrow">Popular spots</div>
+<h2>Featured tourist spots</h2>
+</div>
+<div class="featured-grid" id="featuredGrid"></div>
+<div class="quicknav" id="quickNav"></div>
+</div>
 </section>
+
 <section id="marquee-gallery" class="drt-marquee-section">
-  <p class="drt-marquee-eyebrow">Gallery</p>
-  <h2 class="drt-marquee-title">Doña Remedios Trinidad, Bulacan</h2>
- 
-  <div class="drt-marquee-grid" id="drtMarqueeGrid">
-    
-  </div>
+<p class="drt-marquee-eyebrow">Gallery</p>
+<h2 class="drt-marquee-title">Doña Remedios Trinidad, Bulacan</h2>
+<div class="drt-marquee-grid" id="drtMarqueeGrid">
+</div>
 </section>
-
 
 <div class="drt-marquee-lightbox" id="drtMarqueeLightbox">
-  <button class="drt-marquee-lightbox-close" id="drtMarqueeClose" aria-label="Close">&times;</button>
-  <img class="drt-marquee-lightbox-img" id="drtMarqueeLightboxImg" src="" alt="">
-  <div class="drt-marquee-lightbox-caption" id="drtMarqueeCaption"></div>
+<button class="drt-marquee-lightbox-close" id="drtMarqueeClose" aria-label="Close">&times;</button>
+<img class="drt-marquee-lightbox-img" id="drtMarqueeLightboxImg" src="" alt="">
+<div class="drt-marquee-lightbox-caption" id="drtMarqueeCaption"></div>
 </div>
 
 <!--explore per barangay-->
 <section id="barangay-explore">
-  <div class="wrap">
-    <div class="section-head small">
-      <div class="eyebrow">By barangay</div>
-      <h2>Explore tourist spots per barangay</h2>
-      <p>DRT's 8 barangays each guard their own falls, caves, and viewpoints. Pick one to see what's there.</p>
-    </div>
-    <div class="brgy-grid" id="brgyGrid"></div>
-  </div>
+<div class="wrap">
+<div class="section-head small">
+<div class="eyebrow">By barangay</div>
+<h2>Explore tourist spots per barangay</h2>
+<p>DRT's 8 barangays each guard their own falls, caves, and viewpoints. Pick one to see what's there.</p>
+</div>
+<div class="brgy-grid" id="brgyGrid"></div>
+</div>
 </section>
 
 <!--spots-->
 <section id="spots">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Tourist spots</div>
-      <h2>All destinations in DRT</h2>
-      <p>Tap any spot for its full details - location, fees, hours, activities, and how to get there.</p>
-    </div>
-    <div class="spot-filters" id="spotFilters"></div>
-    <div class="spot-grid" id="spotGrid"></div>
-  </div>
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">Tourist spots</div>
+<h2>All destinations in DRT</h2>
+<p>Tap any spot for its full details - location, fees, hours, activities, and how to get there.</p>
+</div>
+<div class="spot-filters" id="spotFilters"></div>
+<div class="spot-grid" id="spotGrid"></div>
+</div>
 </section>
-
 
 <!--maps-->
 <section id="map">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Map</div>
-      <h2>Find each spot on the map</h2>
-      <p>Select a destination below to center the map on it and see its distance from the town center.</p>
-    </div>
-    <div class="map-grid">
-      <div class="map-frame">
-        <iframe id="mapEmbed" loading="lazy" src="https://www.google.com/maps?q=Do%C3%B1a+Remedios+Trinidad,+Bulacan,+Philippines&output=embed" allowfullscreen></iframe>
-      </div>
-      <div class="map-list" id="mapList"></div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">Map</div>
+<h2>Find each spot on the map</h2>
+<p>Select a destination below to center the map on it and see its distance from the town center.</p>
+</div>
+<div class="map-grid">
+<div class="map-frame">
+<iframe id="mapEmbed" loading="lazy" src="https://www.google.com/maps?q=Do%C3%B1a+Remedios+Trinidad,+Bulacan,+Philippines&output=embed" allowfullscreen></iframe>
+</div>
+<div class="map-list" id="mapList"></div>
+</div>
+</div>
 </section>
 
 <!--how to get there -->
 <section id="getting-there">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">How to get there</div>
-      <h2>From Manila and nearby towns</h2>
-    </div>
-    <div class="route-steps" id="routeSteps"></div>
-  </div>
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">How to get there</div>
+<h2>From Manila and nearby towns</h2>
+</div>
+<div class="route-steps" id="routeSteps"></div>
+</div>
 </section>
 
 <!-- fees -->
 <section id="fees">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Fees &amp; information</div>
-      <h2>What to expect and what to bring</h2>
-    </div>
-    <div class="info-grid" id="infoGrid"></div>
-
-    <div class="rules-block">
-      <h3>Rules &amp; reminders</h3>
-      <ul class="rules-list" id="rulesList"></ul>
-    </div>
-  </div>
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">Fees &amp; information</div>
+<h2>What to expect and what to bring</h2>
+</div>
+<div class="info-grid" id="infoGrid"></div>
+<div class="rules-block">
+<h3>Rules &amp; reminders</h3>
+<ul class="rules-list" id="rulesList"></ul>
+</div>
+</div>
 </section>
 
 <!--about drt -->
 <section id="about">
-  <div class="wrap about-grid">
-    <div>
-      <div class="section-head small">
-        <div class="eyebrow">About the municipality</div>
-        <h2>Doña Remedios Trinidad</h2>
-      </div>
-      <p class="about-text">Doña Remedios Trinidad (DRT) is the largest municipality in Bulacan, mostly forest and mountain terrain along the Sierra Madre. It is home to eight barangays, each guarding its own waterfalls, caves, or viewpoints, with local guides available in every area.</p>
-    </div>
-    <div class="office-card">
-      <h4>Municipal Tourism Office</h4>
-      <p>Municipal Hall, Barangay Pulong Sampalok, Doña Remedios Trinidad, Bulacan</p>
-      <p class="muted">Open Monday-Friday, 8:00 AM - 5:00 PM · Trek registration also available on weekends at barangay tourism desks.</p>
-    </div>
-  </div>
+<div class="wrap about-grid">
+<div>
+<div class="section-head small">
+<div class="eyebrow">About the municipality</div>
+<h2>Doña Remedios Trinidad</h2>
+</div>
+<p class="about-text">Doña Remedios Trinidad (DRT) is the largest municipality in Bulacan, mostly forest and mountain terrain along the Sierra Madre. It is home to eight barangays, each guarding its own waterfalls, caves, or viewpoints, with local guides available in every area.</p>
+</div>
+<div class="office-card">
+<h4>Municipal Tourism Office</h4>
+<p>Municipal Hall, Barangay Pulong Sampalok, Doña Remedios Trinidad, Bulacan</p>
+<p class="muted">Open Monday-Friday, 8:00 AM - 5:00 PM · Trek registration also available on weekends at barangay tourism desks.</p>
+</div>
+</div>
 </section>
-
 
 <!-- contact -->
 <section id="contact">
-  <div class="wrap">
-    <div class="section-head small">
-      <div class="eyebrow">Contact</div>
-      <h2>Reach the tourism office</h2>
-    </div>
-    <div class="contact-grid" id="contactGrid"></div>
-  </div>
+<div class="wrap">
+<div class="section-head small">
+<div class="eyebrow">Contact</div>
+<h2>Reach the tourism office</h2>
+</div>
+<div class="contact-grid" id="contactGrid"></div>
+</div>
 </section>
-
 
 <!-- hotlines -->
 <div class="emergency-hotlines">
-  <h3 id="emergency">Emergency Hotlines</h3>
-  <div class="hotline-grid">
-    <div class="hotline-card">
-      <span class="hotline-label">BFP (Bureau of Fire Protection)</span>
-      <a href="tel:09262810638" class="hotline-number">0926 2810 638</a>
-    </div>
-    <div class="hotline-card">
-      <span class="hotline-label">Police</span>
-      <a href="tel:09985985379" class="hotline-number">0998 5985 379</a>
-    </div>
-    <div class="hotline-card">
-      <span class="hotline-label">NDRRMC</span>
-      <a href="tel:09566796848" class="hotline-number">0956 679 6848</a>
-    </div>
-  </div>
+<h3 id="emergency">Emergency Hotlines</h3>
+<div class="hotline-grid">
+<div class="hotline-card">
+<span class="hotline-label">BFP (Bureau of Fire Protection)</span>
+<a href="tel:09262810638" class="hotline-number">0926 2810 638</a>
+</div>
+<div class="hotline-card">
+<span class="hotline-label">Police</span>
+<a href="tel:09985985379" class="hotline-number">0998 5985 379</a>
+</div>
+<div class="hotline-card">
+<span class="hotline-label">NDRRMC</span>
+<a href="tel:09566796848" class="hotline-number">0956 679 6848</a>
+</div>
+</div>
 </div>
 
 <footer>
-  <div class="wrap footer-inner">
-    <span>&#xA9; 2026 Doña Remedios Trinidad Tourism, visitor's guide.</span>
-    <span>Municipal Hall, Pulong Sampalok, DRT, Bulacan</span>
-  </div>
+<div class="wrap footer-inner">
+<span>&#xA9; 2026 Doña Remedios Trinidad Tourism, visitor's guide.</span>
+<span>Municipal Hall, Pulong Sampalok, DRT, Bulacan</span>
+</div>
 </footer>
 
 <!-- other details -->
 <div id="detailModal">
-  <button class="dm-close" id="dmClose" aria-label="Close">✕</button>
-  <div class="dm-inner">
-    <div class="dm-media" id="dmMedia"></div>
-    <div class="dm-body">
-      <p class="dm-tag" id="dmTag"></p>
-      <h3 id="dmTitle"></h3>
-      <p class="dm-desc" id="dmDesc"></p>
-      <div class="dm-meta" id="dmMeta"></div>
-      <a class="btn btn-primary dm-dir" id="dmDirections" target="_blank">Get Directions</a>
-    </div>
-  </div>
+<button class="dm-close" id="dmClose" aria-label="Close">✕</button>
+<div class="dm-inner">
+<div class="dm-media" id="dmMedia"></div>
+<div class="dm-body">
+<p class="dm-tag" id="dmTag"></p>
+<h3 id="dmTitle"></h3>
+<h3 id="dmTitle"></h3>
+<p class="dm-desc" id="dmDesc"></p>
+<div class="dm-meta" id="dmMeta"></div>
+<a class="btn btn-primary dm-dir" id="dmDirections" target="_blank">Get Directions</a>
+</div>
+</div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
-<script src="data.js"></script>
-<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="supabase.js" defer></script>
+<script src="data.js" defer></script>
+<script src="script.js" defer></script>
 </body>
 </html>
