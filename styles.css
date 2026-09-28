@@ -105,6 +105,7 @@ ul {
 .wrap {
     max-width: var(--maxw);
     margin: 0 auto;
+    
     padding: 0 clamp(20px, 5vw, 44px);
 }
 
@@ -113,7 +114,7 @@ section {
 }
 
 .eyebrow {
-    font-size: 0.8rem;
+    font-size: 12px;
     color: var(--river);
     font-weight: 600;
 }
@@ -128,14 +129,14 @@ section {
 }
 
 .section-head h2 {
-    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    font-size: px;
     margin-top: 8px;
 }
 
 .section-head p {
     color: var(--text-dim);
     margin-top: 12px;
-    font-size: 1rem;
+    font-size: 14px;
     line-height: 1.6;
 }
 
@@ -393,6 +394,7 @@ section {
     position: relative;
     min-height: 100svh;
     padding: 0;
+    font-size: 15px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -435,8 +437,8 @@ section {
         align-self: fle-start;
         width: 100%;
         max-width: 90%;
-        padding-left: clamp(32px, 5vw, 24px);
-        padding-right: clamp(20px, 5vw, 24px);
+        padding-left: clamp(21px, -1vw, 22px);
+        padding-right: clamp(0, 5vw, 24px);
         margin: 0;
         text-align: left;
     }
@@ -482,7 +484,7 @@ section {
     font-family: "Beau Rivage", cursive;
     display: block;
     margin-top: 49px;
-    font-size: 21px;
+    font-size: 18px;
     animation: heroUp 0.8s ease both;
 }
 
@@ -491,7 +493,7 @@ section {
     font-weight: bold;
     font-style: oblique;
     color: white;
-    font-size: 40px;
+    font-size: 30px;
     line-height: 0.97;
     margin-top: 2px;
     animation-delay: 0.08s;
@@ -1100,7 +1102,7 @@ footer {
 
 .dm-desc {
     color: var(--text-dim);
-    font-size: 0.92rem;
+    font-size: 14px;
     line-height: 1.65;
     margin: 14px 0 20px;
 }

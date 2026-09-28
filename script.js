@@ -179,16 +179,8 @@ const quickNav = document.getElementById("quickNav");
     href: "#spots"
   },
   {
-    label: "Circuits",
-    href: "#circuits"
-  },
-  {
     label: "Map",
     href: "#map"
-  },
-  {
-    label: "Barangay",
-    href: "barangay/index.html"
   },
   {
     label: "How to get there",
