@@ -190,6 +190,9 @@ SPOTS.slice(0, 3).forEach((s, i) => {
 /* tourist spots */
 const categories = ["All", ...new Set(SPOTS.flatMap((s) => s.categories))];
 const spotFilters = document.getElementById("spotFilters");
+const SPOTS_PER_PAGE = 6; // cards shown before "See More"
+let activeSpotCategory = "All";
+let spotsExpanded = false;
 categories.forEach((c, i) => {
   const b = document.createElement("button");
   b.className = "filter-btn" + (i === 0 ? " active" : "");
@@ -198,10 +201,9 @@ categories.forEach((c, i) => {
   b.addEventListener("click", () => {
     document.querySelectorAll(".filter-btn").forEach((x) => x.classList.remove("active"));
     b.classList.add("active");
-    document.querySelectorAll(".spot-card").forEach((card) => {
-      const cardCats = card.dataset.cat.split("|");
-      card.style.display = c === "All" || cardCats.includes(c) ? "" : "none";
-    });
+    activeSpotCategory = c;
+    spotsExpanded = false;
+    updateSpotGrid();
   });
   spotFilters.appendChild(b);
 });
@@ -264,6 +266,51 @@ SPOTS.forEach((s, i) => {
   makeClickable(card, () => openDetails(s, i + 1));
   spotGrid.appendChild(card);
 });
+
+/* "See More" / "Show Less" for the spot grid (respects the active category filter) */
+const spotMoreWrap = document.createElement("div");
+spotMoreWrap.className = "spot-more-wrap";
+const spotMoreBtn = document.createElement("button");
+spotMoreBtn.type = "button";
+spotMoreBtn.className = "spot-more-btn";
+spotMoreWrap.appendChild(spotMoreBtn);
+spotGrid.after(spotMoreWrap);
+
+function updateSpotGrid(animateFrom = -1) {
+  const cards = [...spotGrid.querySelectorAll(".spot-card")];
+  const matching = cards.filter(
+    (card) => activeSpotCategory === "All" || card.dataset.cat.split("|").includes(activeSpotCategory)
+  );
+  const limit = spotsExpanded ? matching.length : SPOTS_PER_PAGE;
+
+  cards.forEach((card) => {
+    const idx = matching.indexOf(card);
+    const visible = idx !== -1 && idx < limit;
+    card.style.display = visible ? "" : "none";
+    card.classList.remove("spot-reveal");
+    if (visible && animateFrom >= 0 && idx >= animateFrom) {
+      card.style.setProperty("--reveal-delay", `${(idx - animateFrom) * 60}ms`);
+      void card.offsetWidth; // restart the animation
+      card.classList.add("spot-reveal");
+    }
+  });
+
+  const needsToggle = matching.length > SPOTS_PER_PAGE;
+  spotMoreWrap.style.display = needsToggle ? "" : "none";
+  spotMoreBtn.textContent = spotsExpanded ? "Show Less" : "See More";
+  spotMoreBtn.setAttribute("aria-expanded", String(spotsExpanded));
+}
+
+spotMoreBtn.addEventListener("click", () => {
+  spotsExpanded = !spotsExpanded;
+  updateSpotGrid(spotsExpanded ? SPOTS_PER_PAGE : -1);
+  if (!spotsExpanded) {
+    // collapsing: bring the top of the grid back into view
+    spotFilters.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+});
+
+updateSpotGrid();
 
 /* tourism circuits */
 function getSpotById(id) {
