@@ -1930,3 +1930,51 @@ h2.drt-marquee-title,
         animation: none;
     }
 }
+
+/* spot grid: See More / Show Less */
+.spot-more-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.spot-more-btn {
+    padding: 0.75rem 2rem;
+    border-radius: 100px;
+    border: 1px solid var(--fern);
+    background: transparent;
+    color: var(--fern);
+    font-family: "Inter", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.spot-more-btn:hover,
+.spot-more-btn:focus-visible {
+    background: var(--fern);
+    color: #fff;
+}
+
+.spot-card.spot-reveal {
+    animation: spotReveal 0.45s ease both;
+    animation-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes spotReveal {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .spot-card.spot-reveal {
+        animation: none;
+    }
+}
