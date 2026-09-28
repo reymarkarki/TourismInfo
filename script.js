@@ -1,3 +1,16 @@
+/* Makes a non-button element (card, list row) work for keyboard and screen-reader users */
+function makeClickable(el, handler) {
+  el.tabIndex = 0;
+  el.setAttribute("role", "button");
+  el.addEventListener("click", handler);
+  el.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handler(e);
+    }
+  });
+}
+
 function placeholderSVG(category, seed) {
   const palette = {
     Falls: ["#2E8B6F", "#132A20"],
@@ -155,6 +168,7 @@ function openDetails(spot, seed) {
   document.getElementById("dmDirections").href =
     `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(spot.mapQuery)}`;
   detailModal.classList.add("open");
+  document.getElementById("dmClose").focus();
 }
 document.getElementById("dmClose").addEventListener("click", () => detailModal.classList.remove("open"));
 detailModal.addEventListener("click", (e) => {
@@ -168,7 +182,7 @@ SPOTS.slice(0, 3).forEach((s, i) => {
   el.className = "featured-card";
   el.innerHTML = `<div class="fc-media">${spotMedia(s, i + 1)}</div>
     <div class="fc-body"><h4>${s.name}</h4><div class="loc">${s.barangay}</div></div>`;
-  el.addEventListener("click", () => openDetails(s, i + 1));
+  makeClickable(el, () => openDetails(s, i + 1));
   featuredGrid.appendChild(el);
 });
 
@@ -275,7 +289,7 @@ SPOTS.forEach((s, i) => {
         <span><img src="icon/24-hour-clock.png" class="meta-icon" alt="" />${s.hours}</span>
       </div>
     </div>`;
-  card.addEventListener("click", () => openDetails(s, i + 1));
+  makeClickable(card, () => openDetails(s, i + 1));
   spotGrid.appendChild(card);
 });
 
@@ -329,7 +343,7 @@ function openCircuit(circuit, seed) {
     )
     .join("");
   document.querySelectorAll("#circStops .circ-stop-card").forEach((card, i) => {
-    card.addEventListener("click", () => {
+    makeClickable(card, () => {
       circuitModal.classList.remove("open");
       openDetails(stops[i], i + 1);
     });
@@ -364,6 +378,7 @@ function openCircuit(circuit, seed) {
     (waypoints.length ? `&waypoints=${waypoints.map(encodeURIComponent).join("|")}` : "");
 
   circuitModal.classList.add("open");
+  document.getElementById("circClose").focus();
 }
 
 document.getElementById("circClose")?.addEventListener("click", () => circuitModal.classList.remove("open"));
@@ -393,7 +408,7 @@ if (circuitGrid && typeof CIRCUITS !== "undefined") {
         <p>${c.shortDesc || ""}</p>
         <span class="circuit-count">${stopCount} stop${stopCount === 1 ? "" : "s"}</span>
       </div>`;
-    card.addEventListener("click", () => openCircuit(c, i + 1));
+    makeClickable(card, () => openCircuit(c, i + 1));
     circuitGrid.appendChild(card);
   });
 }
@@ -405,7 +420,7 @@ SPOTS.forEach((s, i) => {
   const el = document.createElement("div");
   el.className = "map-item";
   el.innerHTML = `<h4>${s.name}</h4><p>${s.barangay} · ${s.distanceFromTownCenter}</p>`;
-  el.addEventListener("click", () => {
+  makeClickable(el, () => {
     document.querySelectorAll(".map-item").forEach((x) => x.classList.remove("active"));
     el.classList.add("active");
     mapEmbed.src = `https://www.google.com/maps?q=${encodeURIComponent(s.mapQuery)}&output=embed`;
@@ -518,7 +533,7 @@ searchInput.addEventListener("input", () => {
     .forEach((s) => {
       const el = document.createElement("div");
       el.textContent = `${s.label}: ${s.sub}`;
-      el.addEventListener("click", () => {
+      makeClickable(el, () => {
         closeSearch();
         s.action();
       });
@@ -526,20 +541,51 @@ searchInput.addEventListener("input", () => {
     });
 });
 
-/* for mobile  */
-const navLinks = document.querySelector('.navlinks');
-const hamburger = document.querySelector('.hamburger');
+/* mobile / tablet navigation drawer */
+const navLinks = document.querySelector(".navlinks");
+const hamburger = document.querySelector(".hamburger");
+const desktopNav = window.matchMedia("(min-width: 60em)");
 
-hamburger.addEventListener('click', (e) => {
-    e.stopPropagation();
-    navLinks.classList.toggle('open');
+function setNav(open) {
+  navLinks.classList.toggle("open", open);
+  document.body.classList.toggle("nav-open", open);
+  hamburger.setAttribute("aria-expanded", String(open));
+}
+hamburger.setAttribute("aria-expanded", "false");
+hamburger.setAttribute("aria-controls", "navlinks");
+
+hamburger.addEventListener("click", (e) => {
+  e.stopPropagation();
+  setNav(!navLinks.classList.contains("open"));
+});
+navLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setNav(false)));
+document.addEventListener("click", (e) => {
+  if (navLinks.classList.contains("open") && !navLinks.contains(e.target)) setNav(false);
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && navLinks.classList.contains("open")) {
+    setNav(false);
+    hamburger.focus();
+  }
+});
+desktopNav.addEventListener("change", (e) => {
+  if (e.matches) setNav(false);
 });
 
-navLinks.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-    });
-});
+/* lock page scroll while any overlay (menu, modal, lightbox, search) is open */
+(function () {
+  const overlays = ["detailModal", "circuitModal", "drtMarqueeLightbox", "searchBox"]
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+  const isOpen = (el) => el.classList.contains("open") || el.classList.contains("drt-open");
+  const sync = () =>
+    document.documentElement.classList.toggle(
+      "scroll-locked",
+      overlays.some(isOpen) || navLinks.classList.contains("open")
+    );
+  const observer = new MutationObserver(sync);
+  [...overlays, navLinks].forEach((el) => observer.observe(el, { attributes: true, attributeFilter: ["class"] }));
+})();
 
 (function () {
   const grid = document.getElementById("drtMarqueeGrid");
@@ -552,7 +598,8 @@ navLinks.querySelectorAll('a').forEach((link) => {
 
  
   function getColumnCount() {
-    return window.innerWidth <= 630 ? 3 : 4;
+    const w = window.innerWidth;
+    return w <= 480 ? 2 : w <= 900 ? 3 : 4;
   }
 
   function openMarqueeLightbox(photo) {

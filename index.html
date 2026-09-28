@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Doña Remedios Trinidad, Tourism Infomation</title>
-<meta property="og:description" content="Bulacan's hidden paradise of nature and adventure.">
+<meta property="og:description" content="Explore Doña Remedios Trinidad’s waterfalls, caves, and mountain trails. A hidden paradise in Bulacan where nature, history, and adventure come together"/>
 <meta name="google-site-verification" content="P0dgLpGMWsLiXskzpO_BP8j19hp_2osZcboId7dhQ0w" />
 <meta name="msvalidate.01" content="FDBFBFBB916D1C356C876370F8D4CD67" />
 
@@ -41,7 +41,7 @@ Doña Remedios Trinidad
 <button class="icon-btn" id="searchToggle" aria-label="Search" title="Search">
 <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
 </button>
-<button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+<button class="hamburger" id="hamburger" aria-label="Menu" type="button"><span></span><span></span><span></span></button>
 </div>
 </div>
 </nav>
@@ -194,7 +194,7 @@ Doña Remedios Trinidad
 </div>
 </section>
 
-<div class="drt-marquee-lightbox" id="drtMarqueeLightbox">
+<div class="drt-marquee-lightbox" id="drtMarqueeLightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
 <button class="drt-marquee-lightbox-close" id="drtMarqueeClose" aria-label="Close">&times;</button>
 <img class="drt-marquee-lightbox-img" id="drtMarqueeLightboxImg" src="" alt="">
 <div class="drt-marquee-lightbox-caption" id="drtMarqueeCaption"></div>
@@ -239,7 +239,7 @@ Doña Remedios Trinidad
 </footer>
 
 <!-- other details -->
-<div id="detailModal">
+<div id="detailModal" role="dialog" aria-modal="true" aria-labelledby="dmTitle">
 <button class="dm-close" id="dmClose" aria-label="Close">✕</button>
 <div class="dm-inner">
 <div class="dm-media" id="dmMedia"></div>
@@ -249,11 +249,11 @@ Doña Remedios Trinidad
 <p class="dm-desc" id="dmDesc"></p>
 <div class="dm-meta" id="dmMeta"></div>
 <div class="dm-rules" id="dmRules"></div>
-<a class="btn btn-primary dm-dir" id="dmDirections" target="_blank">Get Directions</a>
+<a class="btn btn-primary dm-dir" id="dmDirections" target="_blank" rel="noopener">Get Directions</a>
 </div>
 </div>
 </div>
-<div id="circuitModal">
+<div id="circuitModal" role="dialog" aria-modal="true" aria-labelledby="circTitle">
   <button class="dm-close" id="circClose" aria-label="Close">✕</button>
   <div class="circ-inner">
     <div class="circ-media" id="circMedia"></div>
@@ -270,7 +270,7 @@ Doña Remedios Trinidad
 
       <div class="circ-info-grid" id="circInfo"></div>
 
-      <a class="btn btn-primary dm-dir" id="circDirections" target="_blank">Get Directions</a>
+      <a class="btn btn-primary dm-dir" id="circDirections" target="_blank" rel="noopener">Get Directions</a>
     </div>
   </div>
 </div>
