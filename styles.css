@@ -32,9 +32,9 @@
 }
 h2.drt-marquee-title,
 .drt-marquee-title {
-    color: var(--text) !important;
+    color: var(--text) ;
     font-family: "Shrikhand", cursive;
-    font-weight: 400 !important;
+    font-weight: 400 ;
     font-optical-sizing: auto;
     font-variation-settings: normal;
 }
@@ -50,7 +50,7 @@ h2.drt-marquee-title,
 
 @media (prefers-reduced-motion: reduce) {
     * {
-        transition-duration: 0.001ms !important;
+        transition-duration: 0.001ms ;
     }
 }
 
@@ -161,24 +161,6 @@ section {
 }
 
 .btn-primary:hover {
-    background: var(--river);
-}
-
-.btn-outline {
-    background: transparent;
-    color: var(--text);
-    border-color: var(--border);
-}
-
-.btn-outline:hover {
-    border-color: var(--fern);
-    color: var(--fern);
-}
-.btn-icon {
-    background-color: #d66d00;
-    color: #fff;
-}
-.btn-icon:hover {
     background: var(--river);
 }
 
@@ -499,7 +481,8 @@ section {
 .hero-title .line {
     font-family: "Beau Rivage", cursive;
     display: block;
-    font-size: 29px;
+    margin-top: 49px;
+    font-size: 21px;
     animation: heroUp 0.8s ease both;
 }
 
@@ -508,7 +491,7 @@ section {
     font-weight: bold;
     font-style: oblique;
     color: white;
-    font-size: 50px;
+    font-size: 40px;
     line-height: 0.97;
     margin-top: 2px;
     animation-delay: 0.08s;
@@ -526,7 +509,7 @@ section {
 
 .hero-desc {
     color: rgba(255, 255, 255, 0.78);
-    font-size: 15px;
+    font-size: 14px;
     max-width: 520px;
     line-height: 1.6;
     margin-bottom: 22px;
@@ -1512,7 +1495,7 @@ footer {
     background-color: #04001d;
     margin-top: 3rem;
     padding: 2rem;
-    border-radius: 12px;
+    
     border: 1px solid rgba(11, 32, 236, 0.2);
 }
 

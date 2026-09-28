@@ -1,34 +1,3 @@
-async function loadDestinations() {
-    const { data, error } = await supabaseClient
-        .from("destinations")
-        .select(`
-            *,
-            destination_categories (
-                category_id,
-                categories (
-                    id,
-                    name
-                )
-            ),
-            destination_images (
-                image_url,
-                alt_text,
-                caption,
-                sort_order
-            )
-        `)
-        .eq("status", "published")
-        .order("name");
-
-    if (error) {
-        console.error("Error loading destinations:", error);
-        return [];
-    }
-
-    console.log("Destinations from Supabase:", data);
-    return data;
-}
-
 function placeholderSVG(category, seed) {
   const palette = {
     Falls: ["#2E8B6F", "#132A20"],
@@ -670,4 +639,3 @@ navLinks.querySelectorAll('a').forEach((link) => {
     if (e.key === "Escape") lightbox.classList.remove("drt-open");
   });
 })();
-loadDestinations();
