@@ -1155,17 +1155,17 @@ section {
 
 /* ============ EMERGENCY HOTLINES ============ */
 .emergency-hotlines {
-    background-color: #04001d;
+    background-color: #071f00;
     margin-top: clamp(2rem, 5vw, 3rem);
     padding-block: clamp(1.25rem, 4vw, 2rem);
     /* full-bleed panel, content aligned to the constrained container */
     padding-inline: max(var(--pad-x), calc((100% - var(--maxw)) / 2 + var(--pad-x)));
-    border: 1px solid rgba(11, 32, 236, 0.2);
+    border: 1px solid #071F00;
 }
 
 .emergency-hotlines h3 {
     margin-bottom: 1.2rem;
-    font-size: 1.4rem;
+    font-size: 24px;
 }
 
 #emergency {
@@ -1185,11 +1185,11 @@ section {
     min-width: 0;
     padding: 1rem;
     border-radius: 8px;
-    background: #011d3d;
+    background: #0b2f01;
 }
 
 .hotline-label {
-    font-size: 0.85rem;
+    font-size: 15px;
     opacity: 0.75;
     color: #fff;
 }
@@ -1197,7 +1197,7 @@ section {
 .hotline-number {
     display: inline-block;
     padding-block: 0.125rem;
-    font-size: 1.2rem;
+    font-size: 14px;
     font-weight: 700;
     text-decoration: none;
     color: #fff;
