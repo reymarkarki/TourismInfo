@@ -255,21 +255,21 @@ const SPOTS = [
         rules: ["Overnight campers must register in advance at the barangay hall.", "Keep noise down after dark out of respect for other campers.", "Secure tents well \u2014 the view deck can get windy at night."],
         mapQuery: 'Kabayunan View Deck, Kabayunan, Doña Remedios Trinidad, Bulacan'
 },
+
     {
         id: 'mt.lawad',
         name: 'MT. Lawad',
         categories: ['Mountains'],
         barangay: 'Kalawakan',
-        img:'mountain/mtLawad/thumbnailLawad.jpg',
+        img: 'mountain/mtLawad/ml.jpg',
         images:[
-            'mountain/mtLawad/thumbnailLawad.jpg',
+            'mountain/mtLawad/ml.jpg',
             'mountain/mtLawad/ML1.jpg',
             'mountain/mtLawad/ML2.jpg',
             'mountain/mtLawad/ML3.jpg',
             'mountain/mtLawad/ML4.jpg',
             'mountain/mtLawad/ML5.jpg',
         ],
-        img: 'https://i.ytimg.com/vi/q7C5VhAAjj8/maxresdefault.jpg',
         shortDesc: 'Mt. Lawad — Sierra Madre’s hidden trail.',
         fullDesc: 'Mt. Lawad in DRT, Bulacan is a cool-climate forest peak with sweeping Sierra Madre views and frontier-style trails. Best explored with a barangay guide, it’s perfect for hikers seeking a raw, less-crowded adventure.',
         location: 'Barangay Kalawakan, Doña Remedios Trinidad, Bulacan',
@@ -284,6 +284,36 @@ const SPOTS = [
         distanceFromTownCenter: '~28.6 km from the Municipal Hall',
         rules: ["A guide is required; the trail is not fully marked.", "Not recommended during typhoon season \u2014 river crossings can be dangerous.", "Start early to avoid being caught on the ridge after dark."],
         mapQuery: 'MT. Lawad, Kalawakan, Doña Remedios Trinidad, Bulacan'
+        
+  },
+        {
+        id: 'kabayunan',
+        name: 'Kabayuan View Deck',
+        categories: ['Mountains'],
+        barangay: 'Kabayunan',
+        img: 'mountain/kabayunanView/thumbnail kabayunan.jpg',
+        images:[
+            'mountain/kabayunanView/thumbnail kabayunan.jpg',
+            'mountain/kabayunanView/K1.jpg',
+            'mountain/kabayunanView/K2.jpg',
+            'mountain/kabayunanView/K3.jpg',
+            'mountain/kabayunanView/K4.jpg',
+            'mountain/kabayunanView/Kabayunan fee.jpg',
+        ],
+        shortDesc: 'Kabayunan — Bulacan’s breezy peak with Sierra Madre views."',
+        fullDesc: 'A breezy ridgeline rising 612 meters above sea level, Mt. Corona rewards hikers with sweeping views of the Sierra Madre and Bulacan lowlands. Best explored with a local barangay guide, its marked trail offers both easy climbs for beginners and a tougher traverse toward the Sumacbao River for adventurers.',
+        location: 'Barangay Kabayunan, Doña Remedios Trinidad, Bulacan',
+        entranceFee: '₱50 Day Tour, ₱100 Over Night ',
+        parkingFee: '₱10- ₱30',
+        tourguide: 'none',
+        hours: '6:00 AM –  5:00 PM, 5:00PM - 8:00 AM',
+        activities: [ 'Photography', 'Viewpoint', 'Overnight Camping', ],
+        howToGetThere: 'Register at Kalawakan barangay hall for a guided hike.',
+        contact: "0964 192 1793",
+        facebook:'https://www.facebook.com/kabayunanview/',
+        distanceFromTownCenter: '~15.5 km from the Municipal Hall',
+        rules: ["Overnight campers must register in advance at the barangay hall.", "Keep noise down after dark out of respect for other campers.", "Secure tents well \u2014 the view deck can get windy at night."],
+        mapQuery: 'Kabayunan View Deck, Kabayunan, Doña Remedios Trinidad, Bulacan'
 },
     {
         id: 'mt. brigino',
@@ -316,7 +346,7 @@ const SPOTS = [
     {
         id: 'kalinaw',
         name: 'Kalinaw Campsite',
-        categories: ['Camps'],
+        categories: ['Camps', ],
         img: 'camp/kalinaw/kalinaw.jpg',
         images:[
             'camp/kalinaw/kalinaw.jpg',
@@ -326,7 +356,6 @@ const SPOTS = [
             'camp/kalinaw/KK4.jpg',
         ],
         barangay: 'Kalawakan',
-        img: 'https://tse2.mm.bing.net/th/id/OIP.gtQv2aQJza16sWtXBwYkFAHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
         shortDesc: 'Kalinaw Campsite — Find peace in the Sierra Madre.',
         fullDesc: 'Kalinaw Campsite is a peaceful mountain retreat in Doña Remedios Trinidad, surrounded by pine trees and cool Sierra Madre breezes. It’s a nature‑lover’s haven for camping, stargazing, and unwinding in a rustic, frontier setting.',
         location: 'Barangay Kalawakan, Doña Remedios Trinidad, Bulacan',
