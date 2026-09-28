@@ -186,34 +186,6 @@ SPOTS.slice(0, 3).forEach((s, i) => {
   featuredGrid.appendChild(el);
 });
 
-const quickNav = document.getElementById("quickNav");
-[
-  {
-    label: "All tourist spots",
-    href: "#spots"
-  },
-  {
-    label: "Map",
-    href: "#map"
-  },
-  {
-    label: "How to get there",
-    href: "#getting-there"
-  },
-  {
-    label: "Fees & information",
-    href: "#fees"
-  },
-  {
-    label: "Contact",
-    href: "#contact"
-  }
-].forEach((q) => {
-  const a = document.createElement("a");
-  a.href = q.href;
-  a.textContent = q.label;
-  quickNav.appendChild(a);
-});
 
 /* tourist spots */
 const categories = ["All", ...new Set(SPOTS.flatMap((s) => s.categories))];
