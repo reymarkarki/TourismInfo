@@ -183,7 +183,7 @@ const BARANGAYS = [
     {
         slug: 'kalawakan',
         name: 'Kalawakan',
-                heroImg: 'brgyImg/kalawakan.png',
+        heroImg: 'brgyImg/kalawakan.png',
         aliases: [],
         blurb: 'DRT\u2019s most spot-dense barangay — waterfalls, mountain ridgelines, and a campsite on the way to Mt. Lawad.',
         hall: {

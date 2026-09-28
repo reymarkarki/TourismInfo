@@ -1,20 +1,29 @@
+/* ==========================================================================
+   Barangay pages — loaded after ../styles.css, so it reuses its tokens
+   (--pad-x, --gap, --maxw, --nav-h, ...). Grids reflow with auto-fill/auto-fit
+   instead of per-breakpoint column counts.
+   ========================================================================== */
 
+/* ============ HERO ============ */
 #brgy-hero {
   position: relative;
   min-height: 58vh;
-  overflow: hidden;
+  min-height: 58svh;
+  overflow: hidden;                       /* clips the full-bleed hero image only */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 140px 0 56px;
+  padding: clamp(6rem, 18vw, 8.75rem) 0 clamp(2rem, 5vw, 3.5rem);
 }
 
 #brgy-hero .hero-inner {
   position: relative;
   z-index: 2;
-  max-width: 680px;
+  width: 100%;
+  max-width: 42.5rem;
+  flex: 0 0 auto;
   margin: 0;
-  padding: 0 clamp(20px, 5vw, 44px);
+  padding: 0 var(--pad-x);
 }
 
 #brgy-hero .hero-title {
@@ -24,11 +33,12 @@
 .brgy-back-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
+  min-height: 2.75rem;                    /* comfortable tap target */
   color: rgba(255, 255, 255, 0.82);
   font-size: 0.84rem;
   font-weight: 500;
-  margin-bottom: 18px;
+  margin-bottom: 0.5rem;
 }
 
 .brgy-back-link:hover {
@@ -38,15 +48,16 @@
 .brgy-stats {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 22px;
+  gap: 0.625rem;
+  margin-top: clamp(1rem, 3vw, 1.375rem);
 }
 
 .brgy-stat {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
+  gap: 0.375rem;
+  max-width: 100%;
+  padding: 0.5rem 1rem;
   border-radius: 100px;
   border: 1px solid rgba(255, 255, 255, 0.28);
   background: rgba(14, 24, 38, 0.35);
@@ -60,27 +71,27 @@
 .brgy-section-note {
   color: var(--text-faint);
   font-size: 0.82rem;
-  margin-top: 10px;
-  max-width: 620px;
+  margin-top: 0.625rem;
+  max-width: min(100%, 38.75rem);
 }
 
 .empty-state {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 30px;
+  padding: clamp(1.125rem, 4vw, 1.875rem);
   color: var(--text-dim);
   font-size: 0.92rem;
   line-height: 1.6;
-  max-width: 620px;
+  max-width: min(100%, 38.75rem);
 }
 
 .empty-state strong {
   display: block;
   color: var(--text);
-  font-family: 'Fraunces', serif;
+  font-family: "Fraunces", serif;
   font-size: 1.05rem;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 /* ============ TOUR PACKAGES ============ */
@@ -90,29 +101,32 @@
 
 .package-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: clamp(1rem, 2vw, 1.375rem);
 }
 
 .package-card {
+  min-width: 0;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 26px;
+  padding: clamp(1.125rem, 3.5vw, 1.625rem);
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0.875rem;
 }
 
 .package-head {
   display: flex;
+  flex-wrap: wrap;                        /* badge drops below the title on narrow cards */
   justify-content: space-between;
   align-items: flex-start;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .package-head h3 {
   font-size: 1.12rem;
+  min-width: 0;
 }
 
 .package-badge {
@@ -122,12 +136,12 @@
   color: var(--river);
   border: 1px solid var(--border);
   border-radius: 100px;
-  padding: 4px 10px;
+  padding: 0.25rem 0.625rem;
   white-space: nowrap;
 }
 
 .package-price {
-  font-family: 'Fraunces', serif;
+  font-family: "Fraunces", serif;
   font-weight: 700;
   font-size: 1.3rem;
   color: var(--fern);
@@ -136,7 +150,7 @@
 .package-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 0.5rem;
   font-size: 0.76rem;
   color: var(--text-faint);
 }
@@ -144,28 +158,34 @@
 .package-meta span {
   border: 1px solid var(--border);
   border-radius: 100px;
-  padding: 4px 10px;
+  padding: 0.25rem 0.625rem;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .package-cols {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  gap: 1rem;
+}
+
+.package-col {
+  min-width: 0;
 }
 
 .package-col h5 {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.76rem;
   color: var(--text-faint);
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .package-col ul li {
   color: var(--text-dim);
   font-size: 0.85rem;
   line-height: 1.6;
-  padding: 6px 0;
+  padding: 0.375rem 0;
   border-top: 1px solid var(--border);
 }
 
@@ -181,51 +201,44 @@
 
 .package-card .btn {
   align-self: flex-start;
-  margin-top: 4px;
-}
-
-@media (max-width: 800px) {
-  .package-grid {
-    grid-template-columns: 1fr;
-  }
-  .package-cols {
-    grid-template-columns: 1fr;
-  }
+  margin-top: 0.25rem;
 }
 
 /* ============ LOCAL TOUR GUIDES ============ */
 .guide-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(1rem, 2vw, 1.375rem);
 }
 
 .guide-card {
+  min-width: 0;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 22px;
+  padding: clamp(1.125rem, 3vw, 1.375rem);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .guide-top {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
+  min-width: 0;
 }
 
 .guide-avatar {
-  width: 46px;
-  height: 46px;
+  width: 2.875rem;
+  height: 2.875rem;
   border-radius: 50%;
   background: var(--surface-2);
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Fraunces', serif;
+  font-family: "Fraunces", serif;
   font-weight: 700;
   color: var(--fern);
   flex-shrink: 0;
@@ -240,7 +253,7 @@
 
 .guide-name {
   font-size: 1rem;
-  font-family: 'Fraunces', serif;
+  font-family: "Fraunces", serif;
   font-weight: 700;
 }
 
@@ -253,13 +266,13 @@
 .guide-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 0.375rem;
 }
 
 .guide-tags span {
   border: 1px solid var(--border);
   border-radius: 100px;
-  padding: 3px 10px;
+  padding: 0.1875rem 0.625rem;
   font-size: 0.74rem;
   color: var(--text-faint);
 }
@@ -275,18 +288,7 @@
   font-weight: 600;
   color: var(--text);
   margin-top: auto;
-}
-
-@media (max-width: 980px) {
-  .guide-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 620px) {
-  .guide-grid {
-    grid-template-columns: 1fr;
-  }
+  overflow-wrap: anywhere;
 }
 
 /* ============ BARANGAY CONTACT ============ */
@@ -295,9 +297,10 @@
 }
 
 .contact-fallback {
-  margin-top: 18px;
+  margin-top: 1.125rem;
   color: var(--text-faint);
   font-size: 0.84rem;
+  line-height: 1.5;
 }
 
 .contact-fallback a {
@@ -312,11 +315,13 @@
 
 .brgy-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  /* 2 columns on phones, 3 on tablets, 4 on desktop */
+  grid-template-columns: repeat(auto-fill, minmax(clamp(8rem, 22vw, 13.5rem), 1fr));
+  gap: clamp(0.625rem, 1.6vw, 0.875rem);
 }
 
 .brgy-gallery-item {
+  min-width: 0;
   border-radius: var(--radius-md);
   overflow: hidden;
   aspect-ratio: 4 / 3;
@@ -336,31 +341,20 @@
   transform: scale(1.05);
 }
 
-@media (max-width: 900px) {
-  .brgy-gallery-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 560px) {
-  .brgy-gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* ============ BARANGAY DIRECTORY (barangays/index.html) ============ */
+/* ============ BARANGAY DIRECTORY (barangay/index.html) ============ */
 #brgy-directory-hero {
-  padding: 150px 0 50px;
+  padding: clamp(6.5rem, 18vw, 9.375rem) 0 clamp(2rem, 5vw, 3.125rem);
   background: var(--bg-alt);
 }
 
 .brgy-directory-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: clamp(1rem, 2vw, 1.25rem);
 }
 
 .brgy-directory-card {
+  min-width: 0;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -370,7 +364,7 @@
 }
 
 .brgy-directory-media {
-  height: 140px;
+  height: clamp(7.5rem, 20vw, 8.75rem);
 }
 
 .brgy-directory-media img,
@@ -382,10 +376,10 @@
 }
 
 .brgy-directory-body {
-  padding: 18px;
+  padding: clamp(1rem, 3vw, 1.125rem);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
   flex: 1;
 }
 
@@ -393,7 +387,7 @@
   font-size: 1.05rem;
 }
 
-.brgy-directory-count {
+.brgy-directory-count {        
   color: var(--river);
   font-size: 0.78rem;
   font-weight: 600;
@@ -408,19 +402,7 @@
 
 .brgy-directory-body .btn {
   align-self: flex-start;
-  margin-top: 4px;
-  padding: 8px 16px;
+  margin-top: 0.25rem;
+  padding: 0.5rem 1rem;
   font-size: 0.8rem;
-}
-
-@media (max-width: 1000px) {
-  .brgy-directory-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 560px) {
-  .brgy-directory-grid {
-    grid-template-columns: 1fr;
-  }
 }
