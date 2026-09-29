@@ -25,7 +25,7 @@ const SPOTS = [
     {
         id: 'secret-falls',
         name: 'Secret Falls',
-        categories: ['Falls'],
+        categories: ['falls'],
         barangay: 'Camachile',
         img: 'falls/secretfall/secretfalls.jpg',
         images: [
@@ -54,7 +54,7 @@ const SPOTS = [
     {
         id: 'caribbean-waves',
         name: 'Caribbean Waves Resort',
-        categories: ['Resorts'],
+        categories: ['resorts'],
         barangay: 'Pulong Sampalok',
         img: 'resorts/carrebean/carrebean1.jpg',
         images: [
@@ -83,7 +83,7 @@ const SPOTS = [
     {
         id: 'verdivia-falls',
         name: 'Verdivia Falls',
-        categories: ['Falls'],
+        categories: ['falls'],
         barangay: 'Talbak',
         img: 'falls/verdivia/verdivia.jpg',
         images:[
@@ -119,7 +119,7 @@ const SPOTS = [
     {
         id: 'tila-pilon',
         name: 'Tila-Pilon Hills',
-        categories: ['Mountains'],
+        categories: ['mountains'],
         barangay: 'Kalawakan',
         img: 'mountain/tilaPilon/tilaPilon.jpg',
         images: [
@@ -145,7 +145,7 @@ const SPOTS = [
     {
         id: 'mt.secret',
         name: 'Mount Secret',
-        categories: ['Mountains'],
+        categories: ['mountains'],
         barangay: 'Camachile, So. Arm Strong',
         img: 'mountain/MT.SECRET/thumbnail mt secret.jpg', 
         images:[
@@ -174,7 +174,7 @@ const SPOTS = [
     {
         id: 'angeland',
         name: 'Angeland Kareta Falls',
-        categories: ['Falls'],
+        categories: ['falls'],
         barangay: 'Camachile',
         img: 'falls/angeland/angeland.jpg',
         images: [
@@ -202,7 +202,7 @@ const SPOTS = [
     {
         id: 'mandala',
         name: `Antonio's Mandala Nature Park`,
-        categories: ['Falls'],
+        categories: ['falls', 'mountains'],
         barangay: 'Camachile',
         img: 'falls/mandala/mandala.jpg',
         images: [
@@ -229,7 +229,7 @@ const SPOTS = [
     {
         id: 'kabayunan',
         name: 'Kabayuan View Deck',
-        categories: ['Mountains'],
+        categories: ['mountains'],
         barangay: 'Kabayunan',
         img: 'mountain/kabayunanView/thumbnail kabayunan.jpg',
         images:[
@@ -259,7 +259,7 @@ const SPOTS = [
     {
         id: 'mt.lawad',
         name: 'MT. Lawad',
-        categories: ['Mountains'],
+        categories: ['mountains'],
         barangay: 'Kalawakan',
         img: 'mountain/mtLawad/ml.jpg',
         images:[
@@ -286,39 +286,10 @@ const SPOTS = [
         mapQuery: 'MT. Lawad, Kalawakan, Doña Remedios Trinidad, Bulacan'
         
   },
-        {
-        id: 'kabayunan',
-        name: 'Kabayuan View Deck',
-        categories: ['Mountains'],
-        barangay: 'Kabayunan',
-        img: 'mountain/kabayunanView/thumbnail kabayunan.jpg',
-        images:[
-            'mountain/kabayunanView/thumbnail kabayunan.jpg',
-            'mountain/kabayunanView/K1.jpg',
-            'mountain/kabayunanView/K2.jpg',
-            'mountain/kabayunanView/K3.jpg',
-            'mountain/kabayunanView/K4.jpg',
-            'mountain/kabayunanView/Kabayunan fee.jpg',
-        ],
-        shortDesc: 'Kabayunan — Bulacan’s breezy peak with Sierra Madre views."',
-        fullDesc: 'A breezy ridgeline rising 612 meters above sea level, Mt. Corona rewards hikers with sweeping views of the Sierra Madre and Bulacan lowlands. Best explored with a local barangay guide, its marked trail offers both easy climbs for beginners and a tougher traverse toward the Sumacbao River for adventurers.',
-        location: 'Barangay Kabayunan, Doña Remedios Trinidad, Bulacan',
-        entranceFee: '₱50 Day Tour, ₱100 Over Night ',
-        parkingFee: '₱10- ₱30',
-        tourguide: 'none',
-        hours: '6:00 AM –  5:00 PM, 5:00PM - 8:00 AM',
-        activities: [ 'Photography', 'Viewpoint', 'Overnight Camping', ],
-        howToGetThere: 'Register at Kalawakan barangay hall for a guided hike.',
-        contact: "0964 192 1793",
-        facebook:'https://www.facebook.com/kabayunanview/',
-        distanceFromTownCenter: '~15.5 km from the Municipal Hall',
-        rules: ["Overnight campers must register in advance at the barangay hall.", "Keep noise down after dark out of respect for other campers.", "Secure tents well \u2014 the view deck can get windy at night."],
-        mapQuery: 'Kabayunan View Deck, Kabayunan, Doña Remedios Trinidad, Bulacan'
-},
     {
         id: 'mt. brigino',
         name: 'MT. Brigino',
-        categories: ['Mountains'],
+        categories: ['mountains'],
         barangay: 'Sapang Bulac',
         img: 'mountain/mtBrigino/THUMBNAIL BRIGINO.jpg',
         images:[
@@ -346,7 +317,7 @@ const SPOTS = [
     {
         id: 'kalinaw',
         name: 'Kalinaw Campsite',
-        categories: ['Camps', ],
+        categories: ['camps'],
         img: 'camp/kalinaw/kalinaw.jpg',
         images:[
             'camp/kalinaw/kalinaw.jpg',
@@ -374,7 +345,7 @@ const SPOTS = [
     {
       id: 'puning-cave',
       name: 'Puning Cave',
-      categories: ['Caves'],
+      categories: ['caves'],
       barangay: 'Bayabas',
       img:'cave/puning/puning.jpg',
       images:[
@@ -401,7 +372,7 @@ const SPOTS = [
     {
         id: '13th-falls',
         name: '13th Falls',
-        categories: ['Falls'],
+        categories: ['falls'],
         barangay: 'Camachin',
         img: 'falls/13thFalls/13thfalls.png',
         images: [
@@ -429,7 +400,7 @@ const SPOTS = [
     {
         id: 'monument-candle',
         name: 'Monument Candle',
-        categories: ['Historical'],
+        categories: ['historical'],
         barangay: 'Camachin',
         img: 'images/gallery/candleMonument.jpg',
         images: [
@@ -457,7 +428,7 @@ const SPOTS = [
     {
         id: 'talon-pari',
         name: 'Talon Pari Falls',
-        categories: ['Falls'],
+        categories: ['falls'],
         barangay: 'Kalawakan',
         img: 'falls/talonPari/talon.jpg',
          images:[
@@ -483,7 +454,7 @@ const SPOTS = [
     {
         id: 'Mountainview',
         name: 'Mountainview Resort',
-        categories: ['Resorts'],
+        categories: ['resorts'],
         barangay: 'Sapang Bulac',
         img: 'resorts/mountainView/mountainview.jpg',
         images:[
@@ -510,7 +481,7 @@ const SPOTS = [
     {
         id: 'simbahang-bato',
         name: 'Simbahang Bato',
-        categories: ['Caves', 'Historical'],
+        categories: ['caves', 'historical'],
         barangay: 'Camachile',
         img: 'cave/simb/simbahan1.jpg',
         images: [
