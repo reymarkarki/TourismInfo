@@ -1,8 +1,8 @@
 :root {
     --bg: #fafafa;
-    --bg-alt: #f5f5f5;
+    --bg-alt: #ffffff;
     --surface: #ffffff;
-    --surface-2: #f6f0e3;
+    --surface-2: #f9f9f9;
     --text: #060504;
     --text-dim: rgba(4, 4, 3, 0.78);
     --text-faint: rgba(4, 4, 3, 0.78);
