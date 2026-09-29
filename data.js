@@ -612,9 +612,9 @@ const CIRCUITS = [
         stops: [
             CIRCUIT_START,
             { type: 'spot', id: 'puning-cave' },
+            { type: 'spot', id: 'kabayunan' },
             { type: 'spot', id: 'simbahang-bato' },
             { type: 'spot', id: 'talon-pari' },
-            { type: 'spot', id: 'kabayunan' },
             { type: 'spot', id: 'mt.lawad' }
         ],
         expectations: 'A full day looping from the town center into Bayabas for the cave, then east into Kalawakan for a falls stop, a viewdeck, and a forest peak. Expect a mix of easy walks and a longer guided hike on the last stretch.',
