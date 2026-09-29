@@ -71,7 +71,7 @@ const SPOTS = [
         entranceFee: `₱200 - ₱300 depends on the time` ,
         parkingFee: '₱30 per vehicle',
         hours: '6:00 AM - 6:00 PM daily',
-        activities: ['Swimming', 'Family outing'],
+        activities: ['Swimming', 'Family outing', 'Rides', 'Events', 'Slides'],
         howToGetThere: 'Roughly 2 km from the town center; accessible by tricycle or private vehicle.',
         contact: 'Caribbean Waves Resort front desk',
         facebook: 'https://www.facebook.com/CaribbeanResortBulacan',
@@ -488,7 +488,6 @@ const SPOTS = [
             'cave/simb/simbahan1.jpg',
             'cave/simb/simbahan.jpg',
             'cave/simb/simbahan2.webp',
-            
         ],
         shortDesc: 'A hidden shrine carved by nature.',
         fullDesc: 'A cave with rugged rock formations, housing an image of the Nazareno. Discovered in the late 1970s by marble cutters from Bicol. Now a devotion site and nature attraction.',
@@ -501,7 +500,7 @@ const SPOTS = [
         howToGetThere: 'Register at Kalawakan barangay hall for a guided hike.',
         contact: 'Camcahile Barangay Tourism Desk',
         facebook: null,
-        distanceFromTownCenter: '~18 km from the Municipal Hall',
+        distanceFromTownCenter: '~3.7 km from the Municipal Hall',
         rules: ["This is an active devotion site \u2014 keep quiet and be respectful near the shrine.", "A guide is required; the cave floor can be uneven and slippery.", "Wear closed shoes suited for rocky terrain."],
         mapQuery: 'Simbahang Bato, Camachile, Doña Remedios Trinidad, Bulacan'
     },
