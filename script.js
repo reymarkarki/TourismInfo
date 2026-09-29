@@ -190,7 +190,7 @@ SPOTS.slice(0, 3).forEach((s, i) => {
 /* tourist spots */
 const categories = ["All", ...new Set(SPOTS.flatMap((s) => s.categories))];
 const spotFilters = document.getElementById("spotFilters");
-const SPOTS_PER_PAGE = 6; // cards shown before "See More"
+const SPOTS_PER_PAGE = 6;
 let activeSpotCategory = "All";
 let spotsExpanded = false;
 categories.forEach((c, i) => {
@@ -297,7 +297,7 @@ function updateSpotGrid(animateFrom = -1) {
 
   const needsToggle = matching.length > SPOTS_PER_PAGE;
   spotMoreWrap.style.display = needsToggle ? "" : "none";
-  spotMoreBtn.textContent = spotsExpanded ? "Show Less" : "See More";
+  spotMoreBtn.textContent = spotsExpanded ? "Show Less" : "See More Spots";
   spotMoreBtn.setAttribute("aria-expanded", String(spotsExpanded));
 }
 
