@@ -18,17 +18,10 @@
 const ROOT = '../';
 
 /* ---------- shared spot-card helpers (mirrors script.js, with the
-   category palette corrected to match the real category names used in
-   data.js: Falls, Resorts, Mountains, Caves, Camps) ---------- */
+   category palette corrected to match the real category names — now read from
+   categories.js) ---------- */
 function placeholderSVG(category, seed) {
-  const palette = {
-    Falls: ['#2E8B6F', '#132A20'],
-    Caves: ['#7A6142', '#1A3527'],
-    Mountains: ['#4FB4D8', '#13233A'],
-    Resorts: ['#C98A4B', '#20402F'],
-    Camps: ['#6F8F4F', '#1A2A17']
-  };
-  const [c1, c2] = palette[category] || ['#2E8B6F', '#132A20'];
+  const [c1, c2] = DRTCategories.palette(category);
   return `<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <defs><linearGradient id="bg${seed}" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/>
@@ -39,12 +32,12 @@ function placeholderSVG(category, seed) {
 }
 
 function spotMedia(spot, seed) {
-  return spot.img ? `<img src="${ROOT}${spot.img}" alt="${spot.name}" loading="lazy">` : placeholderSVG(spot.category, seed);
+  return spot.img ? `<img src="${ROOT}${spot.img}" alt="${spot.name}" loading="lazy">` : placeholderSVG(DRTCategories.idsFor(spot)[0], seed);
 }
 
 function spotSlides(spot, seed) {
   const images = spot.images && spot.images.length ? spot.images : [spot.img].filter(Boolean);
-  if (!images.length) return placeholderSVG(spot.category, seed);
+  if (!images.length) return placeholderSVG(DRTCategories.idsFor(spot)[0], seed);
   const slides = images
     .map((src, i) => `<img src="${ROOT}${src}" alt="${spot.name}" class="dm-slide" data-index="${i}" style="display:${i === 0 ? 'block' : 'none'}">`)
     .join('');
@@ -83,7 +76,7 @@ const detailModal = document.getElementById('detailModal');
 
 function openDetails(spot, seed) {
   document.getElementById('dmMedia').innerHTML = spotSlides(spot, seed);
-  document.getElementById('dmTag').textContent = `${spot.barangay} \u00B7 ${spot.category}`;
+  document.getElementById('dmTag').innerHTML = DRTCategories.tagHTML(spot, ROOT);
   document.getElementById('dmTitle').textContent = spot.name;
   document.getElementById('dmDesc').textContent = spot.fullDesc;
   const meta = [
@@ -329,19 +322,20 @@ function renderBarangayPage(slug) {
   /* tourist spots (filters + grid), or an empty state */
   const spotSection = document.getElementById('brgySpotsBody');
   if (spots.length) {
-    const categories = ['All', ...new Set(spots.map((s) => s.category))];
+    DRTCategories.audit(spots);
+    const categories = ['All', ...DRTCategories.usedBy(spots).map((c) => c.id)];
     const filtersHTML =
       categories.length > 2
-        ? `<div class="spot-filters" id="brgySpotFilters">${categories.map((c, i) => `<button class="filter-btn${i === 0 ? ' active' : ''}" data-cat="${c}">${c}</button>`).join('')}</div>`
+        ? `<div class="spot-filters" id="brgySpotFilters">${categories.map((c, i) => { const cat = DRTCategories.get(c); return `<button class="filter-btn${i === 0 ? ' active' : ''}" data-cat="${c}">${cat ? `${DRTCategories.iconHTML(cat, ROOT)}<span>${cat.label}</span>` : `<span>${c}</span>`}</button>`; }).join('')}</div>`
         : '';
     spotSection.innerHTML = `${filtersHTML}<div class="spot-grid" id="brgySpotGrid"></div>`;
     const spotGrid = document.getElementById('brgySpotGrid');
     spots.forEach((s, i) => {
       const card = document.createElement('div');
       card.className = 'spot-card';
-      card.dataset.cat = s.category;
+      card.dataset.cat = DRTCategories.idsFor(s).join('|');
       card.innerHTML = `
-        <div class="spot-media">${spotMedia(s, i + 1)}</div>
+        <div class="spot-media">${spotMedia(s, i + 1)}${DRTCategories.badgeHTML(s, ROOT)}</div>
         <div class="spot-body">
           <div class="loc">${s.barangay}</div>
           <h3>${s.name}</h3>
@@ -359,7 +353,7 @@ function renderBarangayPage(slug) {
         document.querySelectorAll('#brgySpotFilters .filter-btn').forEach((x) => x.classList.remove('active'));
         b.classList.add('active');
         spotGrid.querySelectorAll('.spot-card').forEach((card) => {
-          card.style.display = b.dataset.cat === 'All' || card.dataset.cat === b.dataset.cat ? '' : 'none';
+          card.style.display = b.dataset.cat === 'All' || card.dataset.cat.split('|').includes(b.dataset.cat) ? '' : 'none';
         });
       });
     });
@@ -411,7 +405,7 @@ function renderBarangayPage(slug) {
 
   /* scoped search */
   const searchable = [
-    ...spots.map((s, i) => ({ label: s.name, sub: `${s.barangay} \u00B7 ${s.category}`, action: () => openDetails(s, i + 1) })),
+    ...spots.map((s, i) => ({ label: s.name, sub: `${s.barangay} \u00B7 ${DRTCategories.labelFor(s)}`, action: () => openDetails(s, i + 1) })),
     ...packages.map((p) => ({ label: p.name, sub: 'Tour package', action: () => (location.hash = '#brgy-packages') })),
     { label: 'Tour Packages', sub: `Packages in ${brgy.name}`, action: () => (location.hash = '#brgy-packages') },
     { label: 'Local Tour Guides', sub: `Guides in ${brgy.name}`, action: () => (location.hash = '#brgy-guides') },
