@@ -1,13 +1,4 @@
-/* ==========================================================================
-   categories.js — single source of truth for tourist-spot categories.
 
-   Every spot in data.js stores its categories as IDs:  categories: ['falls']
-   This file maps  category ID -> label -> icon -> placeholder colours.
-
-   TO ADD YOUR ICONS: drop the files in  icon/categories/  (or change ICON_DIR
-   / an entry's `icon` below if your filenames or extension differ).
-   Nothing else in the project needs to change.
-   ========================================================================== */
 (function (global) {
   const ICON_DIR = 'icon/categories/';
 
@@ -62,21 +53,21 @@
     return `<img class="cat-icon" src="${(root || '') + cat.icon}" alt="" width="20" height="20" decoding="async" onerror="this.style.display='none'">`;
   }
 
-  /* "Barangay · [icon] Category" line used in the detail modal */
+  
   function tagHTML(spot, root) {
     const cats = forSpot(spot);
     const icons = cats.map((c) => iconHTML(c, root)).join('');
     return `${esc(spot.barangay || '')} · <span class="cat-inline">${icons}<span>${esc(cats.map((c) => c.label).join(', '))}</span></span>`;
   }
 
-  /* Small category pill laid over a spot card's photo */
+  
   function badgeHTML(spot, root) {
     const cats = forSpot(spot);
     if (!cats.length) return '';
     return `<span class="spot-cat">${cats.map((c) => iconHTML(c, root)).join('')}<span>${esc(cats.map((c) => c.label).join(' · '))}</span></span>`;
   }
 
-  /* Console warning for any spot whose category is missing or unknown */
+ 
   function audit(spots) {
     (spots || []).forEach((s) => {
       const raw = s.categories != null ? s.categories : s.category;
