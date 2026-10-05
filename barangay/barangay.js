@@ -1,25 +1,7 @@
-/*
-  barangay.js
-  -----------
-  Drives both barangays/index.html (the directory) and every
-  barangays/barangay-*.html detail page. Which mode runs is decided by what's
-  on the page: a #brgyDirectoryGrid element means "directory", a
-  body[data-barangay] attribute means "detail page".
 
-  This file is intentionally self-contained (it does not load the main
-  script.js) because script.js assumes home-page-only elements exist.
-  The spot-card / modal / nav markup and CSS classes are still the exact
-  ones from styles.css, so pages look and behave identically to the rest
-  of the site.
-*/
-
-/* All asset + data.js paths on these pages are one folder below the site
-   root, so every root-relative path (images, icons) needs this prefix. */
 const ROOT = '../';
 
-/* ---------- shared spot-card helpers (mirrors script.js, with the
-   category palette corrected to match the real category names — now read from
-   categories.js) ---------- */
+
 function placeholderSVG(category, seed) {
   const [c1, c2] = DRTCategories.palette(category);
   return `<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -79,31 +61,8 @@ function openDetails(spot, seed) {
   document.getElementById('dmTag').innerHTML = DRTCategories.tagHTML(spot, ROOT);
   document.getElementById('dmTitle').textContent = spot.name;
   document.getElementById('dmDesc').textContent = spot.fullDesc;
-  const meta = [
-    { k: 'Location', v: spot.location, icon: `${ROOT}icon/map.png` },
-    { k: 'Entrance fee', v: spot.entranceFee, icon: `${ROOT}icon/money.png` },
-    { k: 'Tourguide fee', v: spot.tourguide, icon: `${ROOT}icon/photography.png` },
-    { k: 'Parking fee', v: spot.parkingFee, icon: `${ROOT}icon/fee.png` },
-    { k: 'Opening hours', v: spot.hours, icon: `${ROOT}icon/24-hour-clock.png` },
-    { k: 'Activities', v: spot.activities ? spot.activities.join(', ') : '', icon: `${ROOT}icon/team-building.png` },
-    { k: 'How to get there', v: spot.howToGetThere, icon: `${ROOT}icon/direction.png` },
-    { k: 'Contact', v: spot.contact, icon: `${ROOT}icon/contact-mail.png` },
-    { k: 'FaceBook', v: spot.facebook, icon: `${ROOT}icon/facebook.png` },
-    { k: 'Distance', v: spot.distanceFromTownCenter, icon: `${ROOT}icon/direction.png` }
-  ];
-  document.getElementById('dmMeta').innerHTML = meta
-    .filter((m) => m.v)
-    .map((m) => {
-      let value = m.v;
-      if (m.k === 'FaceBook') {
-        const url = value.startsWith('http') ? value : `https://${value}`;
-        value = `<a href="${url}" target="_blank" rel="noopener">Visit Facebook Page \u2192</a>`;
-      }
-      return `<div><div class="k"><img src="${m.icon}" class="meta-icon" alt="" />${m.k}</div><div class="v">${value}</div></div>`;
-    })
-    .join('');
+  renderSpotDetails(spot, ROOT);
   setupDmSlider();
-  document.getElementById('dmDirections').href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(spot.mapQuery)}`;
   detailModal.classList.add('open');
 }
 
@@ -112,7 +71,12 @@ detailModal?.addEventListener('click', (e) => {
   if (e.target === detailModal) detailModal.classList.remove('open');
 });
 
-/* ---------- shared nav / theme / hamburger (mirrors script.js) ---------- */
+(function () {
+  const foot = document.getElementById('footMail');
+  const mail = typeof CONTACT_CARDS !== 'undefined' && CONTACT_CARDS.find((c) => /email/i.test(c.label));
+  if (foot && mail && mail.value) foot.href = 'mailto:' + mail.value;
+})();
+
 const hamburger = document.getElementById('hamburger');
 const navlinks = document.getElementById('navlinks');
 hamburger?.addEventListener('click', () => navlinks.classList.toggle('open'));
@@ -122,8 +86,7 @@ window.addEventListener('scroll', () => {
   nav?.classList.toggle('scrolled', window.scrollY > 40);
 });
 
-/* ---------- mini gallery lightbox (reuses the same lightbox markup/CSS
-   as the homepage marquee, just without the auto-scrolling marquee) ---------- */
+
 function renderGallery(containerId, photos) {
   const grid = document.getElementById(containerId);
   const lightbox = document.getElementById('drtMarqueeLightbox');
@@ -177,36 +140,170 @@ function buildAutoPackage(brgy, spots) {
   };
 }
 
-function packageCard(pkg) {
-  const destinations = pkg.destinations && pkg.destinations.length ? pkg.destinations : ['To be announced'];
-  return `<div class="package-card">
-    <div class="package-head">
-      <h3>${pkg.name}</h3>
-      ${pkg.auto ? '<span class="package-badge">Suggested itinerary</span>' : ''}
-    </div>
-    ${pkg.description ? `<p class="package-desc">${pkg.description}</p>` : ''}
-    <div class="package-price">${pkg.price || '\u20B1XXX'}</div>
-    <div class="package-meta">
-      <span>${pkg.duration || 'Duration: TBA'}</span>
-      <span>${pkg.groupSize || 'Group size: TBA'}</span>
-    </div>
-    <div class="package-cols">
-      <div class="package-col">
-        <h5>Destinations</h5>
-        <ul>${destinations.map((d) => `<li>${d}</li>`).join('')}</ul>
+/* ---------- tour package component ----------
+   One data-driven card per package (see `packages` in barangay-data.js).
+   Everything optional falls back gracefully, so a package with only the
+   original fields (name, price, duration, groupSize, destinations,
+   inclusions, exclusions, contact) still renders a complete card:
+     tagline       short line under the title
+     photos        false to hide the tilted photo pair, or ['path', 'path'] to pick them
+     img / gallery hero image + extra photos (else taken from the package's
+                   destination spots in data.js, else the barangay hero)
+     experience    [{ title, desc?, img? }] (else built from `destinations`,
+                   borrowing each matching spot's photo + short description)
+     spotIds       data.js spot ids, parallel to `destinations`, for spots whose
+                   name differs from the destination label
+     tourType      third detail chip (default "Guided tour" when a guide is set)
+     meetingPoint  (default: `contact`)                                       */
+const PKG_ICON = {
+  clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  people: '<circle cx="9" cy="8.5" r="3.2"/><path d="M3 19c.4-3.4 2.8-5.2 6-5.2s5.6 1.8 6 5.2"/><path d="M16 5.6a3 3 0 010 5.8M18.5 14.2c1.6.7 2.3 2.1 2.5 4"/>',
+  guide: '<path d="M12 3.5l7 2.8v5.2c0 4.2-2.8 7.4-7 9-4.2-1.6-7-4.8-7-9V6.3z"/><path d="M9 12l2.2 2.2L15.5 10"/>',
+  route: '<circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8 18h6.5a3.5 3.5 0 000-7h-5a3.5 3.5 0 010-7H16"/>',
+  pin: '<path d="M12 21s6.5-5.6 6.5-10.5a6.5 6.5 0 10-13 0C5.5 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.3"/>',
+  calendar: '<rect x="4" y="5.5" width="16" height="14.5" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>',
+  arrow: '<path d="M4 12h15M13.5 6.5L19 12l-5.5 5.5"/>',
+  note: '<path d="M7 3.5h7l4 4V20a.5.5 0 01-.5.5h-10.5a.5.5 0 01-.5-.5V4a.5.5 0 01.5-.5z"/><path d="M9 12h6M9 15.5h6"/>',
+  leaf: '<path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14"/><path d="M5 19c2.5-4 5.5-6.5 9-8"/>'
+};
+const pkgIcon = (name, size = 18) =>
+  `<svg class="pkg-icon" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${PKG_ICON[name]}</svg>`;
+
+
+function parsePackagePrice(pkg) {
+  const raw = String(pkg.price || '').trim();
+  if (pkg.auto || !raw || /X{3}/.test(raw)) return { amount: 'Rates on request', unit: '' };
+  const m = raw.match(/^([^\d\s]*\s?\d[\d,.]*)\s*(?:\/|per\s+)\s*([a-z ]+)$/i);
+  return m ? { amount: m[1].trim(), unit: `/ ${m[2].trim()}` } : { amount: raw, unit: '' };
+}
+
+function findSpot(key, spots) {
+  if (!key) return null;
+  const k = String(key).trim().toLowerCase();
+  const pools = [spots || [], typeof SPOTS !== 'undefined' ? SPOTS : []];
+  for (const pool of pools) {
+    const hit =
+      pool.find((s) => s.id === k || s.name.toLowerCase() === k) ||
+      pool.find((s) => { const n = s.name.toLowerCase(); return n.includes(k) || k.includes(n); });
+    if (hit) return hit;
+  }
+  return null;
+}
+
+function packageSpots(pkg, spots) {
+  return (pkg.destinations || []).map((d, i) => findSpot((pkg.spotIds || [])[i], spots) || findSpot(d, spots));
+}
+
+function packageExperience(pkg, spots) {
+  const matched = packageSpots(pkg, spots);
+  const items = pkg.experience && pkg.experience.length
+    ? pkg.experience.map((x) => (typeof x === 'string' ? { title: x } : x))
+    : (pkg.destinations || []).map((d, i) => ({ title: d, _spot: matched[i] }));
+  return items.slice(0, 6).map((it) => {
+    const spot = it._spot !== undefined ? it._spot : findSpot(it.title, spots);
+    return { title: it.title, desc: it.desc || (spot && spot.shortDesc) || '', img: it.img || (spot && spot.img) || '' };
+  });
+}
+
+
+function packageImages(pkg, brgy, spots) {
+  const dest = packageSpots(pkg, spots).filter(Boolean);
+  const pool = [pkg.img, ...(pkg.gallery || []), ...dest.map((s) => s.img), ...dest.flatMap((s) => s.images || [])].filter(Boolean);
+  const unique = [...new Set(pool)];
+
+  const photos = pkg.photos === false ? [] : Array.isArray(pkg.photos) ? pkg.photos.slice(0, 2) : unique.slice(1, 3);
+  return { hero: unique[0] || (brgy && brgy.heroImg) || '', photos };
+}
+
+function packageCard(pkg, ctx = {}) {
+  const esc = DRTCategories.esc;
+  const spots = ctx.spots || [];
+  const price = parsePackagePrice(pkg);
+  const imgs = packageImages(pkg, ctx.brgy, spots);
+  const experience = packageExperience(pkg, spots);
+  const inclusions = pkg.inclusions && pkg.inclusions.length ? pkg.inclusions : ['To be announced'];
+  const exclusions = pkg.exclusions || [];
+  const tourType = pkg.tourType || (!pkg.auto && pkg.tourGuide && !/^not/i.test(pkg.tourGuide) ? 'Guided tour' : '');
+  const chips = [
+    pkg.duration && ['clock', pkg.duration],
+    pkg.groupSize && ['people', pkg.groupSize.replace(/^(good|best) for\s+/i, '')],
+    tourType && ['guide', tourType]
+  ].filter(Boolean);
+  const meeting = pkg.meetingPoint || pkg.contact || 'Municipal Tourism Office';
+  const src = (p) => `${ROOT}${p}`;
+
+  return `<article class="pkg">
+    <header class="pkg-hero">
+      ${imgs.hero ? `<div class="pkg-hero-media"><img src="${esc(src(imgs.hero))}" alt="${esc(pkg.name)}" loading="lazy" decoding="async" onerror="this.remove()"></div>` : '<div class="pkg-hero-media"></div>'}
+      <span class="pkg-badge">${pkgIcon('route', 16)}${pkg.auto ? 'Suggested itinerary' : 'Tour package'}</span>
+      <div class="pkg-hero-copy">
+        <h3 class="pkg-title">${esc(pkg.name)}</h3>
+        ${pkg.tagline ? `<p class="pkg-tagline">${esc(pkg.tagline)}</p>` : ''}
+        <p class="pkg-price"><span class="pkg-amount">${esc(price.amount)}</span>${price.unit ? `<span class="pkg-unit">${esc(price.unit)}</span>` : ''}</p>
+        ${chips.length ? `<ul class="pkg-chips">${chips.map(([ic, t]) => `<li>${pkgIcon(ic, 16)}<span>${esc(t)}</span></li>`).join('')}</ul>` : ''}
       </div>
-      <div class="package-col">
-        <h5>Inclusions</h5>
-        <ul>${(pkg.inclusions && pkg.inclusions.length ? pkg.inclusions : ['To be announced']).map((d) => `<li>${d}</li>`).join('')}</ul>
+      <p class="pkg-script" aria-hidden="true">Explore<br>Discover<br>Experience</p>
+    </header>
+
+    <div class="pkg-body">
+      <div class="pkg-col pkg-exp-col">
+        <h4 class="pkg-label">The experience</h4>
+        ${pkg.description ? `<p class="pkg-intro">${esc(pkg.description)}</p>` : ''}
+        <ul class="pkg-exp">
+          ${experience.map((x) => `<li>
+            <span class="pkg-exp-thumb">${x.img ? `<img src="${esc(src(x.img))}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : pkgIcon('leaf', 22)}</span>
+            <span class="pkg-exp-text"><strong>${esc(x.title)}</strong>${x.desc ? `<span>${esc(x.desc)}</span>` : ''}</span>
+          </li>`).join('') || '<li><span class="pkg-exp-text"><strong>To be announced</strong></span></li>'}
+        </ul>
       </div>
+
+      <div class="pkg-col pkg-info-col">
+        <div>
+          <h4 class="pkg-label">Your package includes</h4>
+          <ul class="pkg-includes">
+            ${inclusions.map((t) => `<li><span class="pkg-tick" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>${esc(t)}</li>`).join('')}
+          </ul>
+        </div>
+        ${exclusions.length ? `<div class="pkg-excl">
+          <h4 class="pkg-label">Not included</h4>
+          <ul>${exclusions.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+        </div>` : ''}
+        <div class="pkg-meet">
+          <span class="pkg-meet-icon">${pkgIcon('pin', 20)}</span>
+          <div><h4 class="pkg-label">Meeting point</h4><p>${esc(meeting)}</p></div>
+        </div>
+      </div>
+
+      <aside class="pkg-col pkg-aside">
+        ${imgs.photos.length ? `<div class="pkg-photos pkg-photos--${imgs.photos.length}">${imgs.photos.map((p) => `<button type="button" class="pkg-photo" aria-label="View larger photo of ${esc(pkg.name)}" data-pkg="${esc(pkg.name)}"><img src="${esc(src(p))}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></button>`).join('')}</div>` : ''}
+      </aside>
     </div>
-    <div class="package-meta">
-      <span>Tour guide: ${pkg.tourGuide || 'Contact Tourism Office'}</span>
-      <span>Transport: ${pkg.transportation || 'Contact Tourism Office'}</span>
-      <span>Meals: ${pkg.meals || 'Contact Tourism Office'}</span>
-    </div>
-    <a class="btn btn-outline" href="#brgy-contact">Book via ${pkg.contact || 'Tourism Office'}</a>
-  </div>`;
+
+    <div class="pkg-note">${pkgIcon('note', 18)}<p>Rates and availability are subject to confirmation with the barangay tourism desk.</p></div>
+    <div class="pkg-note">${pkgIcon('note', 18)}<p>Online booking is not available on this website. This page is for information only. For questions or reservations, please contact the tourism office.</p></div>
+  </article>`;
+}
+
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest && e.target.closest('.pkg-photo');
+  const box = document.getElementById('drtMarqueeLightbox');
+  if (!btn || !box) return;
+  const img = btn.querySelector('img');
+  document.getElementById('drtMarqueeLightboxImg').src = img.src;
+  document.getElementById('drtMarqueeLightboxImg').alt = btn.dataset.pkg || '';
+  document.getElementById('drtMarqueeCaption').textContent = btn.dataset.pkg || '';
+  box.classList.add('drt-open');
+});
+
+/* one-time fade/slide as each package scrolls into view */
+function revealPackages() {
+  const cards = document.querySelectorAll('#brgyPackageGrid .pkg');
+  if (!cards.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+    if (en.isIntersecting) { en.target.classList.remove('pkg--wait'); io.unobserve(en.target); }
+  }), { threshold: 0.08 });
+  cards.forEach((c) => { c.classList.add('pkg--wait'); io.observe(c); });
 }
 
 function guideCard(guide) {
@@ -226,8 +323,6 @@ function guideCard(guide) {
   </div>`;
 }
 
-/* ---------- scoped search (same #searchBox markup/CSS as the homepage,
-   filtered to just this page's own content) ---------- */
 function wireSearch(searchable) {
   const searchToggle = document.getElementById('searchToggle');
   const searchBox = document.getElementById('searchBox');
@@ -268,7 +363,7 @@ function wireSearch(searchable) {
   });
 }
 
-/* ================= DIRECTORY MODE (barangays/index.html) ================= */
+
 function renderDirectory() {
   const grid = document.getElementById('brgyDirectoryGrid');
   grid.innerHTML = '';
@@ -302,14 +397,14 @@ function renderDirectory() {
   );
 }
 
-/* ================= DETAIL MODE (barangays/barangay-*.html) ================= */
+
 function renderBarangayPage(slug) {
   const brgy = getBarangayBySlug(slug);
   if (!brgy) return;
   const spots = getSpotsForBarangay(brgy);
   const gallery = getGalleryForBarangay(brgy);
 
-  /* hero image + stat */
+
   const heroImg = document.getElementById('brgyHeroImg');
   if (heroImg) {
     const rep = brgy.heroImg || (spots[0] ? spots[0].img : gallery[0] ? gallery[0].src : null);
@@ -341,8 +436,8 @@ function renderBarangayPage(slug) {
           <h3>${s.name}</h3>
           <p>${s.shortDesc}</p>
           <div class="spot-facts">
-            <span><img src="${ROOT}icon/money.png" class="meta-icon" alt="" />${s.entranceFee}</span>
-            <span><img src="${ROOT}icon/24-hour-clock.png" class="meta-icon" alt="" />${s.hours}</span>
+            <span><img src="${ROOT}icon/money.png" class="meta-icon" alt="" />${DRTCategories.esc(formatFee(s))}</span>
+            ${formatHours(s) ? `<span><img src="${ROOT}icon/24-hour-clock.png" class="meta-icon" alt="" />${DRTCategories.esc(formatHours(s))}</span>` : ''}
           </div>
         </div>`;
       card.addEventListener('click', () => openDetails(s, i + 1));
@@ -361,7 +456,7 @@ function renderBarangayPage(slug) {
     spotSection.innerHTML = `<div class="empty-state"><strong>No tourist spots listed yet</strong>Tourist spot listings for ${brgy.name} are coming soon. Check the barangay tourism desk in the meantime, or browse spots in neighboring barangays.</div>`;
   }
 
-  /* tour packages */
+
   const packageGrid = document.getElementById('brgyPackageGrid');
   const packages = [...(brgy.packages || [])];
   if (packages.length === 0) {
@@ -369,8 +464,10 @@ function renderBarangayPage(slug) {
     if (auto) packages.unshift(auto);
   }
   packageGrid.innerHTML = packages.length
-    ? packages.map(packageCard).join('')
+    ? packages.map((p) => packageCard(p, { brgy, spots })).join('')
     : `<div class="empty-state"><strong>No tour packages yet</strong>Tour packages for ${brgy.name} haven\u2019t been published yet. Contact the Municipal Tourism Office for current options.</div>`;
+
+  revealPackages();
 
   /* local tour guides */
   const guideGrid = document.getElementById('brgyGuideGrid');
@@ -389,8 +486,7 @@ function renderBarangayPage(slug) {
   spotContacts.forEach((s) => {
     const isGenericDesk = /tourism desk/i.test(s.contact);
     const label = isGenericDesk ? 'Barangay Tourism Desk' : `${s.name} contact`;
-    // Only attach a Facebook link when the contact is spot-specific — a
-    // shared "Tourism Desk" line shouldn't borrow one spot's Facebook page.
+    
     const value = !isGenericDesk && s.facebook ? `${s.contact} \u00B7 <a href="${s.facebook.startsWith('http') ? s.facebook : 'https://' + s.facebook}" target="_blank" rel="noopener">Facebook</a>` : s.contact;
     contactCards.push({ label, value });
   });
@@ -400,10 +496,10 @@ function renderBarangayPage(slug) {
   const fallback = document.getElementById('brgyContactFallback');
   if (fallback) fallback.style.display = contactCards.length ? 'none' : 'block';
 
-  /* mini gallery */
+  
   renderGallery('brgyGalleryGrid', gallery);
 
-  /* scoped search */
+ 
   const searchable = [
     ...spots.map((s, i) => ({ label: s.name, sub: `${s.barangay} \u00B7 ${DRTCategories.labelFor(s)}`, action: () => openDetails(s, i + 1) })),
     ...packages.map((p) => ({ label: p.name, sub: 'Tour package', action: () => (location.hash = '#brgy-packages') })),
@@ -414,7 +510,7 @@ function renderBarangayPage(slug) {
   wireSearch(searchable);
 }
 
-/* ---------- entry point ---------- */
+
 if (document.getElementById('brgyDirectoryGrid')) {
   renderDirectory();
 } else if (document.body.dataset.barangay) {

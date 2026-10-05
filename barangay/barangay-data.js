@@ -1,14 +1,10 @@
-/* Each barangay's card image (directory page + its own hero banner) is
-   auto-picked from its first tourist spot's photo. To force a specific
-   image instead, add a `heroImg: 'path/to/image.jpg'` line to that
-   barangay's entry below (same path format as a spot's `img` field). */
+
 const BARANGAYS = [
     {
         slug: 'bayabas',
         name: 'Bayabas',
-        // heroImg: 'images/your-photo.jpg', // optional — set this to force the card/hero image for Bayabas; leave unset to auto-use the first tourist spot's photo
         aliases: [],
-        heroImg:'brgyImg/bayabass.png',
+        heroImg:'brgyImg/bayabas.png',
         blurb: 'Home to Puning Cave, one of Central Luzon\u2019s most-visited cave systems and bat sanctuaries.',
         hall: {
             address: "Barangay Bayabas Hall, Dona Remedios Trinidad, Bulacan",
@@ -18,15 +14,20 @@ const BARANGAYS = [
         },
         packages: [
             {
-                name: 'Puning Cave Adventure Tour',
+                name: 'Puning Cave Adventure',
+                tagline: 'An unforgettable journey into Bayabas\u2019 hidden landscape.',
                 price: '₱450 per person',
                 duration: '6–8 hours',
                 groupSize: 'Good for 4–6 people',
                 destinations: ['Puning Cave'],
+                experience: [
+                    { title: 'Puning Cave' },
+                ],
+                meetingPoint: 'Bayabas Barangay Tourism Desk',
                 tourGuide: 'Included, arranged by the barangay tourism desk',
                 transportation: 'Not included',
                 meals: '1 packed lunch included',
-                inclusions: ['Entrance fee', 'Enviroment fee', 'Local guide', 'Lunch'],
+                inclusions: ['Entrance fee', 'Environmental fee', 'Local guide', ],
                 exclusions: ['Transportation to DRT', 'Personal gear'],
                 contact: 'Bayabas Barangay Tourism Desk'
     }
@@ -38,7 +39,7 @@ const BARANGAYS = [
                 tourType: 'Cave & Spelunking Guide',
                 specialization: ['Caving', 'Bat Watching'],
                 description: '8+ years sa Puning Cave trails.',
-                contact: '09XX XXX XXXX'
+                contact: '09XX XXX XXXX',
             },
             {
                 name: 'Juan',
@@ -66,15 +67,20 @@ const BARANGAYS = [
         packages: [
             {
                 name: 'Three Wonders, One Journey.',
+                photos: [
+                    'falls/secretfall/secretfalls1.jpg',
+                    'falls/mandala/mandala2.jpg',
+                    'falls/angeland/angeland3.jpg',
+                ],
                 description: 'Journey into the heart of nature with three enchanting waterfalls in one adventure. Feel the paradise embrace of Angeland Falls, uncover the hidden wonder of Secret Falls, and be captivated by the majestic flow of Mandala Falls. Three cascades, one unforgettable escape.',
                 price: '₱450 per person',
                 duration: '6–8 hours',
                 groupSize: 'Good for 4–6 people',
                 destinations: ['Angeland', 'Secret Falls', 'Mandala Falls'],
+                spotIds: ['angeland', 'secret-falls', 'mandala'], // data.js ids, so each stop borrows the right photo + description
                 tourGuide: 'Included, arranged by the barangay tourism desk',
                 transportation: 'Not included',
-                meals: '1 packed lunch included',
-                inclusions: ['Entrance fee', 'Enviroment fee', 'Local guide', 'Lunch'],
+                inclusions: ['Entrance fee', 'Environmental fee', 'Local guide',],
                 exclusions: ['Transportation to DRT', 'Personal gear'],
                 contact: 'Barangay Camachile tourist dest'
             }
@@ -121,7 +127,7 @@ const BARANGAYS = [
                 tourGuide: 'Included, arranged by the barangay tourism desk',
                 transportation: 'Not included',
                 meals: '1 packed lunch included',
-                inclusions: ['Entrance fee', 'Enviroment fee', 'Local guide'],
+                inclusions: ['Entrance fee', 'Environmental fee', 'Local guide'],
                 exclusions: ['Transportation to DRT', 'Personal gear'],
                 contact: 'Camachin Barangay Tourism Desk'
             }
@@ -207,7 +213,7 @@ const BARANGAYS = [
     {
         slug: 'pulong-sampalok',
         name: 'Pulong Sampalok',
-        heroImg: 'brgyImg/sampalok.png',
+        heroImg: 'brgyImg/sampalok.jpe',
         aliases: [],
         blurb: 'DRT\u2019s town center, home to Caribbean Waves Resort and the Municipal Tourism Office.',
         hall: {
@@ -229,7 +235,7 @@ const BARANGAYS = [
     {
         slug: 'sapang-bulac',
         name: 'Sapang Bulac',
-        heroImg: 'brgyImg/bulac.png',
+        heroImg: 'brgyImg/sapangbulac.png',
         aliases: ['Sapang Bulak'],
         blurb: 'Mountain views and a family resort at the foot of Mt. Brigino.',
         hall: {
