@@ -20,18 +20,7 @@ const GALLERY_DATA = [
     { barangay: "Talbak", spot: "Verdivia Falls", src: "images/gallery/verdivia.jpg" },
 ];
 
-/* ==========================================================================
-   SPOTS — one object per tourist spot. Fields used by the spot detail modal:
 
-     entranceFee             -> FEE card        e.g. '₱50 – ₱90 per person', '₱100 per person',
-                                                 'Free'. Leave empty/omit to show "Contact tourism office".
-     hours                   -> HOURS card      e.g. '7:00 AM – 4:00 PM daily'
-     distanceFromTownCenter  -> DISTANCE card   e.g. '~5 km from the Municipal Hall'
-     coordinates             -> "Get directions" pin. Set { lat: 14.xxxxx, lng: 121.xxxxx }
-                                (right-click the spot in Google Maps and click the numbers to copy).
-                                While it is null, directions fall back to `mapQuery`.
-     mapQuery                -> Google Maps search text (fallback + embedded map)
-   ========================================================================== */
 const SPOTS = [
     /*Falls*/
     {
@@ -124,13 +113,7 @@ const SPOTS = [
         mapQuery: 'Verdivia Falls, Talbak, Doña Remedios Trinidad, Bulacan'
   },
 
-    /*Cave*/
 
-
-
-
-
-    /*Mountains*/
     {
         id: 'tila-pilon',
         name: 'Tila-Pilon Hills',
@@ -637,10 +620,10 @@ const CIRCUITS = [
         stops: [
             CIRCUIT_START,
             { type: 'spot', id: 'puning-cave' },
-            { type: 'spot', id: 'kabayunan' },
             { type: 'spot', id: 'simbahang-bato' },
             { type: 'spot', id: 'talon-pari' },
-            { type: 'spot', id: 'mt.lawad' }
+            { type: 'spot', id: 'mt.lawad' },
+             { type: 'spot', id: 'kabayunan' },
         ],
         expectations: 'A full day looping from the town center into Bayabas for the cave, then east into Kalawakan for a falls stop, a viewdeck, and a forest peak. Expect a mix of easy walks and a longer guided hike on the last stretch.',
         whatToBring: [
@@ -664,9 +647,9 @@ const CIRCUITS = [
         stops: [
             CIRCUIT_START,
             { type: 'spot', id: 'secret-falls' },
-            { type: 'spot', id: 'mt.secret' },
             { type: 'spot', id: 'angeland' },
-            { type: 'spot', id: 'mandala' }
+            { type: 'spot', id: 'mandala' },
+            { type: 'spot', id: 'mt.secret' },
         ],
         expectations: 'A Camachile-barangay loop stringing together two waterfalls and a mountain peak, all within a few kilometers of each other — a gentler day than the cave circuit, with shorter treks between stops.',
         whatToBring: [

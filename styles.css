@@ -2455,16 +2455,16 @@ h4 {
 }
 
 #getting-there {
-    background: var(--forest-deep);
-    color: #fff;
+    background: #fff;
+    color: var(--text);
 }
 
 #getting-there .eyebrow {
-    color: #ffd1a3;
+    color: var(--river);
 }
 
 #getting-there .section-head h2 {
-    color: #fff;
+    color: var(--text);
 }
 
 .route-steps {
@@ -2478,8 +2478,8 @@ h4 {
     grid-template-columns: 3rem minmax(0, 1fr);
     gap: 1.25rem;
     padding: clamp(1.4rem, 3vw, 2rem);
-    background: #8f3d03;
-    border: 1px solid rgba(255, 255, 255, .1);
+    background: #fff;
+    border: 1px solid var(--border);
     border-radius: var(--radius-md);
     transition: border-color .3s, transform .3s var(--ease);
 }
@@ -2508,13 +2508,13 @@ h4 {
 }
 
 .route-step h4 {
-    color: #fff;
+    color: var(--text);
     font-size: 1.35rem;
     margin-bottom: .6rem;
 }
 
 .route-step p {
-    color: rgba(255, 255, 255, .78);
+    color: var(--text-dim);
     font-size: .98rem;
     line-height: 1.7;
 }
@@ -3443,4 +3443,31 @@ footer {
         grid-template-columns: 1fr;
         gap: 0.625rem;
     }
+}
+
+
+/* ==========================================================================
+   "See more" buttons -> orange (spot grid + map list)
+   ========================================================================== */
+.spot-more-btn {
+    background: var(--fern);
+    border-color: var(--fern);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(244, 119, 11, 0.28);
+}
+
+.spot-more-btn:hover,
+.spot-more-btn:focus-visible {
+    background: #e06a04;
+    border-color: #e06a04;
+    color: #fff;
+}
+
+/* map list + its "See more" button stack as one column in the map grid */
+.map-side {
+    min-width: 0;
+}
+
+.map-side .spot-more-wrap {
+    margin-top: 1rem;
 }

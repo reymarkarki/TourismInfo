@@ -73,69 +73,6 @@ function setupDmSlider() {
     })
   );
 }
-/* ---- spot info helpers: FEE / HOURS / DISTANCE cards and per-spot directions ---- */
-const FEE_FALLBACK = "Contact tourism office";
-const INFO_ICONS = {
-  fee: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>',
-  clock: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-  distance: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M12 19h4.5a3.5 3.5 0 0 0 0-7h-8a3.5 3.5 0 0 1 0-7H12"/></svg>'
-};
-
-function cleanText(v) {
-  return typeof v === "string" ? v.replace(/\s+/g, " ").trim() : "";
-}
-
-/* entranceFee -> display text. Never returns undefined/null. */
-function formatFee(spot) {
-  let fee = cleanText(spot && spot.entranceFee);
-  if (!fee) return FEE_FALLBACK;
-  if (/^(free|none|no fee|0|₱\s*0)$/i.test(fee)) return "Free";
-  if (/^\d/.test(fee)) fee = "₱" + fee; // "60 per person" -> "₱60 per person"
-  return fee.charAt(0).toUpperCase() + fee.slice(1);
-}
-const formatHours = (spot) => cleanText(spot && spot.hours);
-const formatDistance = (spot) => cleanText(spot && spot.distanceFromTownCenter);
-
-/* "lat,lng" when the spot has valid coordinates, otherwise null */
-function spotCoords(spot) {
-  const c = spot && spot.coordinates;
-  if (!c || c.lat == null || c.lng == null || c.lat === "" || c.lng === "") return null;
-  const lat = Number(c.lat);
-  const lng = Number(c.lng);
-  return Number.isFinite(lat) && Number.isFinite(lng) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180
-    ? `${lat},${lng}`
-    : null;
-}
-
-/* what Google Maps should search for: coordinates first, then mapQuery, then name + location */
-function spotMapQuery(spot) {
-  return (
-    spotCoords(spot) ||
-    cleanText(spot && spot.mapQuery) ||
-    cleanText([spot && spot.name, spot && spot.location].filter(Boolean).join(", "))
-  );
-}
-
-function spotDirectionsURL(spot) {
-  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(spotMapQuery(spot))}`;
-}
-
-function spotInfoHTML(spot) {
-  return [
-    { k: "Fee", icon: INFO_ICONS.fee, v: formatFee(spot) },
-    { k: "Hours", icon: INFO_ICONS.clock, v: formatHours(spot) },
-    { k: "Distance", icon: INFO_ICONS.distance, v: formatDistance(spot) }
-  ]
-    .filter((c) => c.v)
-    .map(
-      (c) => `<div class="dm-info-card">
-      <div class="dm-info-label">${c.icon}<span>${c.k}</span></div>
-      <div class="dm-info-value">${DRTCategories.esc(c.v)}</div>
-    </div>`
-    )
-    .join("");
-}
-
 /* detail modal */
 const detailModal = document.getElementById("detailModal");
 
@@ -144,72 +81,8 @@ function openDetails(spot, seed) {
   document.getElementById("dmTag").innerHTML = DRTCategories.tagHTML(spot, "");
   document.getElementById("dmTitle").textContent = spot.name;
   document.getElementById("dmDesc").textContent = spot.fullDesc;
-  document.getElementById("dmInfo").innerHTML = spotInfoHTML(spot);
-  const meta = [
-
-    {
-      k: "Location",
-      v: spot.location,
-      icon: "icon/map.png"
-    },
-    {
-      k: "Tourguide fee",
-      v: spot.tourguide,
-      icon: "icon/photography.png"
-    },
-    {
-      k: "Parking fee",
-      v: spot.parkingFee,
-      icon: "icon/fee.png"
-    },
-    {
-      k: "Activities",
-      v: (spot.activities || []).join(", "),
-      icon: "icon/team-building.png"
-    },
-    {
-      k: "How to get there",
-      v: spot.howToGetThere,
-      icon: "icon/direction.png"
-    },
-    {
-      k: "Contact",
-      v: spot.contact,
-      icon: "icon/contact-mail.png"
-    },
-    {
-      k: "FaceBook",
-      v: spot.facebook,
-      icon: "icon/facebook.png"
-    },
-  ];
-  const WIDE_META = ["Location", "How to get there", "Activities"];
-  document.getElementById("dmMeta").innerHTML = meta
-    .map((m) => ({ ...m, v: Array.isArray(m.v) ? m.v.join("<br>") : m.v }))
-    .filter((m) => typeof m.v === "string" && m.v.trim())
-    .map((m) => {
-      let value = m.v.trim();
-      if (/^(none|n\/a)$/i.test(value)) value = "None";
-      if (m.k === "FaceBook") {
-        const url = value.startsWith("http") ? value : `https://${value}`;
-        value = `<a href="${url}" target="_blank" rel="noopener">Visit Facebook Page →</a>`;
-      }
-      return `<div class="dm-card${WIDE_META.includes(m.k) ? " dm-card-wide" : ""}">
-      <div class="k"><img src="${m.icon}" class="meta-icon" alt="" />${m.k}</div>
-      <div class="v">${value}</div>
-    </div>`;
-    })
-    .join("");
-  const dmRules = document.getElementById("dmRules");
-  if (dmRules) {
-    const rules =
-      spot.rules && spot.rules.length ? spot.rules : typeof RULES !== "undefined" ? RULES : [];
-    dmRules.innerHTML = rules.length
-      ? `<h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/></svg><span>Rules &amp; Reminders</span></h4><ul>${rules.map((r) => `<li>${r}</li>`).join("")}</ul>`
-      : "";
-  }
+  renderSpotDetails(spot, "");
   setupDmSlider();
-  document.getElementById("dmDirections").href = spotDirectionsURL(spot);
   detailModal.classList.add("open");
   document.getElementById("dmClose").focus();
 }
@@ -472,7 +345,7 @@ if (circuitGrid && typeof CIRCUITS !== "undefined") {
         <p>${c.shortDesc || ""}</p>
         <span class="circuit-count">${stopCount} stop${stopCount === 1 ? "" : "s"}</span>
       </div>`;
-    makeClickable(card, () => openCircuit(c, i + 1));
+    makeClickable(card, () => { location.href = "circuit.html?id=" + encodeURIComponent(c.id); });
     circuitGrid.appendChild(card);
   });
 }
@@ -491,6 +364,45 @@ SPOTS.forEach((s, i) => {
   });
   mapList.appendChild(el);
 });
+
+/* "See More" / "Show Less" for the map list (same pattern as the spot grid).
+   The list is wrapped so the button sits under it without becoming a third
+   column of the map grid on desktop. */
+const MAP_ITEMS_PER_PAGE = 6;
+let mapExpanded = false;
+const mapSide = document.createElement("div");
+mapSide.className = "map-side";
+mapList.before(mapSide);
+mapSide.appendChild(mapList);
+
+const mapMoreWrap = document.createElement("div");
+mapMoreWrap.className = "spot-more-wrap";
+const mapMoreBtn = document.createElement("button");
+mapMoreBtn.type = "button";
+mapMoreBtn.className = "spot-more-btn";
+mapMoreWrap.appendChild(mapMoreBtn);
+mapSide.appendChild(mapMoreWrap);
+
+function updateMapList() {
+  const items = [...mapList.querySelectorAll(".map-item")];
+  items.forEach((item, i) => {
+    item.style.display = mapExpanded || i < MAP_ITEMS_PER_PAGE ? "" : "none";
+  });
+  mapMoreWrap.style.display = items.length > MAP_ITEMS_PER_PAGE ? "" : "none";
+  mapMoreBtn.textContent = mapExpanded ? "Show Less" : "See More";
+  mapMoreBtn.setAttribute("aria-expanded", String(mapExpanded));
+}
+
+mapMoreBtn.addEventListener("click", () => {
+  mapExpanded = !mapExpanded;
+  updateMapList();
+  if (!mapExpanded) {
+    mapList.scrollTop = 0;
+    mapList.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+});
+
+updateMapList();
 
 /*
 routes
@@ -547,7 +459,7 @@ const SEARCHABLE = [
     ? CIRCUITS.map((c, i) => ({
         label: c.name,
         sub: "Tourism circuit",
-        action: () => openCircuit(c, i + 1)
+        action: () => { location.href = "circuit.html?id=" + encodeURIComponent(c.id); }
       }))
     : []),
   {

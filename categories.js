@@ -53,21 +53,21 @@
     return `<img class="cat-icon" src="${(root || '') + cat.icon}" alt="" width="20" height="20" decoding="async" onerror="this.style.display='none'">`;
   }
 
-  
+
   function tagHTML(spot, root) {
     const cats = forSpot(spot);
     const icons = cats.map((c) => iconHTML(c, root)).join('');
     return `${esc(spot.barangay || '')} · <span class="cat-inline">${icons}<span>${esc(cats.map((c) => c.label).join(', '))}</span></span>`;
   }
 
-  
+
   function badgeHTML(spot, root) {
     const cats = forSpot(spot);
     if (!cats.length) return '';
     return `<span class="spot-cat">${cats.map((c) => iconHTML(c, root)).join('')}<span>${esc(cats.map((c) => c.label).join(' · '))}</span></span>`;
   }
 
- 
+
   function audit(spots) {
     (spots || []).forEach((s) => {
       const raw = s.categories != null ? s.categories : s.category;
