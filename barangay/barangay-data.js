@@ -87,19 +87,27 @@ const BARANGAYS = [
         ],
         guides: [
             {
-                name: 'Rommel',
+                name: 'Rommel * Secret Falls',
                 image: 'falls/secretfall/secretfalls.jpg',
-                tourType: 'Cave & Spelunking Guide',
-                specialization: ['Caving', 'Bat Watching'],
-                description: '8+ years sa Puning Cave trails.',
+                tourType: 'Friendly and easy to communicate',
+                specialization: ['trekking', 'Swim Watcher'],
+                description: '3+ years tourguide in SecretFalls.',
+                contact: '0912 345 6789'
+            },
+            {
+                name: 'Juan * Mandala',
+                image: 'images/guides/juan.jpg',
+                tourType: 'Joker, Funny',
+                specialization: ['Entertainment', 'Trekking'],
+                description: `2+ years tourguinde in Antinio's Nature Park.`,
                 contact: '09XX XXX XXXX'
             },
             {
-                name: 'Juan',
+                name: 'pedro * Angeland',
                 image: 'images/guides/juan.jpg',
-                tourType: 'Cave & Spelunking Guide',
-                specialization: ['Caving'],
-                description: '8+ years sa Puning Cave trails.',
+                tourType: ['Brave',    '     Caring'],
+                specialization: ['Trekking'],
+                description: '1+ years Angeland tourguide.',
                 contact: '09XX XXX XXXX'
             },
 
@@ -280,9 +288,6 @@ const BARANGAYS = [
   }
 ];
 
-/* Matches a SPOTS/GALLERY_DATA "barangay" string to a barangay record.
-   Handles exact matches, spelling aliases (e.g. "Sapang Bulak"), and
-   sub-locality suffixes (e.g. "Camachile, So. Arm Strong"). */
 function barangayFieldMatches(fieldValue, brgy) {
     if (!fieldValue) return false;
     const names = [brgy.name, ...(brgy.aliases || [])];

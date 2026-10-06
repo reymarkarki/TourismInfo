@@ -1,10 +1,9 @@
-
 const ROOT = '../';
 
 
 function placeholderSVG(category, seed) {
-  const [c1, c2] = DRTCategories.palette(category);
-  return `<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    const [c1, c2] = DRTCategories.palette(category);
+    return `<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <defs><linearGradient id="bg${seed}" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/>
     </linearGradient></defs>
@@ -14,67 +13,71 @@ function placeholderSVG(category, seed) {
 }
 
 function spotMedia(spot, seed) {
-  return spot.img ? `<img src="${ROOT}${spot.img}" alt="${spot.name}" loading="lazy">` : placeholderSVG(DRTCategories.idsFor(spot)[0], seed);
+    return spot.img ? `<img src="${ROOT}${spot.img}" alt="${spot.name}" loading="lazy">` : placeholderSVG(DRTCategories.idsFor(spot)[0], seed);
 }
 
 function spotSlides(spot, seed) {
-  const images = spot.images && spot.images.length ? spot.images : [spot.img].filter(Boolean);
-  if (!images.length) return placeholderSVG(DRTCategories.idsFor(spot)[0], seed);
-  const slides = images
-    .map((src, i) => `<img src="${ROOT}${src}" alt="${spot.name}" class="dm-slide" data-index="${i}" style="display:${i === 0 ? 'block' : 'none'}">`)
-    .join('');
-  const arrows =
-    images.length > 1
-      ? `<button class="dm-slide-prev" aria-label="Previous photo">&#8249;</button>
+    const images = spot.images && spot.images.length ? spot.images : [spot.img].filter(Boolean);
+    if (!images.length) return placeholderSVG(DRTCategories.idsFor(spot)[0], seed);
+    const slides = images
+        .map((src, i) => `<img src="${ROOT}${src}" alt="${spot.name}" class="dm-slide" data-index="${i}" style="display:${i === 0 ? 'block' : 'none'}">`)
+        .join('');
+    const arrows =
+        images.length > 1 ?
+        `<button class="dm-slide-prev" aria-label="Previous photo">&#8249;</button>
          <button class="dm-slide-next" aria-label="Next photo">&#8250;</button>
-         <div class="dm-slide-dots">${images.map((_, i) => `<span class="dm-dot${i === 0 ? ' active' : ''}" data-index="${i}"></span>`).join('')}</div>`
-      : '';
-  return `<div class="dm-slider">${slides}${arrows}</div>`;
+         <div class="dm-slide-dots">${images.map((_, i) => `<span class="dm-dot${i === 0 ? ' active' : ''}" data-index="${i}"></span>`).join('')}</div>` :
+        '';
+    return `<div class="dm-slider">${slides}${arrows}</div>`;
 }
 
 function setupDmSlider() {
-  const slider = document.querySelector('#dmMedia .dm-slider');
-  if (!slider) return;
-  const slides = slider.querySelectorAll('.dm-slide');
-  const dots = slider.querySelectorAll('.dm-dot');
-  let current = 0;
-  function show(i) {
-    slides.forEach((s, idx) => (s.style.display = idx === i ? 'block' : 'none'));
-    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
-    current = i;
-  }
-  slider.querySelector('.dm-slide-prev')?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    show((current - 1 + slides.length) % slides.length);
-  });
-  slider.querySelector('.dm-slide-next')?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    show((current + 1) % slides.length);
-  });
-  dots.forEach((d) => d.addEventListener('click', (e) => { e.stopPropagation(); show(parseInt(d.dataset.index)); }));
+    const slider = document.querySelector('#dmMedia .dm-slider');
+    if (!slider) return;
+    const slides = slider.querySelectorAll('.dm-slide');
+    const dots = slider.querySelectorAll('.dm-dot');
+    let current = 0;
+
+    function show(i) {
+        slides.forEach((s, idx) => (s.style.display = idx === i ? 'block' : 'none'));
+        dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+        current = i;
+    }
+    slider.querySelector('.dm-slide-prev')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        show((current - 1 + slides.length) % slides.length);
+    });
+    slider.querySelector('.dm-slide-next')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        show((current + 1) % slides.length);
+    });
+    dots.forEach((d) => d.addEventListener('click', (e) => {
+        e.stopPropagation();
+        show(parseInt(d.dataset.index));
+    }));
 }
 
 const detailModal = document.getElementById('detailModal');
 
 function openDetails(spot, seed) {
-  document.getElementById('dmMedia').innerHTML = spotSlides(spot, seed);
-  document.getElementById('dmTag').innerHTML = DRTCategories.tagHTML(spot, ROOT);
-  document.getElementById('dmTitle').textContent = spot.name;
-  document.getElementById('dmDesc').textContent = spot.fullDesc;
-  renderSpotDetails(spot, ROOT);
-  setupDmSlider();
-  detailModal.classList.add('open');
+    document.getElementById('dmMedia').innerHTML = spotSlides(spot, seed);
+    document.getElementById('dmTag').innerHTML = DRTCategories.tagHTML(spot, ROOT);
+    document.getElementById('dmTitle').textContent = spot.name;
+    document.getElementById('dmDesc').textContent = spot.fullDesc;
+    renderSpotDetails(spot, ROOT);
+    setupDmSlider();
+    detailModal.classList.add('open');
 }
 
 document.getElementById('dmClose')?.addEventListener('click', () => detailModal.classList.remove('open'));
 detailModal?.addEventListener('click', (e) => {
-  if (e.target === detailModal) detailModal.classList.remove('open');
+    if (e.target === detailModal) detailModal.classList.remove('open');
 });
 
 (function () {
-  const foot = document.getElementById('footMail');
-  const mail = typeof CONTACT_CARDS !== 'undefined' && CONTACT_CARDS.find((c) => /email/i.test(c.label));
-  if (foot && mail && mail.value) foot.href = 'mailto:' + mail.value;
+    const foot = document.getElementById('footMail');
+    const mail = typeof CONTACT_CARDS !== 'undefined' && CONTACT_CARDS.find((c) => /email/i.test(c.label));
+    if (foot && mail && mail.value) foot.href = 'mailto:' + mail.value;
 })();
 
 const hamburger = document.getElementById('hamburger');
@@ -83,61 +86,61 @@ hamburger?.addEventListener('click', () => navlinks.classList.toggle('open'));
 navlinks?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => navlinks.classList.remove('open')));
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  nav?.classList.toggle('scrolled', window.scrollY > 40);
+    nav?.classList.toggle('scrolled', window.scrollY > 40);
 });
 
 
 function renderGallery(containerId, photos) {
-  const grid = document.getElementById(containerId);
-  const lightbox = document.getElementById('drtMarqueeLightbox');
-  const lightboxImg = document.getElementById('drtMarqueeLightboxImg');
-  const caption = document.getElementById('drtMarqueeCaption');
-  if (!grid) return;
-  if (!photos.length) {
-    grid.closest('section')?.remove();
-    return;
-  }
-  grid.innerHTML = '';
-  photos.slice(0, 8).forEach((photo) => {
-    const item = document.createElement('div');
-    item.className = 'brgy-gallery-item';
-    item.innerHTML = `<img src="${ROOT}${photo.src}" alt="${photo.spot}" loading="lazy">`;
-    item.addEventListener('click', () => {
-      lightboxImg.src = `${ROOT}${photo.src}`;
-      lightboxImg.alt = photo.spot;
-      caption.innerHTML = `<span style="font-weight:600;display:block;">${photo.spot}</span><span style="font-size:0.85rem;opacity:0.75;">Brgy. ${photo.barangay}</span>`;
-      lightbox.classList.add('drt-open');
+    const grid = document.getElementById(containerId);
+    const lightbox = document.getElementById('drtMarqueeLightbox');
+    const lightboxImg = document.getElementById('drtMarqueeLightboxImg');
+    const caption = document.getElementById('drtMarqueeCaption');
+    if (!grid) return;
+    if (!photos.length) {
+        grid.closest('section')?.remove();
+        return;
+    }
+    grid.innerHTML = '';
+    photos.slice(0, 8).forEach((photo) => {
+        const item = document.createElement('div');
+        item.className = 'brgy-gallery-item';
+        item.innerHTML = `<img src="${ROOT}${photo.src}" alt="${photo.spot}" loading="lazy">`;
+        item.addEventListener('click', () => {
+            lightboxImg.src = `${ROOT}${photo.src}`;
+            lightboxImg.alt = photo.spot;
+            caption.innerHTML = `<span style="font-weight:600;display:block;">${photo.spot}</span><span style="font-size:0.85rem;opacity:0.75;">Brgy. ${photo.barangay}</span>`;
+            lightbox.classList.add('drt-open');
+        });
+        grid.appendChild(item);
     });
-    grid.appendChild(item);
-  });
 }
 document.getElementById('drtMarqueeClose')?.addEventListener('click', () => document.getElementById('drtMarqueeLightbox').classList.remove('drt-open'));
 document.getElementById('drtMarqueeLightbox')?.addEventListener('click', (e) => {
-  if (e.target.id === 'drtMarqueeLightbox') e.target.classList.remove('drt-open');
+    if (e.target.id === 'drtMarqueeLightbox') e.target.classList.remove('drt-open');
 });
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') document.getElementById('drtMarqueeLightbox')?.classList.remove('drt-open');
+    if (e.key === 'Escape') document.getElementById('drtMarqueeLightbox')?.classList.remove('drt-open');
 });
 
 /* ---------- auto-built "Day Tour" suggestion for barangays that don't
    have curated packages yet (see barangay-data.js for how to add real ones) ---------- */
 function buildAutoPackage(brgy, spots) {
-  if (!spots.length) return null;
-  return {
-    name: `${brgy.name} Day Tour`,
-    price: '\u20B1XXX per person (confirm with the Tourism Office)',
-    duration: 'Full day, roughly 6\u20138 hours',
-    groupSize: 'Best for groups of 4\u20136',
-    destinations: spots.map((s) => s.name),
-    tourGuide: 'Arranged at the barangay tourism desk',
-    transportation: 'Not included \u2014 arrange your own transport to the barangay',
-    meals: 'Not included',
-    accommodation: 'Day tour \u2014 no accommodation included',
-    inclusions: ['Entrance fees at each spot (paid individually)', 'Local guide where a spot requires one'],
-    exclusions: ['Meals', 'Transportation to/from DRT', 'Personal gear'],
-    contact: spots.find((s) => s.contact)?.contact || 'Municipal Tourism Office',
-    auto: true
-  };
+    if (!spots.length) return null;
+    return {
+        name: `${brgy.name} Day Tour`,
+        price: '\u20B1XXX per person (confirm with the Tourism Office)',
+        duration: 'Full day, roughly 6\u20138 hours',
+        groupSize: 'Best for groups of 4\u20136',
+        destinations: spots.map((s) => s.name),
+        tourGuide: 'Arranged at the barangay tourism desk',
+        transportation: 'Not included \u2014 arrange your own transport to the barangay',
+        meals: 'Not included',
+        accommodation: 'Day tour \u2014 no accommodation included',
+        inclusions: ['Entrance fees at each spot (paid individually)', 'Local guide where a spot requires one'],
+        exclusions: ['Meals', 'Transportation to/from DRT', 'Personal gear'],
+        contact: spots.find((s) => s.contact)?.contact || 'Municipal Tourism Office',
+        auto: true
+    };
 }
 
 /* ---------- tour package component ----------
@@ -156,83 +159,107 @@ function buildAutoPackage(brgy, spots) {
      tourType      third detail chip (default "Guided tour" when a guide is set)
      meetingPoint  (default: `contact`)                                       */
 const PKG_ICON = {
-  clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
-  people: '<circle cx="9" cy="8.5" r="3.2"/><path d="M3 19c.4-3.4 2.8-5.2 6-5.2s5.6 1.8 6 5.2"/><path d="M16 5.6a3 3 0 010 5.8M18.5 14.2c1.6.7 2.3 2.1 2.5 4"/>',
-  guide: '<path d="M12 3.5l7 2.8v5.2c0 4.2-2.8 7.4-7 9-4.2-1.6-7-4.8-7-9V6.3z"/><path d="M9 12l2.2 2.2L15.5 10"/>',
-  route: '<circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8 18h6.5a3.5 3.5 0 000-7h-5a3.5 3.5 0 010-7H16"/>',
-  pin: '<path d="M12 21s6.5-5.6 6.5-10.5a6.5 6.5 0 10-13 0C5.5 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.3"/>',
-  calendar: '<rect x="4" y="5.5" width="16" height="14.5" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>',
-  arrow: '<path d="M4 12h15M13.5 6.5L19 12l-5.5 5.5"/>',
-  note: '<path d="M7 3.5h7l4 4V20a.5.5 0 01-.5.5h-10.5a.5.5 0 01-.5-.5V4a.5.5 0 01.5-.5z"/><path d="M9 12h6M9 15.5h6"/>',
-  leaf: '<path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14"/><path d="M5 19c2.5-4 5.5-6.5 9-8"/>'
+    clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+    people: '<circle cx="9" cy="8.5" r="3.2"/><path d="M3 19c.4-3.4 2.8-5.2 6-5.2s5.6 1.8 6 5.2"/><path d="M16 5.6a3 3 0 010 5.8M18.5 14.2c1.6.7 2.3 2.1 2.5 4"/>',
+    guide: '<path d="M12 3.5l7 2.8v5.2c0 4.2-2.8 7.4-7 9-4.2-1.6-7-4.8-7-9V6.3z"/><path d="M9 12l2.2 2.2L15.5 10"/>',
+    route: '<circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8 18h6.5a3.5 3.5 0 000-7h-5a3.5 3.5 0 010-7H16"/>',
+    pin: '<path d="M12 21s6.5-5.6 6.5-10.5a6.5 6.5 0 10-13 0C5.5 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.3"/>',
+    calendar: '<rect x="4" y="5.5" width="16" height="14.5" rx="2.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>',
+    arrow: '<path d="M4 12h15M13.5 6.5L19 12l-5.5 5.5"/>',
+    note: '<path d="M7 3.5h7l4 4V20a.5.5 0 01-.5.5h-10.5a.5.5 0 01-.5-.5V4a.5.5 0 01.5-.5z"/><path d="M9 12h6M9 15.5h6"/>',
+    leaf: '<path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14"/><path d="M5 19c2.5-4 5.5-6.5 9-8"/>'
 };
 const pkgIcon = (name, size = 18) =>
-  `<svg class="pkg-icon" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${PKG_ICON[name]}</svg>`;
+    `<svg class="pkg-icon" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${PKG_ICON[name]}</svg>`;
 
 
 function parsePackagePrice(pkg) {
-  const raw = String(pkg.price || '').trim();
-  if (pkg.auto || !raw || /X{3}/.test(raw)) return { amount: 'Rates on request', unit: '' };
-  const m = raw.match(/^([^\d\s]*\s?\d[\d,.]*)\s*(?:\/|per\s+)\s*([a-z ]+)$/i);
-  return m ? { amount: m[1].trim(), unit: `/ ${m[2].trim()}` } : { amount: raw, unit: '' };
+    const raw = String(pkg.price || '').trim();
+    if (pkg.auto || !raw || /X{3}/.test(raw)) return {
+        amount: 'Rates on request',
+        unit: ''
+    };
+    const m = raw.match(/^([^\d\s]*\s?\d[\d,.]*)\s*(?:\/|per\s+)\s*([a-z ]+)$/i);
+    return m ? {
+        amount: m[1].trim(),
+        unit: `/ ${m[2].trim()}`
+    } : {
+        amount: raw,
+        unit: ''
+    };
 }
 
 function findSpot(key, spots) {
-  if (!key) return null;
-  const k = String(key).trim().toLowerCase();
-  const pools = [spots || [], typeof SPOTS !== 'undefined' ? SPOTS : []];
-  for (const pool of pools) {
-    const hit =
-      pool.find((s) => s.id === k || s.name.toLowerCase() === k) ||
-      pool.find((s) => { const n = s.name.toLowerCase(); return n.includes(k) || k.includes(n); });
-    if (hit) return hit;
-  }
-  return null;
+    if (!key) return null;
+    const k = String(key).trim().toLowerCase();
+    const pools = [spots || [], typeof SPOTS !== 'undefined' ? SPOTS : []];
+    for (const pool of pools) {
+        const hit =
+            pool.find((s) => s.id === k || s.name.toLowerCase() === k) ||
+            pool.find((s) => {
+                const n = s.name.toLowerCase();
+                return n.includes(k) || k.includes(n);
+            });
+        if (hit) return hit;
+    }
+    return null;
 }
 
 function packageSpots(pkg, spots) {
-  return (pkg.destinations || []).map((d, i) => findSpot((pkg.spotIds || [])[i], spots) || findSpot(d, spots));
+    return (pkg.destinations || []).map((d, i) => findSpot((pkg.spotIds || [])[i], spots) || findSpot(d, spots));
 }
 
 function packageExperience(pkg, spots) {
-  const matched = packageSpots(pkg, spots);
-  const items = pkg.experience && pkg.experience.length
-    ? pkg.experience.map((x) => (typeof x === 'string' ? { title: x } : x))
-    : (pkg.destinations || []).map((d, i) => ({ title: d, _spot: matched[i] }));
-  return items.slice(0, 6).map((it) => {
-    const spot = it._spot !== undefined ? it._spot : findSpot(it.title, spots);
-    return { title: it.title, desc: it.desc || (spot && spot.shortDesc) || '', img: it.img || (spot && spot.img) || '' };
-  });
+    const matched = packageSpots(pkg, spots);
+    const items = pkg.experience && pkg.experience.length ?
+        pkg.experience.map((x) => (typeof x === 'string' ? {
+            title: x
+        } : x)) :
+        (pkg.destinations || []).map((d, i) => ({
+            title: d,
+            _spot: matched[i]
+        }));
+    return items.slice(0, 6).map((it) => {
+        const spot = it._spot !== undefined ? it._spot : findSpot(it.title, spots);
+        return {
+            title: it.title,
+            desc: it.desc || (spot && spot.shortDesc) || '',
+            img: it.img || (spot && spot.img) || ''
+        };
+    });
 }
 
 
 function packageImages(pkg, brgy, spots) {
-  const dest = packageSpots(pkg, spots).filter(Boolean);
-  const pool = [pkg.img, ...(pkg.gallery || []), ...dest.map((s) => s.img), ...dest.flatMap((s) => s.images || [])].filter(Boolean);
-  const unique = [...new Set(pool)];
+    const dest = packageSpots(pkg, spots).filter(Boolean);
+    const pool = [pkg.img, ...(pkg.gallery || []), ...dest.map((s) => s.img), ...dest.flatMap((s) => s.images || [])].filter(Boolean);
+    const unique = [...new Set(pool)];
 
-  const photos = pkg.photos === false ? [] : Array.isArray(pkg.photos) ? pkg.photos.slice(0, 2) : unique.slice(1, 3);
-  return { hero: unique[0] || (brgy && brgy.heroImg) || '', photos };
+    const photos = pkg.photos === false ? [] : Array.isArray(pkg.photos) ? pkg.photos.slice(0, 2) : unique.slice(1, 3);
+    return {
+        hero: unique[0] || (brgy && brgy.heroImg) || '',
+        photos
+    };
 }
 
 function packageCard(pkg, ctx = {}) {
-  const esc = DRTCategories.esc;
-  const spots = ctx.spots || [];
-  const price = parsePackagePrice(pkg);
-  const imgs = packageImages(pkg, ctx.brgy, spots);
-  const experience = packageExperience(pkg, spots);
-  const inclusions = pkg.inclusions && pkg.inclusions.length ? pkg.inclusions : ['To be announced'];
-  const exclusions = pkg.exclusions || [];
-  const tourType = pkg.tourType || (!pkg.auto && pkg.tourGuide && !/^not/i.test(pkg.tourGuide) ? 'Guided tour' : '');
-  const chips = [
+    const esc = DRTCategories.esc;
+    const spots = ctx.spots || [];
+    const price = parsePackagePrice(pkg);
+    const imgs = packageImages(pkg, ctx.brgy, spots);
+    const experience = packageExperience(pkg, spots);
+    const inclusions = pkg.inclusions && pkg.inclusions.length ? pkg.inclusions : ['To be announced'];
+    const exclusions = pkg.exclusions || [];
+    const tourType = pkg.tourType || (!pkg.auto && pkg.tourGuide && !/^not/i.test(pkg.tourGuide) ? 'Guided tour' : '');
+    const chips = [
     pkg.duration && ['clock', pkg.duration],
     pkg.groupSize && ['people', pkg.groupSize.replace(/^(good|best) for\s+/i, '')],
     tourType && ['guide', tourType]
   ].filter(Boolean);
-  const meeting = pkg.meetingPoint || pkg.contact || 'Municipal Tourism Office';
-  const src = (p) => `${ROOT}${p}`;
+    const meeting = pkg.meetingPoint || pkg.contact || 'Municipal Tourism Office';
+    const src = (p) => `${ROOT}${p}`;
 
-  return `<article class="pkg">
+    return `<article class="pkg">
     <header class="pkg-hero">
       ${imgs.hero ? `<div class="pkg-hero-media"><img src="${esc(src(imgs.hero))}" alt="${esc(pkg.name)}" loading="lazy" decoding="async" onerror="this.remove()"></div>` : '<div class="pkg-hero-media"></div>'}
       <span class="pkg-badge">${pkgIcon('route', 16)}${pkg.auto ? 'Suggested itinerary' : 'Tour package'}</span>
@@ -286,29 +313,37 @@ function packageCard(pkg, ctx = {}) {
 
 
 document.addEventListener('click', (e) => {
-  const btn = e.target.closest && e.target.closest('.pkg-photo');
-  const box = document.getElementById('drtMarqueeLightbox');
-  if (!btn || !box) return;
-  const img = btn.querySelector('img');
-  document.getElementById('drtMarqueeLightboxImg').src = img.src;
-  document.getElementById('drtMarqueeLightboxImg').alt = btn.dataset.pkg || '';
-  document.getElementById('drtMarqueeCaption').textContent = btn.dataset.pkg || '';
-  box.classList.add('drt-open');
+    const btn = e.target.closest && e.target.closest('.pkg-photo');
+    const box = document.getElementById('drtMarqueeLightbox');
+    if (!btn || !box) return;
+    const img = btn.querySelector('img');
+    document.getElementById('drtMarqueeLightboxImg').src = img.src;
+    document.getElementById('drtMarqueeLightboxImg').alt = btn.dataset.pkg || '';
+    document.getElementById('drtMarqueeCaption').textContent = btn.dataset.pkg || '';
+    box.classList.add('drt-open');
 });
 
 /* one-time fade/slide as each package scrolls into view */
 function revealPackages() {
-  const cards = document.querySelectorAll('#brgyPackageGrid .pkg');
-  if (!cards.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const io = new IntersectionObserver((entries) => entries.forEach((en) => {
-    if (en.isIntersecting) { en.target.classList.remove('pkg--wait'); io.unobserve(en.target); }
-  }), { threshold: 0.08 });
-  cards.forEach((c) => { c.classList.add('pkg--wait'); io.observe(c); });
+    const cards = document.querySelectorAll('#brgyPackageGrid .pkg');
+    if (!cards.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+        if (en.isIntersecting) {
+            en.target.classList.remove('pkg--wait');
+            io.unobserve(en.target);
+        }
+    }), {
+        threshold: 0.08
+    });
+    cards.forEach((c) => {
+        c.classList.add('pkg--wait');
+        io.observe(c);
+    });
 }
 
 function guideCard(guide) {
-  const initials = guide.name.split(' ').map((w) => w[0]).slice(0, 2).join('');
-  return `<div class="guide-card">
+    const initials = guide.name.split(' ').map((w) => w[0]).slice(0, 2).join('');
+    return `<div class="guide-card">
     <div class="guide-top">
       <div class="guide-avatar">${guide.image ? `<img src="${ROOT}${guide.image}" alt="${guide.name}">` : initials}</div>
       <div>
@@ -324,60 +359,62 @@ function guideCard(guide) {
 }
 
 function wireSearch(searchable) {
-  const searchToggle = document.getElementById('searchToggle');
-  const searchBox = document.getElementById('searchBox');
-  const searchInput = document.getElementById('searchInput');
-  const searchClose = document.getElementById('searchClose');
-  const searchResults = document.getElementById('searchResults');
-  if (!searchToggle) return;
-  function openSearch() {
-    searchBox.classList.add('open');
-    searchInput.value = '';
-    searchResults.innerHTML = '';
-    searchInput.focus();
-  }
-  function closeSearch() {
-    searchBox.classList.remove('open');
-  }
-  searchToggle.addEventListener('click', openSearch);
-  searchClose.addEventListener('click', closeSearch);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeSearch();
-  });
-  searchInput.addEventListener('input', () => {
-    const q = searchInput.value.trim().toLowerCase();
-    searchResults.innerHTML = '';
-    if (!q) return;
-    searchable
-      .filter((s) => s.label.toLowerCase().includes(q) || s.sub.toLowerCase().includes(q))
-      .slice(0, 8)
-      .forEach((s) => {
-        const el = document.createElement('div');
-        el.textContent = `${s.label}: ${s.sub}`;
-        el.addEventListener('click', () => {
-          closeSearch();
-          s.action();
-        });
-        searchResults.appendChild(el);
-      });
-  });
+    const searchToggle = document.getElementById('searchToggle');
+    const searchBox = document.getElementById('searchBox');
+    const searchInput = document.getElementById('searchInput');
+    const searchClose = document.getElementById('searchClose');
+    const searchResults = document.getElementById('searchResults');
+    if (!searchToggle) return;
+
+    function openSearch() {
+        searchBox.classList.add('open');
+        searchInput.value = '';
+        searchResults.innerHTML = '';
+        searchInput.focus();
+    }
+
+    function closeSearch() {
+        searchBox.classList.remove('open');
+    }
+    searchToggle.addEventListener('click', openSearch);
+    searchClose.addEventListener('click', closeSearch);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeSearch();
+    });
+    searchInput.addEventListener('input', () => {
+        const q = searchInput.value.trim().toLowerCase();
+        searchResults.innerHTML = '';
+        if (!q) return;
+        searchable
+            .filter((s) => s.label.toLowerCase().includes(q) || s.sub.toLowerCase().includes(q))
+            .slice(0, 8)
+            .forEach((s) => {
+                const el = document.createElement('div');
+                el.textContent = `${s.label}: ${s.sub}`;
+                el.addEventListener('click', () => {
+                    closeSearch();
+                    s.action();
+                });
+                searchResults.appendChild(el);
+            });
+    });
 }
 
 
 function renderDirectory() {
-  const grid = document.getElementById('brgyDirectoryGrid');
-  grid.innerHTML = '';
-  BARANGAYS.forEach((brgy, i) => {
-    const spots = getSpotsForBarangay(brgy);
-    const gallery = getGalleryForBarangay(brgy);
-    const heroSpot = spots[0];
-    const media = brgy.heroImg
-      ? `<img src="${ROOT}${brgy.heroImg}" alt="${brgy.name}" loading="lazy">`
-      : heroSpot ? spotMedia(heroSpot, i + 1) : gallery.length ? `<img src="${ROOT}${gallery[0].src}" alt="${brgy.name}" loading="lazy">` : placeholderSVG('Falls', i + 1);
-    const card = document.createElement('a');
-    card.className = 'brgy-directory-card';
-    card.href = `barangay-${brgy.slug}.html`;
-    card.innerHTML = `
+    const grid = document.getElementById('brgyDirectoryGrid');
+    grid.innerHTML = '';
+    BARANGAYS.forEach((brgy, i) => {
+        const spots = getSpotsForBarangay(brgy);
+        const gallery = getGalleryForBarangay(brgy);
+        const heroSpot = spots[0];
+        const media = brgy.heroImg ?
+            `<img src="${ROOT}${brgy.heroImg}" alt="${brgy.name}" loading="lazy">` :
+            heroSpot ? spotMedia(heroSpot, i + 1) : gallery.length ? `<img src="${ROOT}${gallery[0].src}" alt="${brgy.name}" loading="lazy">` : placeholderSVG('Falls', i + 1);
+        const card = document.createElement('a');
+        card.className = 'brgy-directory-card';
+        card.href = `barangay-${brgy.slug}.html`;
+        card.innerHTML = `
       <div class="brgy-directory-media">${media}</div>
       <div class="brgy-directory-body">
         <div class="brgy-directory-count">${spots.length} Tourist Spot${spots.length === 1 ? '' : 's'}</div>
@@ -385,51 +422,51 @@ function renderDirectory() {
         <p>${brgy.blurb}</p>
         <span class="btn btn-outline">Explore Barangay</span>
       </div>`;
-    grid.appendChild(card);
-  });
+        grid.appendChild(card);
+    });
 
-  wireSearch(
-    BARANGAYS.map((b) => ({
-      label: b.name,
-      sub: `${getSpotsForBarangay(b).length} tourist spots`,
-      action: () => (location.href = `barangay-${b.slug}.html`)
-    }))
-  );
+    wireSearch(
+        BARANGAYS.map((b) => ({
+            label: b.name,
+            sub: `${getSpotsForBarangay(b).length} tourist spots`,
+            action: () => (location.href = `barangay-${b.slug}.html`)
+        }))
+    );
 }
 
 
 function renderBarangayPage(slug) {
-  const brgy = getBarangayBySlug(slug);
-  if (!brgy) return;
-  const spots = getSpotsForBarangay(brgy);
-  const gallery = getGalleryForBarangay(brgy);
+    const brgy = getBarangayBySlug(slug);
+    if (!brgy) return;
+    const spots = getSpotsForBarangay(brgy);
+    const gallery = getGalleryForBarangay(brgy);
 
 
-  const heroImg = document.getElementById('brgyHeroImg');
-  if (heroImg) {
-    const rep = brgy.heroImg || (spots[0] ? spots[0].img : gallery[0] ? gallery[0].src : null);
-    if (rep) heroImg.src = `${ROOT}${rep}`;
-    else heroImg.closest('.hero-media').remove();
-  }
-  const countEl = document.getElementById('brgySpotCount');
-  if (countEl) countEl.textContent = `${spots.length} Tourist Spot${spots.length === 1 ? '' : 's'}`;
+    const heroImg = document.getElementById('brgyHeroImg');
+    if (heroImg) {
+        const rep = brgy.heroImg || (spots[0] ? spots[0].img : gallery[0] ? gallery[0].src : null);
+        if (rep) heroImg.src = `${ROOT}${rep}`;
+        else heroImg.closest('.hero-media').remove();
+    }
+    const countEl = document.getElementById('brgySpotCount');
+    if (countEl) countEl.textContent = `${spots.length} Tourist Spot${spots.length === 1 ? '' : 's'}`;
 
-  /* tourist spots (filters + grid), or an empty state */
-  const spotSection = document.getElementById('brgySpotsBody');
-  if (spots.length) {
-    DRTCategories.audit(spots);
-    const categories = ['All', ...DRTCategories.usedBy(spots).map((c) => c.id)];
-    const filtersHTML =
-      categories.length > 2
-        ? `<div class="spot-filters" id="brgySpotFilters">${categories.map((c, i) => { const cat = DRTCategories.get(c); return `<button class="filter-btn${i === 0 ? ' active' : ''}" data-cat="${c}">${cat ? `${DRTCategories.iconHTML(cat, ROOT)}<span>${cat.label}</span>` : `<span>${c}</span>`}</button>`; }).join('')}</div>`
-        : '';
-    spotSection.innerHTML = `${filtersHTML}<div class="spot-grid" id="brgySpotGrid"></div>`;
-    const spotGrid = document.getElementById('brgySpotGrid');
-    spots.forEach((s, i) => {
-      const card = document.createElement('div');
-      card.className = 'spot-card';
-      card.dataset.cat = DRTCategories.idsFor(s).join('|');
-      card.innerHTML = `
+    /* tourist spots (filters + grid), or an empty state */
+    const spotSection = document.getElementById('brgySpotsBody');
+    if (spots.length) {
+        DRTCategories.audit(spots);
+        const categories = ['All', ...DRTCategories.usedBy(spots).map((c) => c.id)];
+        const filtersHTML =
+            categories.length > 2 ?
+            `<div class="spot-filters" id="brgySpotFilters">${categories.map((c, i) => { const cat = DRTCategories.get(c); return `<button class="filter-btn${i === 0 ? ' active' : ''}" data-cat="${c}">${cat ? `${DRTCategories.iconHTML(cat, ROOT)}<span>${cat.label}</span>` : `<span>${c}</span>`}</button>`; }).join('')}</div>` :
+            '';
+        spotSection.innerHTML = `${filtersHTML}<div class="spot-grid" id="brgySpotGrid"></div>`;
+        const spotGrid = document.getElementById('brgySpotGrid');
+        spots.forEach((s, i) => {
+            const card = document.createElement('div');
+            card.className = 'spot-card';
+            card.dataset.cat = DRTCategories.idsFor(s).join('|');
+            card.innerHTML = `
         <div class="spot-media">${spotMedia(s, i + 1)}${DRTCategories.badgeHTML(s, ROOT)}</div>
         <div class="spot-body">
           <div class="loc">${s.barangay}</div>
@@ -440,79 +477,117 @@ function renderBarangayPage(slug) {
             ${formatHours(s) ? `<span><img src="${ROOT}icon/24-hour-clock.png" class="meta-icon" alt="" />${DRTCategories.esc(formatHours(s))}</span>` : ''}
           </div>
         </div>`;
-      card.addEventListener('click', () => openDetails(s, i + 1));
-      spotGrid.appendChild(card);
-    });
-    document.getElementById('brgySpotFilters')?.querySelectorAll('.filter-btn').forEach((b) => {
-      b.addEventListener('click', () => {
-        document.querySelectorAll('#brgySpotFilters .filter-btn').forEach((x) => x.classList.remove('active'));
-        b.classList.add('active');
-        spotGrid.querySelectorAll('.spot-card').forEach((card) => {
-          card.style.display = b.dataset.cat === 'All' || card.dataset.cat.split('|').includes(b.dataset.cat) ? '' : 'none';
+            card.addEventListener('click', () => openDetails(s, i + 1));
+            spotGrid.appendChild(card);
         });
-      });
+        document.getElementById('brgySpotFilters')?.querySelectorAll('.filter-btn').forEach((b) => {
+            b.addEventListener('click', () => {
+                document.querySelectorAll('#brgySpotFilters .filter-btn').forEach((x) => x.classList.remove('active'));
+                b.classList.add('active');
+                spotGrid.querySelectorAll('.spot-card').forEach((card) => {
+                    card.style.display = b.dataset.cat === 'All' || card.dataset.cat.split('|').includes(b.dataset.cat) ? '' : 'none';
+                });
+            });
+        });
+    } else {
+        spotSection.innerHTML = `<div class="empty-state"><strong>No tourist spots listed yet</strong>Tourist spot listings for ${brgy.name} are coming soon. Check the barangay tourism desk in the meantime, or browse spots in neighboring barangays.</div>`;
+    }
+
+
+    const packageGrid = document.getElementById('brgyPackageGrid');
+    const packages = [...(brgy.packages || [])];
+    if (packages.length === 0) {
+        const auto = buildAutoPackage(brgy, spots);
+        if (auto) packages.unshift(auto);
+    }
+    packageGrid.innerHTML = packages.length ?
+        packages.map((p) => packageCard(p, {
+            brgy,
+            spots
+        })).join('') :
+        `<div class="empty-state"><strong>No tour packages yet</strong>Tour packages for ${brgy.name} haven\u2019t been published yet. Contact the Municipal Tourism Office for current options.</div>`;
+
+    revealPackages();
+
+    /* local tour guides */
+    const guideGrid = document.getElementById('brgyGuideGrid');
+    guideGrid.innerHTML = brgy.guides && brgy.guides.length ?
+        brgy.guides.map(guideCard).join('') :
+        `<div class="empty-state"><strong>No local tour guide information available yet</strong>Ask at the ${brgy.name} barangay tourism desk to arrange a guide for your visit.</div>`;
+
+    /* barangay contact */
+    const contactGrid = document.getElementById('brgyContactGrid');
+    const contactCards = [];
+    if (brgy.hall && brgy.hall.address) contactCards.push({
+        label: 'Barangay Hall',
+        value: brgy.hall.address
     });
-  } else {
-    spotSection.innerHTML = `<div class="empty-state"><strong>No tourist spots listed yet</strong>Tourist spot listings for ${brgy.name} are coming soon. Check the barangay tourism desk in the meantime, or browse spots in neighboring barangays.</div>`;
-  }
+    if (brgy.hall && brgy.hall.contact) contactCards.push({
+        label: 'Contact',
+        value: brgy.hall.contact
+    });
+    if (brgy.hall && brgy.hall.email) contactCards.push({
+        label: 'Email',
+        value: brgy.hall.email
+    });
+    if (brgy.hall && brgy.hall.facebook) contactCards.push({
+        label: 'Facebook',
+        value: `<a href="${brgy.hall.facebook}" target="_blank" rel="noopener">Visit Facebook Page \u2192</a>`
+    });
+    const spotContacts = [...new Map(spots.filter((s) => s.contact).map((s) => [s.contact, s])).values()];
+    spotContacts.forEach((s) => {
+        const isGenericDesk = /tourism desk/i.test(s.contact);
+        const label = isGenericDesk ? 'Barangay Tourism Desk' : `${s.name} contact`;
+
+        const value = !isGenericDesk && s.facebook ? `${s.contact} \u00B7 <a href="${s.facebook.startsWith('http') ? s.facebook : 'https://' + s.facebook}" target="_blank" rel="noopener">Facebook</a>` : s.contact;
+        contactCards.push({
+            label,
+            value
+        });
+    });
+    contactGrid.innerHTML = contactCards.length ?
+        contactCards.map((c) => `<div class="contact-card"><div class="label">${c.label}</div><div class="value">${c.value}</div></div>`).join('') :
+        '';
+    const fallback = document.getElementById('brgyContactFallback');
+    if (fallback) fallback.style.display = contactCards.length ? 'none' : 'block';
 
 
-  const packageGrid = document.getElementById('brgyPackageGrid');
-  const packages = [...(brgy.packages || [])];
-  if (packages.length === 0) {
-    const auto = buildAutoPackage(brgy, spots);
-    if (auto) packages.unshift(auto);
-  }
-  packageGrid.innerHTML = packages.length
-    ? packages.map((p) => packageCard(p, { brgy, spots })).join('')
-    : `<div class="empty-state"><strong>No tour packages yet</strong>Tour packages for ${brgy.name} haven\u2019t been published yet. Contact the Municipal Tourism Office for current options.</div>`;
+    renderGallery('brgyGalleryGrid', gallery);
 
-  revealPackages();
 
-  /* local tour guides */
-  const guideGrid = document.getElementById('brgyGuideGrid');
-  guideGrid.innerHTML = brgy.guides && brgy.guides.length
-    ? brgy.guides.map(guideCard).join('')
-    : `<div class="empty-state"><strong>No local tour guide information available yet</strong>Ask at the ${brgy.name} barangay tourism desk to arrange a guide for your visit.</div>`;
-
-  /* barangay contact */
-  const contactGrid = document.getElementById('brgyContactGrid');
-  const contactCards = [];
-  if (brgy.hall && brgy.hall.address) contactCards.push({ label: 'Barangay Hall', value: brgy.hall.address });
-  if (brgy.hall && brgy.hall.contact) contactCards.push({ label: 'Contact', value: brgy.hall.contact });
-  if (brgy.hall && brgy.hall.email) contactCards.push({ label: 'Email', value: brgy.hall.email });
-  if (brgy.hall && brgy.hall.facebook) contactCards.push({ label: 'Facebook', value: `<a href="${brgy.hall.facebook}" target="_blank" rel="noopener">Visit Facebook Page \u2192</a>` });
-  const spotContacts = [...new Map(spots.filter((s) => s.contact).map((s) => [s.contact, s])).values()];
-  spotContacts.forEach((s) => {
-    const isGenericDesk = /tourism desk/i.test(s.contact);
-    const label = isGenericDesk ? 'Barangay Tourism Desk' : `${s.name} contact`;
-    
-    const value = !isGenericDesk && s.facebook ? `${s.contact} \u00B7 <a href="${s.facebook.startsWith('http') ? s.facebook : 'https://' + s.facebook}" target="_blank" rel="noopener">Facebook</a>` : s.contact;
-    contactCards.push({ label, value });
-  });
-  contactGrid.innerHTML = contactCards.length
-    ? contactCards.map((c) => `<div class="contact-card"><div class="label">${c.label}</div><div class="value">${c.value}</div></div>`).join('')
-    : '';
-  const fallback = document.getElementById('brgyContactFallback');
-  if (fallback) fallback.style.display = contactCards.length ? 'none' : 'block';
-
-  
-  renderGallery('brgyGalleryGrid', gallery);
-
- 
-  const searchable = [
-    ...spots.map((s, i) => ({ label: s.name, sub: `${s.barangay} \u00B7 ${DRTCategories.labelFor(s)}`, action: () => openDetails(s, i + 1) })),
-    ...packages.map((p) => ({ label: p.name, sub: 'Tour package', action: () => (location.hash = '#brgy-packages') })),
-    { label: 'Tour Packages', sub: `Packages in ${brgy.name}`, action: () => (location.hash = '#brgy-packages') },
-    { label: 'Local Tour Guides', sub: `Guides in ${brgy.name}`, action: () => (location.hash = '#brgy-guides') },
-    { label: 'Barangay Contact', sub: `Contact info for ${brgy.name}`, action: () => (location.hash = '#brgy-contact') }
+    const searchable = [
+    ...spots.map((s, i) => ({
+            label: s.name,
+            sub: `${s.barangay} \u00B7 ${DRTCategories.labelFor(s)}`,
+            action: () => openDetails(s, i + 1)
+        })),
+    ...packages.map((p) => ({
+            label: p.name,
+            sub: 'Tour package',
+            action: () => (location.hash = '#brgy-packages')
+        })),
+        {
+            label: 'Tour Packages',
+            sub: `Packages in ${brgy.name}`,
+            action: () => (location.hash = '#brgy-packages')
+        },
+        {
+            label: 'Local Tour Guides',
+            sub: `Guides in ${brgy.name}`,
+            action: () => (location.hash = '#brgy-guides')
+        },
+        {
+            label: 'Barangay Contact',
+            sub: `Contact info for ${brgy.name}`,
+            action: () => (location.hash = '#brgy-contact')
+        }
   ];
-  wireSearch(searchable);
+    wireSearch(searchable);
 }
 
 
 if (document.getElementById('brgyDirectoryGrid')) {
-  renderDirectory();
+    renderDirectory();
 } else if (document.body.dataset.barangay) {
-  renderBarangayPage(document.body.dataset.barangay);
+    renderBarangayPage(document.body.dataset.barangay);
 }
