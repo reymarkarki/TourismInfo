@@ -1,4 +1,10 @@
-/* Makes a non-button element (card, list row) work for keyboard and screen-reader users */
+/* DRT Tourism: home page behaviour.
+   Needs (loaded before this file): categories.js, data.js, spot-details.js */
+
+/* ---------- shared helpers ---------- */
+
+const escHTML = DRTCategories.esc;
+
 function makeClickable(el, handler) {
   el.tabIndex = 0;
   el.setAttribute("role", "button");
@@ -11,28 +17,75 @@ function makeClickable(el, handler) {
   });
 }
 
-function placeholderSVG(category, seed) {
+/* One <div class="className"> per item, appended to `host`; returns the elements.
+   Pass `onClick(item, index, element)` to make each card clickable. A missing host is skipped. */
+function renderCards(host, items, className, html, onClick) {
+  if (!host) return [];
+  return items.map((item, i) => {
+    const el = document.createElement("div");
+    el.className = className;
+    el.innerHTML = html(item, i);
+    if (onClick) makeClickable(el, () => onClick(item, i, el));
+    host.appendChild(el);
+    return el;
+  });
+}
+
+/* The "See More" / "Show Less" button and its wrapper */
+function createMoreControl() {
+  const wrap = document.createElement("div");
+  wrap.className = "spot-more-wrap";
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "spot-more-btn";
+  wrap.appendChild(btn);
+  return { wrap, btn };
+}
+
+/* "Camachile, So. Arm Strong" -> "Camachile" */
+const primaryBarangay = (spot) => spot.barangay.split(",")[0].trim();
+
+function brgySlug(name) {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+function getSpotById(id) {
+  return SPOTS.find((s) => s.id === id) || null;
+}
+
+/* ---------- spot media ---------- */
+
+let placeholderCount = 0; // keeps each gradient id unique on the page
+
+function placeholderSVG(category) {
   const [c1, c2] = DRTCategories.palette(category);
+  const id = `ph-grad-${++placeholderCount}`;
   return `<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <defs><linearGradient id="g${seed}" x1="0" y1="0" x2="0" y2="1">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/>
     </linearGradient></defs>
-    <rect width="400" height="260" fill="url(#g${seed})"/>
+    <rect width="400" height="260" fill="url(#${id})"/>
     <polygon points="0,190 80,120 160,170 240,90 320,160 400,180 400,260 0,260" fill="${c2}" opacity="0.6"/>
   </svg>`;
 }
 
-function spotMedia(spot, seed) {
-  return spot.img ? `<img src="${spot.img}" alt="${spot.name}" loading="lazy">` : placeholderSVG(DRTCategories.idsFor(spot)[0], seed);
+function spotMedia(spot) {
+  return spot.img
+    ? `<img src="${escHTML(spot.img)}" alt="${escHTML(spot.name)}" loading="lazy">`
+    : placeholderSVG(DRTCategories.idsFor(spot)[0]);
 }
 
-function spotSlides(spot, seed) {
+function spotSlides(spot) {
   const images = spot.images && spot.images.length ? spot.images : [spot.img].filter(Boolean);
-  if (!images.length) return placeholderSVG(DRTCategories.idsFor(spot)[0], seed);
+  if (!images.length) return placeholderSVG(DRTCategories.idsFor(spot)[0]);
   const slides = images
     .map(
       (src, i) =>
-        `<img src="${src}" alt="${spot.name}" class="dm-slide" data-index="${i}" style="display:${i === 0 ? "block" : "none"}">`
+        `<img src="${escHTML(src)}" alt="${escHTML(spot.name)}" class="dm-slide" data-index="${i}" style="display:${i === 0 ? "block" : "none"}">`
     )
     .join("");
   const arrows =
@@ -69,15 +122,28 @@ function setupDmSlider() {
   dots.forEach((d) =>
     d.addEventListener("click", (e) => {
       e.stopPropagation();
-      show(parseInt(d.dataset.index));
+      show(Number(d.dataset.index));
     })
   );
 }
-/* detail modal */
-const detailModal = document.getElementById("detailModal");
 
-function openDetails(spot, seed) {
-  document.getElementById("dmMedia").innerHTML = spotSlides(spot, seed);
+/* ---------- modals ---------- */
+
+/* Close button + click on the dimmed backdrop. (Escape is handled once, near the nav code.) */
+function wireModalClose(modal, closeBtn) {
+  if (!modal) return;
+  const close = () => modal.classList.remove("open");
+  closeBtn?.addEventListener("click", close);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) close();
+  });
+}
+
+const detailModal = document.getElementById("detailModal");
+const circuitModal = document.getElementById("circuitModal");
+
+function openDetails(spot) {
+  document.getElementById("dmMedia").innerHTML = spotSlides(spot);
   document.getElementById("dmTag").innerHTML = DRTCategories.tagHTML(spot, "");
   document.getElementById("dmTitle").textContent = spot.name;
   document.getElementById("dmDesc").textContent = spot.fullDesc;
@@ -86,38 +152,38 @@ function openDetails(spot, seed) {
   detailModal.classList.add("open");
   document.getElementById("dmClose").focus();
 }
-document.getElementById("dmClose").addEventListener("click", () => detailModal.classList.remove("open"));
-detailModal.addEventListener("click", (e) => {
-  if (e.target === detailModal) detailModal.classList.remove("open");
-});
 
-/*landing page */
-const featuredGrid = document.getElementById("featuredGrid");
-SPOTS.slice(0, 3).forEach((s, i) => {
-  const el = document.createElement("div");
-  el.className = "featured-card";
-  el.innerHTML = `<div class="fc-media">${spotMedia(s, i + 1)}</div>
-    <div class="fc-body"><h4>${s.name}</h4><div class="loc">${s.barangay}</div></div>`;
-  makeClickable(el, () => openDetails(s, i + 1));
-  featuredGrid.appendChild(el);
-});
+wireModalClose(detailModal, document.getElementById("dmClose"));
+wireModalClose(circuitModal, document.getElementById("circClose"));
 
+/* ---------- landing page: featured spots ---------- */
 
-/* tourist spots */
+renderCards(
+  document.getElementById("featuredGrid"),
+  SPOTS.slice(0, 3),
+  "featured-card",
+  (s) => `<div class="fc-media">${spotMedia(s)}</div>
+    <div class="fc-body"><h4>${escHTML(s.name)}</h4><div class="loc">${escHTML(s.barangay)}</div></div>`,
+  openDetails
+);
+
+/* ---------- spot filters + grid ---------- */
+
 DRTCategories.audit(SPOTS);
 const categories = ["All", ...DRTCategories.usedBy(SPOTS).map((c) => c.id)];
 const spotFilters = document.getElementById("spotFilters");
 const SPOTS_PER_PAGE = 6;
 let activeSpotCategory = "All";
 let spotsExpanded = false;
+
 categories.forEach((c, i) => {
   const b = document.createElement("button");
   b.className = "filter-btn" + (i === 0 ? " active" : "");
   const cat = DRTCategories.get(c);
-  b.innerHTML = cat ? `${DRTCategories.iconHTML(cat, "")}<span>${cat.label}</span>` : `<span>${c}</span>`;
+  b.innerHTML = cat ? `${DRTCategories.iconHTML(cat, "")}<span>${cat.label}</span>` : `<span>${escHTML(c)}</span>`;
   b.dataset.cat = c;
   b.addEventListener("click", () => {
-    document.querySelectorAll(".filter-btn").forEach((x) => x.classList.remove("active"));
+    spotFilters.querySelectorAll(".filter-btn").forEach((x) => x.classList.remove("active"));
     b.classList.add("active");
     activeSpotCategory = c;
     spotsExpanded = false;
@@ -126,73 +192,33 @@ categories.forEach((c, i) => {
   spotFilters.appendChild(b);
 });
 
-/* explore per barangay */
-function brgySlug(name) {
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-");
-}
-
-const brgyGrid = document.getElementById("brgyGrid");
-if (brgyGrid) {
-  const brgyGroups = {};
-  SPOTS.forEach((s) => {
-    const brgy = s.barangay.split(",")[0].trim();
-    if (!brgyGroups[brgy]) brgyGroups[brgy] = { count: 0, img: s.img };
-    brgyGroups[brgy].count += 1;
-  });
-
-  Object.keys(brgyGroups)
-    .sort()
-    .forEach((brgy) => {
-      const g = brgyGroups[brgy];
-      const brgyRecord = typeof BARANGAYS !== "undefined" ? BARANGAYS.find((b) => barangayFieldMatches(brgy, b)) : null;
-      const img = (brgyRecord && brgyRecord.heroImg) || g.img;
-      const href = `barangay/barangay-${brgySlug(brgy)}.html`;
-      const el = document.createElement("a");
-      el.className = "brgy-card";
-      el.href = href;
-      el.innerHTML = `
-        ${img ? `<img src="${img}" alt="${brgy}" loading="lazy">` : ""}
-        <div class="brgy-card-body">
-          <div class="brgy-count">${g.count} spot${g.count > 1 ? "s" : ""}</div>
-          <h4>${brgy}</h4>
-        </div>`;
-      brgyGrid.appendChild(el);
-    });
-}
-
 const spotGrid = document.getElementById("spotGrid");
-SPOTS.forEach((s, i) => {
-  const card = document.createElement("div");
-  card.className = "spot-card";
-  card.dataset.cat = DRTCategories.idsFor(s).join("|");
-  card.dataset.brgy = s.barangay.split(",")[0].trim();
-  card.innerHTML = `
-    <div class="spot-media">${spotMedia(s, i + 1)}${DRTCategories.badgeHTML(s, "")}</div>
+renderCards(
+  spotGrid,
+  SPOTS,
+  "spot-card",
+  (s) => {
+    const hours = formatHours(s);
+    return `
+    <div class="spot-media">${spotMedia(s)}${DRTCategories.badgeHTML(s, "")}</div>
     <div class="spot-body">
-      <div class="loc">${s.barangay}</div>
-      <h3>${s.name}</h3>
-      <p>${s.shortDesc}</p>
+      <div class="loc">${escHTML(s.barangay)}</div>
+      <h3>${escHTML(s.name)}</h3>
+      <p>${escHTML(s.shortDesc)}</p>
       <div class="spot-facts">
-        <span><img src="icon/money.png" class="meta-icon" alt="" />${DRTCategories.esc(formatFee(s))}</span>
-        ${formatHours(s) ? `<span><img src="icon/24-hour-clock.png" class="meta-icon" alt="" />${DRTCategories.esc(formatHours(s))}</span>` : ""}
+        <span><img src="icon/money.png" class="meta-icon" alt="" />${escHTML(formatFee(s))}</span>
+        ${hours ? `<span><img src="icon/24-hour-clock.png" class="meta-icon" alt="" />${escHTML(hours)}</span>` : ""}
       </div>
     </div>`;
-  makeClickable(card, () => openDetails(s, i + 1));
-  spotGrid.appendChild(card);
+  },
+  openDetails
+).forEach((card, i) => {
+  card.dataset.cat = DRTCategories.idsFor(SPOTS[i]).join("|");
+  card.dataset.brgy = primaryBarangay(SPOTS[i]);
 });
 
-/* "See More" / "Show Less" for the spot grid (respects the active category filter) */
-const spotMoreWrap = document.createElement("div");
-spotMoreWrap.className = "spot-more-wrap";
-const spotMoreBtn = document.createElement("button");
-spotMoreBtn.type = "button";
-spotMoreBtn.className = "spot-more-btn";
-spotMoreWrap.appendChild(spotMoreBtn);
-spotGrid.after(spotMoreWrap);
+const spotMore = createMoreControl();
+spotGrid.after(spotMore.wrap);
 
 function updateSpotGrid(animateFrom = -1) {
   const cards = [...spotGrid.querySelectorAll(".spot-card")];
@@ -213,27 +239,57 @@ function updateSpotGrid(animateFrom = -1) {
     }
   });
 
-  const needsToggle = matching.length > SPOTS_PER_PAGE;
-  spotMoreWrap.style.display = needsToggle ? "" : "none";
-  spotMoreBtn.textContent = spotsExpanded ? "Show Less" : "See More Spots";
-  spotMoreBtn.setAttribute("aria-expanded", String(spotsExpanded));
+  spotMore.wrap.style.display = matching.length > SPOTS_PER_PAGE ? "" : "none";
+  spotMore.btn.textContent = spotsExpanded ? "Show Less" : "See More Spots";
+  spotMore.btn.setAttribute("aria-expanded", String(spotsExpanded));
 }
 
-spotMoreBtn.addEventListener("click", () => {
+spotMore.btn.addEventListener("click", () => {
   spotsExpanded = !spotsExpanded;
   updateSpotGrid(spotsExpanded ? SPOTS_PER_PAGE : -1);
   if (!spotsExpanded) {
-    // collapsing: bring the top of the grid back into view
     spotFilters.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 });
 
 updateSpotGrid();
 
-/* tourism circuits */
-function getSpotById(id) {
-  return SPOTS.find((s) => s.id === id) || null;
+/* ---------- barangay cards ---------- */
+
+const brgyGrid = document.getElementById("brgyGrid");
+if (brgyGrid) {
+  const brgyGroups = {};
+  SPOTS.forEach((s) => {
+    const brgy = primaryBarangay(s);
+    if (!brgyGroups[brgy]) brgyGroups[brgy] = { count: 0, img: s.img };
+    brgyGroups[brgy].count += 1;
+  });
+
+  // BARANGAYS / barangayFieldMatches come from the barangay scripts; the cards still work without them.
+  const canMatchRecords = typeof BARANGAYS !== "undefined" && typeof barangayFieldMatches === "function";
+
+  Object.keys(brgyGroups)
+    .sort()
+    .forEach((brgy) => {
+      const g = brgyGroups[brgy];
+      const brgyRecord = canMatchRecords ? BARANGAYS.find((b) => barangayFieldMatches(brgy, b)) : null;
+      const img = (brgyRecord && brgyRecord.heroImg) || g.img;
+      const el = document.createElement("a");
+      el.className = "brgy-card";
+      el.href = `barangay/barangay-${brgySlug(brgy)}.html`;
+      el.innerHTML = `
+        ${img ? `<img src="${escHTML(img)}" alt="${escHTML(brgy)}" loading="lazy">` : ""}
+        <div class="brgy-card-body">
+          <div class="brgy-count">${g.count} spot${g.count > 1 ? "s" : ""}</div>
+          <h4>${escHTML(brgy)}</h4>
+        </div>`;
+      brgyGrid.appendChild(el);
+    });
 }
+
+/* ---------- circuits ---------- */
+
+const circuitURL = (circuit) => "circuit.html?id=" + encodeURIComponent(circuit.id);
 
 function circuitStops(circuit) {
   return circuit.stops
@@ -243,127 +299,110 @@ function circuitStops(circuit) {
 }
 
 function circuitBarangays(circuit) {
-  const names = circuitStops(circuit).map((sp) => sp.barangay.split(",")[0].trim());
-  return [...new Set(names)];
+  return [...new Set(circuitStops(circuit).map(primaryBarangay))];
 }
 
-const circuitModal = document.getElementById("circuitModal");
+function circuitMedia(circuit) {
+  const src = circuit.img || (circuit.images && circuit.images[0]);
+  return src
+    ? `<img src="${escHTML(src)}" alt="${escHTML(circuit.name)}" loading="lazy">`
+    : placeholderSVG("falls");
+}
 
-function openCircuit(circuit, seed) {
+function openCircuit(circuit) {
   const stops = circuitStops(circuit);
 
-  document.getElementById("circMedia").innerHTML = circuit.img
-    ? `<img src="${circuit.img}" alt="${circuit.name}" loading="lazy">`
-    : circuit.images && circuit.images[0]
-      ? `<img src="${circuit.images[0]}" alt="${circuit.name}" loading="lazy">`
-      : placeholderSVG("Falls", seed);
+  document.getElementById("circMedia").innerHTML = circuitMedia(circuit);
   document.getElementById("circTag").textContent = "Tourism circuit";
   document.getElementById("circTitle").textContent = circuit.name;
   document.getElementById("circDesc").textContent = circuit.shortDesc || "";
 
   const start = circuit.stops[0];
   document.getElementById("circRoute").innerHTML = [
-    `<div class="circ-step"><span class="circ-num">S</span><span class="circ-label">${start.label}</span></div>`,
+    `<div class="circ-step"><span class="circ-num">S</span><span class="circ-label">${escHTML(start.label)}</span></div>`,
     ...stops.map(
       (sp, i) =>
-        `<span class="circ-arrow">&rarr;</span><div class="circ-step"><span class="circ-num">${i + 1}</span><span class="circ-label">${sp.name}</span></div>`
+        `<span class="circ-arrow">&rarr;</span><div class="circ-step"><span class="circ-num">${i + 1}</span><span class="circ-label">${escHTML(sp.name)}</span></div>`
     )
   ].join("");
 
-  document.getElementById("circStops").innerHTML = stops
-    .map(
-      (sp, i) => `
-      <div class="circ-stop-card" data-idx="${i}">
-        <div class="circ-stop-media">${spotMedia(sp, i + 1)}</div>
-        <div class="circ-stop-body"><h4>${sp.name}</h4><p>${sp.distanceFromTownCenter || sp.barangay}</p></div>
-      </div>`
-    )
-    .join("");
-  document.querySelectorAll("#circStops .circ-stop-card").forEach((card, i) => {
-    makeClickable(card, () => {
+  const circStops = document.getElementById("circStops");
+  circStops.innerHTML = ""; // replace the previous circuit's stops
+  const stopCards = renderCards(
+    circStops,
+    stops,
+    "circ-stop-card",
+    (sp) => `
+        <div class="circ-stop-media">${spotMedia(sp)}</div>
+        <div class="circ-stop-body"><h4>${escHTML(sp.name)}</h4><p>${escHTML(sp.distanceFromTownCenter || sp.barangay)}</p></div>`,
+    (sp) => {
       circuitModal.classList.remove("open");
-      openDetails(stops[i], i + 1);
-    });
-  });
+      openDetails(sp);
+    }
+  );
+  stopCards.forEach((card, i) => (card.dataset.idx = i));
 
-  const bring =
-    circuit.whatToBring && circuit.whatToBring.length
-      ? `<h5>What to bring</h5><ul>${circuit.whatToBring.map((x) => `<li>${x}</li>`).join("")}</ul>`
-      : "";
-  const sleep =
-    circuit.whereToSleep && circuit.whereToSleep.length
-      ? `<h5>Where to sleep</h5><ul>${circuit.whereToSleep.map((x) => `<li>${x}</li>`).join("")}</ul>`
-      : "";
+  const list = (title, items) =>
+    items && items.length ? `<h5>${title}</h5><ul>${items.map((x) => `<li>${escHTML(x)}</li>`).join("")}</ul>` : "";
   document.getElementById("circInfo").innerHTML = `
     <div class="circ-info-card">
       <h4>What to expect</h4>
-      <p>${circuit.expectations || ""}</p>
-      ${bring}
-      ${sleep}
+      <p>${escHTML(circuit.expectations || "")}</p>
+      ${list("What to bring", circuit.whatToBring)}
+      ${list("Where to sleep", circuit.whereToSleep)}
     </div>
     <div class="circ-info-card circ-info-why">
       <h4>Why choose this circuit</h4>
-      <p>${circuit.whyChoose || ""}</p>
+      <p>${escHTML(circuit.whyChoose || "")}</p>
     </div>`;
 
-  const points = [circuit.stops[0].mapQuery, ...stops.map((sp) => spotMapQuery(sp))].filter(Boolean);
+  const points = [circuit.stops[0].mapQuery, ...stops.map(spotMapQuery)].filter(Boolean);
   const origin = points[0];
   const destination = points[points.length - 1];
   const waypoints = points.slice(1, -1);
   document.getElementById("circDirections").href =
     `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}` +
-    (waypoints.length ? `&waypoints=${waypoints.map(encodeURIComponent).join("|")}` : "");
+    (waypoints.length ? `&waypoints=${waypoints.map((w) => encodeURIComponent(w)).join("|")}` : "");
 
   circuitModal.classList.add("open");
   document.getElementById("circClose").focus();
 }
 
-document.getElementById("circClose")?.addEventListener("click", () => circuitModal.classList.remove("open"));
-circuitModal?.addEventListener("click", (e) => {
-  if (e.target === circuitModal) circuitModal.classList.remove("open");
-});
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") circuitModal?.classList.remove("open");
-});
-
-const circuitGrid = document.getElementById("circuitGrid");
-if (circuitGrid && typeof CIRCUITS !== "undefined") {
-  CIRCUITS.forEach((c, i) => {
+renderCards(
+  document.getElementById("circuitGrid"),
+  CIRCUITS,
+  "circuit-card",
+  (c) => {
     const stopCount = c.stops.filter((s) => s.type === "spot").length;
-    const media = c.img
-      ? `<img src="${c.img}" alt="${c.name}" loading="lazy">`
-      : c.images && c.images[0]
-        ? `<img src="${c.images[0]}" alt="${c.name}" loading="lazy">`
-        : placeholderSVG("Falls", i + 1);
-    const card = document.createElement("div");
-    card.className = "circuit-card";
-    card.innerHTML = `
-      <div class="circuit-media">${media}</div>
+    return `
+      <div class="circuit-media">${circuitMedia(c)}</div>
       <div class="circuit-body">
-        <div class="loc">${circuitBarangays(c).join(" · ")}</div>
-        <h3>${c.name}</h3>
-        <p>${c.shortDesc || ""}</p>
+        <div class="loc">${escHTML(circuitBarangays(c).join(" · "))}</div>
+        <h3>${escHTML(c.name)}</h3>
+        <p>${escHTML(c.shortDesc || "")}</p>
         <span class="circuit-count">${stopCount} stop${stopCount === 1 ? "" : "s"}</span>
       </div>`;
-    makeClickable(card, () => { location.href = "circuit.html?id=" + encodeURIComponent(c.id); });
-    circuitGrid.appendChild(card);
-  });
-}
+  },
+  (c) => {
+    location.href = circuitURL(c);
+  }
+);
 
-/* maps */
+/* ---------- map ---------- */
+
 const mapEmbed = document.getElementById("mapEmbed");
 const mapList = document.getElementById("mapList");
-SPOTS.forEach((s, i) => {
-  const el = document.createElement("div");
-  el.className = "map-item";
-  el.innerHTML = `<h4>${s.name}</h4><p>${[s.barangay, formatDistance(s)].filter(Boolean).join(" · ")}</p>`;
-  makeClickable(el, () => {
-    document.querySelectorAll(".map-item").forEach((x) => x.classList.remove("active"));
+renderCards(
+  mapList,
+  SPOTS,
+  "map-item",
+  (s) => `<h4>${escHTML(s.name)}</h4><p>${escHTML([s.barangay, formatDistance(s)].filter(Boolean).join(" · "))}</p>`,
+  (s, i, el) => {
+    mapList.querySelectorAll(".map-item").forEach((x) => x.classList.remove("active"));
     el.classList.add("active");
     mapEmbed.src = `https://www.google.com/maps?q=${encodeURIComponent(spotMapQuery(s))}&output=embed`;
-  });
-  mapList.appendChild(el);
-});
+  }
+);
 
 /* "See More" / "Show Less" for the map list (same pattern as the spot grid).
    The list is wrapped so the button sits under it without becoming a third
@@ -375,25 +414,20 @@ mapSide.className = "map-side";
 mapList.before(mapSide);
 mapSide.appendChild(mapList);
 
-const mapMoreWrap = document.createElement("div");
-mapMoreWrap.className = "spot-more-wrap";
-const mapMoreBtn = document.createElement("button");
-mapMoreBtn.type = "button";
-mapMoreBtn.className = "spot-more-btn";
-mapMoreWrap.appendChild(mapMoreBtn);
-mapSide.appendChild(mapMoreWrap);
+const mapMore = createMoreControl();
+mapSide.appendChild(mapMore.wrap);
 
 function updateMapList() {
   const items = [...mapList.querySelectorAll(".map-item")];
   items.forEach((item, i) => {
     item.style.display = mapExpanded || i < MAP_ITEMS_PER_PAGE ? "" : "none";
   });
-  mapMoreWrap.style.display = items.length > MAP_ITEMS_PER_PAGE ? "" : "none";
-  mapMoreBtn.textContent = mapExpanded ? "Show Less" : "See More";
-  mapMoreBtn.setAttribute("aria-expanded", String(mapExpanded));
+  mapMore.wrap.style.display = items.length > MAP_ITEMS_PER_PAGE ? "" : "none";
+  mapMore.btn.textContent = mapExpanded ? "Show Less" : "See More";
+  mapMore.btn.setAttribute("aria-expanded", String(mapExpanded));
 }
 
-mapMoreBtn.addEventListener("click", () => {
+mapMore.btn.addEventListener("click", () => {
   mapExpanded = !mapExpanded;
   updateMapList();
   if (!mapExpanded) {
@@ -404,84 +438,67 @@ mapMoreBtn.addEventListener("click", () => {
 
 updateMapList();
 
-/*
-routes
-*/
-const routeSteps = document.getElementById("routeSteps");
-ROUTE_STEPS.forEach((s, i) => {
-  const el = document.createElement("div");
-  el.className = "route-step";
-  el.innerHTML = `<div class="route-num">${i + 1}</div><div><h4>${s.t}</h4><p>${s.d}</p></div>`;
-  routeSteps.appendChild(el);
-});
+/* ---------- how to get there / fees / rules / contact ---------- */
 
-/*fees */
-const infoGrid = document.getElementById("infoGrid");
-INFO_CARDS.forEach((c) => {
-  const el = document.createElement("div");
-  el.className = "info-card";
-  el.innerHTML = `<h4>${c.t}</h4><p>${c.d}</p>`;
-  infoGrid.appendChild(el);
-});
+renderCards(
+  document.getElementById("routeSteps"),
+  ROUTE_STEPS,
+  "route-step",
+  (s, i) => `<div class="route-num">${i + 1}</div><div><h4>${escHTML(s.t)}</h4><p>${escHTML(s.d)}</p></div>`
+);
+
+renderCards(
+  document.getElementById("infoGrid"),
+  INFO_CARDS,
+  "info-card",
+  (c) => `<h4>${escHTML(c.t)}</h4><p>${escHTML(c.d)}</p>`
+);
 
 const rulesList = document.getElementById("rulesList");
-RULES.forEach((r) => {
-  const li = document.createElement("li");
-  li.textContent = r;
-  rulesList.appendChild(li);
-});
+if (rulesList) {
+  RULES.forEach((r) => {
+    const li = document.createElement("li");
+    li.textContent = r;
+    rulesList.appendChild(li);
+  });
+}
 
-/*
-contact
-*/
-const contactGrid = document.getElementById("contactGrid");
-CONTACT_CARDS.forEach((c) => {
-  const el = document.createElement("div");
-  el.className = "contact-card";
-  el.innerHTML = `<div class="label">${c.label}</div><div class="value">${c.value}</div>`;
-  contactGrid.appendChild(el);
-});
+renderCards(
+  document.getElementById("contactGrid"),
+  CONTACT_CARDS,
+  "contact-card",
+  (c) => `<div class="label">${escHTML(c.label)}</div><div class="value">${escHTML(c.value)}</div>`
+);
 
-/*search bar */
+/* ---------- search ---------- */
+
 const searchToggle = document.getElementById("searchToggle");
 const searchBox = document.getElementById("searchBox");
 const searchInput = document.getElementById("searchInput");
 const searchClose = document.getElementById("searchClose");
 const searchResults = document.getElementById("searchResults");
 
+const goTo = (hash) => () => {
+  location.hash = hash;
+};
+
 const SEARCHABLE = [
-  ...SPOTS.map((s, i) => ({
+  ...SPOTS.map((s) => ({
     label: s.name,
     sub: `${s.barangay} · ${DRTCategories.labelFor(s)}`,
-    action: () => openDetails(s, i + 1)
+    action: () => openDetails(s)
   })),
-  ...(typeof CIRCUITS !== "undefined"
-    ? CIRCUITS.map((c, i) => ({
-        label: c.name,
-        sub: "Tourism circuit",
-        action: () => { location.href = "circuit.html?id=" + encodeURIComponent(c.id); }
-      }))
-    : []),
-  {
-    label: "How to get there",
-    sub: "Travel guide",
-    action: () => (location.hash = "#getting-there")
-  },
-  {
-    label: "Fees & information",
-    sub: "Entrance, parking & guide fees",
-    action: () => (location.hash = "#fees")
-  },
-  {
-    label: "Map",
-    sub: "Find each spot",
-    action: () => (location.hash = "#map")
-  },
-  {
-    label: "Contact",
-    sub: "Tourism office",
-    action: () => (location.hash = "#contact")
-  }
+  ...CIRCUITS.map((c) => ({
+    label: c.name,
+    sub: "Tourism circuit",
+    action: () => {
+      location.href = circuitURL(c);
+    }
+  })),
+  { label: "How to get there", sub: "Travel guide", action: goTo("#getting-there") },
+  { label: "Fees & information", sub: "Entrance, parking & guide fees", action: goTo("#fees") },
+  { label: "Map", sub: "Find each spot", action: goTo("#map") },
+  { label: "Contact", sub: "Tourism office", action: goTo("#contact") }
 ];
 
 function openSearch() {
@@ -496,9 +513,6 @@ function closeSearch() {
 }
 searchToggle.addEventListener("click", openSearch);
 searchClose.addEventListener("click", closeSearch);
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeSearch();
-});
 
 searchInput.addEventListener("input", () => {
   const q = searchInput.value.trim().toLowerCase();
@@ -517,7 +531,8 @@ searchInput.addEventListener("input", () => {
     });
 });
 
-/* mobile / tablet navigation drawer */
+/* ---------- mobile / tablet navigation drawer ---------- */
+
 const navLinks = document.querySelector(".navlinks");
 const hamburger = document.querySelector(".hamburger");
 const desktopNav = window.matchMedia("(min-width: 60em)");
@@ -538,14 +553,20 @@ navLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", 
 document.addEventListener("click", (e) => {
   if (navLinks.classList.contains("open") && !navLinks.contains(e.target)) setNav(false);
 });
+desktopNav.addEventListener("change", (e) => {
+  if (e.matches) setNav(false);
+});
+
+/* Escape closes whatever is open (the photo lightbox below has its own) */
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && navLinks.classList.contains("open")) {
+  if (e.key !== "Escape") return;
+  detailModal?.classList.remove("open");
+  circuitModal?.classList.remove("open");
+  closeSearch();
+  if (navLinks.classList.contains("open")) {
     setNav(false);
     hamburger.focus();
   }
-});
-desktopNav.addEventListener("change", (e) => {
-  if (e.matches) setNav(false);
 });
 
 /* lock page scroll while any overlay (menu, modal, lightbox, search) is open */
@@ -563,6 +584,8 @@ desktopNav.addEventListener("change", (e) => {
   [...overlays, navLinks].forEach((el) => observer.observe(el, { attributes: true, attributeFilter: ["class"] }));
 })();
 
+/* ---------- photo gallery marquee ---------- */
+
 (function () {
   const grid = document.getElementById("drtMarqueeGrid");
   const lightbox = document.getElementById("drtMarqueeLightbox");
@@ -571,7 +594,6 @@ desktopNav.addEventListener("change", (e) => {
   const closeBtn = document.getElementById("drtMarqueeClose");
 
   if (!grid || !lightbox) return;
-
 
   function getColumnCount() {
     const w = window.innerWidth;
@@ -582,32 +604,21 @@ desktopNav.addEventListener("change", (e) => {
     lightboxImg.src = photo.src;
     lightboxImg.alt = photo.spot;
     caption.innerHTML =
-      '<span style="font-weight:600;display:block;">' +
-      photo.spot +
-      "</span>" +
-      '<span style="font-size:0.85rem;opacity:0.75;">Brgy. ' +
-      photo.barangay +
-      "</span>";
+      `<span style="font-weight:600;display:block;">${escHTML(photo.spot)}</span>` +
+      `<span style="font-size:0.85rem;opacity:0.75;">Brgy. ${escHTML(photo.barangay)}</span>`;
     lightbox.classList.add("drt-open");
   }
 
   function buildMarquee() {
     grid.innerHTML = "";
 
-    const COLUMN_COUNT = getColumnCount();
-    const columns = Array.from({ length: COLUMN_COUNT }, () => []);
-
-    GALLERY_DATA.forEach((photo, i) => {
-      columns[i % COLUMN_COUNT].push(photo);
-    });
-
-    columns.forEach((col) => {
-            if (col.length === 0) return;
-      while (col.length < 4) col.push(...col);
-    });
+    const columnCount = getColumnCount();
+    const columns = Array.from({ length: columnCount }, () => []);
+    GALLERY_DATA.forEach((photo, i) => columns[i % columnCount].push(photo));
 
     columns.forEach((colPhotos, colIndex) => {
       if (colPhotos.length === 0) return;
+      while (colPhotos.length < 4) colPhotos.push(...colPhotos); // enough photos to fill the column
 
       const col = document.createElement("div");
       col.className = "drt-marquee-col" + (colIndex % 2 === 1 ? " drt-reverse" : "");
@@ -615,11 +626,14 @@ desktopNav.addEventListener("change", (e) => {
       const track = document.createElement("div");
       track.className = "drt-marquee-track";
 
-      const doubled = colPhotos.concat(colPhotos);
-      doubled.forEach((photo) => {
+      colPhotos.concat(colPhotos).forEach((photo) => {
         const item = document.createElement("div");
         item.className = "drt-marquee-item";
-        item.innerHTML = '<img src="' + photo.src + '" alt="' + photo.spot + '" loading="lazy">';
+        const img = document.createElement("img");
+        img.src = photo.src;
+        img.alt = photo.spot;
+        img.loading = "lazy";
+        item.appendChild(img);
         item.addEventListener("click", () => openMarqueeLightbox(photo));
         track.appendChild(item);
       });
@@ -629,10 +643,9 @@ desktopNav.addEventListener("change", (e) => {
     });
   }
 
-
   buildMarquee();
 
-    let resizeTimer;
+  let resizeTimer;
   let lastColumnCount = getColumnCount();
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
@@ -645,7 +658,6 @@ desktopNav.addEventListener("change", (e) => {
     }, 200);
   });
 
-
   closeBtn.addEventListener("click", () => lightbox.classList.remove("drt-open"));
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) lightbox.classList.remove("drt-open");
@@ -655,14 +667,15 @@ desktopNav.addEventListener("change", (e) => {
   });
 })();
 
-/* contact form: sends to Formspree so messages arrive in your inbox.
-   1) Make a free form at formspree.io  2) paste its link below.
-   Until then it falls back to opening the visitor's mail app. */
-const FORMSPREE_URL = "https://formspree.io/f/mljdkqkz"; // e.g. "https://formspree.io/f/abcd1234"
+/* ---------- contact form ---------- */
+
+/* Messages are sent through Formspree. Set this to "" to fall back to opening
+   the visitor's mail app instead. */
+const FORMSPREE_URL = "https://formspree.io/f/mljdkqkz";
 
 (function () {
   const form = document.getElementById("contactForm");
-  const mail = (typeof CONTACT_CARDS !== "undefined" && CONTACT_CARDS.find((c) => /email/i.test(c.label))) || null;
+  const mail = CONTACT_CARDS.find((c) => /email/i.test(c.label));
   const to = mail ? mail.value : "";
   const foot = document.getElementById("footMail");
   if (foot && to) foot.href = "mailto:" + to;
@@ -694,7 +707,7 @@ const FORMSPREE_URL = "https://formspree.io/f/mljdkqkz"; // e.g. "https://formsp
       form.reset();
       status.classList.add("ok");
       status.textContent = "Message sent. The tourism office will get back to you.";
-    } catch (err) {
+    } catch {
       status.classList.add("err");
       status.textContent = "Could not send your message. Please try again or email us directly.";
     } finally {
@@ -703,10 +716,23 @@ const FORMSPREE_URL = "https://formspree.io/f/mljdkqkz"; // e.g. "https://formsp
   });
 })();
 
-/* gentle one-time reveal for section headings and grids */
+/* ---------- gentle one-time reveal for section headings and grids ---------- */
+
 (function () {
   if (!("IntersectionObserver" in window)) return;
   const els = document.querySelectorAll(".section-head, .circuit-grid, .route-steps, .info-grid, .contact-layout");
-  const io = new IntersectionObserver((en) => en.forEach((x) => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: 0.12 });
-  els.forEach((el) => { el.classList.add("reveal"); io.observe(el); });
+  const io = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((x) => {
+        if (x.isIntersecting) {
+          x.target.classList.add("in");
+          io.unobserve(x.target);
+        }
+      }),
+    { threshold: 0.12 }
+  );
+  els.forEach((el) => {
+    el.classList.add("reveal");
+    io.observe(el);
+  });
 })();
