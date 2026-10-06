@@ -22,7 +22,7 @@ const GALLERY_DATA = [
 
 
 const SPOTS = [
-    /*Falls*/
+    /*Secret Falls*/
     {
         id: 'secret-falls',
         name: 'Secret Falls',
@@ -41,7 +41,7 @@ const SPOTS = [
         location: 'Barangay Camachile, Doña Remedios Trinidad, Bulacan',
         entranceFee: '₱50 – ₱90 per person',
         parkingFee: 'None',
-        hours: '7:00 AM – 4:00 PM daily',
+        hours: '24hours operation',
         activities: ['Swimming', 'Photography', 'Trekking'],
         howToGetThere: 'Register at the Camachile barangay hall, then a short guided trek to the falls.',
         contact: 'Camachile Barangay Tourism Desk',
@@ -52,7 +52,8 @@ const SPOTS = [
         rules: ["Wear a life vest or be a confident swimmer before entering the pool.", "No littering \u2014 bring your trash back down with you.", "Trail can be slippery after rain; wear shoes with good grip."],
         mapQuery: 'Secret Falls, Camachile, Doña Remedios Trinidad, Bulacan'
 },
-    /*Resorts */
+    
+    /*Carribean*/
     {
         id: 'caribbean-waves',
         name: 'Caribbean Waves Resort',
@@ -82,7 +83,38 @@ const SPOTS = [
         rules: ["Children must be supervised by an adult at all times in the pool area.", "Outside food and drinks may not be allowed \u2014 check with the front desk.", "Life vests are recommended for non-swimmers."],
         mapQuery: 'Caribbean Waves Resort, Pulong Sampaloc, Doña Remedios Trinidad, Bulacan'
     },
-
+    
+     /*Puning cave*/
+    {
+      id: 'puning-cave',
+      name: 'Puning Cave',
+      categories: ['caves'],
+      barangay: 'Bayabas',
+      img:'cave/puning/puning.jpg',
+      images:[
+          'cave/puning/puning.jpg',
+          'cave/puning/PC1.jpg',
+          'cave/puning/PC2.jpg',
+          'cave/puning/PC3.jpg',
+          'cave/puning/PC4.jpg',
+      ],
+      shortDesc: 'One of the most-visited caves in Central Luzon, known for its bat colonies and mineral formations.',
+      fullDesc: 'A limestone cave at Sitio Tumana featuring dripstone and flowstone formations, home to an estimated population of thousands of fruit and insect bats. The site is ecologically sensitive and typically only open for guided visits during the dry season.',
+      location: 'Barangay Bayabas, Doña Remedios Trinidad, Bulacan',
+      entranceFee: '₱30 – ₱50 per person',
+      parkingFee: 'VERIFY with barangay bayabas tourism desk',
+      hours: '4:00 AM - 7:00 PM, daytime guided tour',
+      activities: ['Spelunking', 'Guided Tour', 'Photography'],
+      howToGetThere: 'Register at the Bayabas barangay hall for a guide before entering the cave.',
+      contact: 'Bayabas Barangay Tourism Desk',
+      facebook: 'https://www.facebook.com/profile.php/?id=100090761324798',
+      distanceFromTownCenter: '~5.1 km from the Municipal Hall',
+      coordinates: null,
+      rules: ["Guided entry only — the cave is closed without a barangay guide.", "Do not touch or disturb the bat colonies or rock formations.", "Open seasonally (dry season); confirm availability before visiting."],
+      mapQuery: 'Puning Cave, Bayabas, Doña Remedios Trinidad, Bulacan'
+    }, 
+    
+    /*verdivia*/
     {
         id: 'verdivia-falls',
         name: 'Verdivia Falls',
@@ -113,7 +145,7 @@ const SPOTS = [
         mapQuery: 'Verdivia Falls, Talbak, Doña Remedios Trinidad, Bulacan'
   },
 
-
+    /*Tila-pilon*/
     {
         id: 'tila-pilon',
         name: 'Tila-Pilon Hills',
@@ -141,6 +173,8 @@ const SPOTS = [
         rules: ["A barangay guide is required for the marked trail.", "Trek may be called off during heavy rain or storm warnings \u2014 check with the barangay hall first.", "Bring enough water; there are no stores along the ridge."],
         mapQuery: 'Tila-Pilon, Kalawakan, Doña Remedios Trinidad, Bulacan'
     },
+    
+    /*Mt. Secret*/
     {
         id: 'mt.secret',
         name: 'Mount Secret',
@@ -172,6 +206,8 @@ const SPOTS = [
         rules: ["A local guide is strongly recommended, especially for the traverse toward Sumacbao River.", "Best attempted in dry weather; the trail can be hard to follow when overgrown.", "Inform the barangay tourism desk of your itinerary before heading out."],
         mapQuery: 'MT. Corona, Kalawakan, Doña Remedios Trinidad, Bulacan'
 },
+    
+    /*Angeland*/
     {
         id: 'angeland',
         name: 'Angeland Kareta Falls',
@@ -201,6 +237,8 @@ const SPOTS = [
         rules: ["Register and pay fees at the barangay hall before entering the park.", "Keep to the designated swimming area.", "No glass containers allowed near the falls."],
         mapQuery: 'Angeland, Camachile, Doña Remedios Trinidad, Bulacan'
 },
+    
+    /*Mandala*/
     {
         id: 'mandala',
         name: `Antonio's Mandala Nature Park`,
@@ -219,7 +257,7 @@ const SPOTS = [
         location: 'Barangay Camachile, Doña Remedios Trinidad, Bulacan',
         entranceFee: '₱50 per person',
         parkingFee: '₱20 motor',
-        hours: '7:00 AM – 4:00 PM daily',
+        hours: '24hours operation weekends',
         activities: ['Swimming', 'Photography', 'Trekking', 'Camping'],
         howToGetThere: 'Register at the Camachile barangay hall, then a short guided trek to the falls.',
         tourguide: '₱300 per group',
@@ -229,6 +267,8 @@ const SPOTS = [
         rules: ["Camping is only allowed in designated areas \u2014 ask the caretaker on arrival.", "Put out campfires completely before leaving or sleeping.", "Bring out all your trash; there is no regular collection at the site."],
         mapQuery: 'Mandala Falls, Camachile, Doña Remedios Trinidad, Bulacan'
 },
+    
+    /*Kabayunan viewdeck*/
     {
         id: 'kabayunan',
         name: 'Kabayuan View Deck',
@@ -259,7 +299,8 @@ const SPOTS = [
         rules: ["Overnight campers must register in advance at the barangay hall.", "Keep noise down after dark out of respect for other campers.", "Secure tents well \u2014 the view deck can get windy at night."],
         mapQuery: 'Kabayunan View Deck, Kabayunan, Doña Remedios Trinidad, Bulacan'
 },
-
+    
+    /*mt.lawad*/
     {
         id: 'mt.lawad',
         name: 'MT. Lawad',
@@ -291,6 +332,8 @@ const SPOTS = [
         mapQuery: 'MT. Lawad, Kalawakan, Doña Remedios Trinidad, Bulacan'
 
   },
+    
+    /*mt.brigino*/
     {
         id: 'mt. brigino',
         name: 'MT. Brigino',
@@ -310,7 +353,7 @@ const SPOTS = [
         entranceFee: '₱50 per person',
         parkingFee: 'None',
         tourguide: 'none',
-        hours: '5:00 PM – 12:00 PM, Best time to visit',
+        hours: '24hours operation',
         activities: ['Photography', 'Viewpoint', '360° Mountain Peak View', 'Burn Fire'],
         howToGetThere: 'Register at Kalawakan barangay hall for a guided hike.',
         contact: '0964 998 4381',
@@ -320,6 +363,8 @@ const SPOTS = [
         rules: ["Campfires must be supervised and fully extinguished before leaving.", "Coordinate with the barangay guide for the best arrival time.", "Bring a flashlight or headlamp for the late-afternoon hike."],
         mapQuery: 'MT. Brigino, Sapang Bulac, Doña Remedios Trinidad, Bulacan'
     },
+    
+    /*kalinaw*/
     {
         id: 'kalinaw',
         name: 'Kalinaw Campsite',
@@ -349,34 +394,8 @@ const SPOTS = [
         rules: ["Reserve your slot with the barangay hall before heading up.", "Practice Leave No Trace \u2014 pack out everything you bring in.", "Nights can get cold; bring appropriate camping gear."],
         mapQuery: 'Space Camp, Kalawakan, Doña Remedios Trinidad, Bulacan'
    },
-    {
-      id: 'puning-cave',
-      name: 'Puning Cave',
-      categories: ['caves'],
-      barangay: 'Bayabas',
-      img:'cave/puning/puning.jpg',
-      images:[
-          'cave/puning/puning.jpg',
-          'cave/puning/PC1.jpg',
-          'cave/puning/PC2.jpg',
-          'cave/puning/PC3.jpg',
-          'cave/puning/PC4.jpg',
-      ],
-      shortDesc: 'One of the most-visited caves in Central Luzon, known for its bat colonies and mineral formations.',
-      fullDesc: 'A limestone cave at Sitio Tumana featuring dripstone and flowstone formations, home to an estimated population of thousands of fruit and insect bats. The site is ecologically sensitive and typically only open for guided visits during the dry season.',
-      location: 'Barangay Bayabas, Doña Remedios Trinidad, Bulacan',
-      entranceFee: '₱30 – ₱50 per person',
-      parkingFee: 'VERIFY with barangay bayabas tourism desk',
-      hours: '4:00 AM - 7:00 PM, daytime guided tour',
-      activities: ['Spelunking', 'Guided Tour', 'Photography'],
-      howToGetThere: 'Register at the Bayabas barangay hall for a guide before entering the cave.',
-      contact: 'Bayabas Barangay Tourism Desk',
-      facebook: 'https://www.facebook.com/profile.php/?id=100090761324798',
-      distanceFromTownCenter: '~5.1 km from the Municipal Hall',
-      coordinates: null,
-      rules: ["Guided entry only — the cave is closed without a barangay guide.", "Do not touch or disturb the bat colonies or rock formations.", "Open seasonally (dry season); confirm availability before visiting."],
-      mapQuery: 'Puning Cave, Bayabas, Doña Remedios Trinidad, Bulacan'
-    },
+    
+     /*13th Falls*/
     {
         id: '13th-falls',
         name: '13th Falls',
@@ -406,6 +425,8 @@ const SPOTS = [
         rules: ["Register at the barangay hall and go with a guide.", "Avoid swimming during or right after heavy rain.", "Bring back all trash \u2014 there are no bins on the trail."],
         mapQuery: '13th Falls, Camachin, Doña Remedios Trinidad, Bulacan'
 },
+    
+     /*Monument Candle*/
     {
         id: 'monument-candle',
         name: 'Monument Candle',
@@ -435,6 +456,8 @@ const SPOTS = [
         rules: ["Be respectful \u2014 the monument honors those who died in the 1938 battle.", "Photography is welcome, but avoid climbing on the structure.", "Trail up can be steep; wear proper footwear."],
         mapQuery: 'Monument Candle, Camachin, Doña Remedios Trinidad, Bulacan'
 },
+    
+     /*Talon-pari*/
     {
         id: 'talon-pari',
         name: 'Talon Pari Falls',
@@ -462,6 +485,8 @@ const SPOTS = [
         rules: ["A guide from the barangay hall is recommended for the trail.", "Pools can rise quickly after rain \u2014 check conditions before swimming."],
         mapQuery: 'Talon Pari Falls, Kalawakan, Doña Remedios Trinidad, Bulacan'
   },
+    
+     /*Mountain View*/
     {
         id: 'Mountainview',
         name: 'Mountainview Resort',
@@ -490,6 +515,8 @@ const SPOTS = [
         rules: ["Supervise children near the pool at all times.", "Respect the resort's posted hours and house rules."],
         mapQuery: 'MOUNTAINVIEW RESORT, Sapang Bulac, Dona Remedios Trinidad, Bulacan'
   },
+    
+    /*Simbahan bato*/
     {
         id: 'simbahang-bato',
         name: 'Simbahang Bato',
@@ -499,7 +526,6 @@ const SPOTS = [
         images: [
             'cave/simb/simbahan1.jpg',
             'cave/simb/simbahan.jpg',
-            'cave/simb/simbahan2.webp',
         ],
         shortDesc: 'A hidden shrine carved by nature.',
         fullDesc: 'A cave with rugged rock formations, housing an image of the Nazareno. Discovered in the late 1970s by marble cutters from Bicol. Now a devotion site and nature attraction.',
@@ -517,6 +543,7 @@ const SPOTS = [
         rules: ["This is an active devotion site \u2014 keep quiet and be respectful near the shrine.", "A guide is required; the cave floor can be uneven and slippery.", "Wear closed shoes suited for rocky terrain."],
         mapQuery: 'Simbahang Bato, Camachile, Doña Remedios Trinidad, Bulacan'
     },
+    
 ];
 
 /*
@@ -541,13 +568,11 @@ const ROUTE_STEPS = [
     }
 ];
 
-/*
-  fees
-*/
+
 const INFO_CARDS = [
     {
         t: 'Entrance fees',
-        d: 'Typically ₱30–₱250 per attraction, paid at the barangay hall or resort entrance — bring small bills.',
+        d: 'Typically ₱30–₱250 per attraction, paid at the barangay hall or resort entrance, bring small bills.',
         ic: 'ticket'
     },
     {
@@ -578,7 +603,9 @@ const RULES = [
   'Register with the barangay tourism desk before any trek or cave visit.',
   'Always go with a licensed local guide. Several trails and cave systems are guided-only.',
   'Avoid trekking or river crossings during heavy rain. Trails and rivers can rise quickly.',
-  'Leave No Trace.',
+  'LEAVE NO TRACE.',
+  'Do not damage plants, disturb wildlife, or remove rocks, plants, or other natural features.',
+    'Respect local communities, fellow visitors, and guides. Help preserve DRT for future generations.',
   'Bring cash, most barangays and guides do not accept cards.',
   'Respect barangay curfews and closing times listed for each spot.'
 ];
@@ -600,7 +627,7 @@ const CONTACT_CARDS = [
     },
     {
         label: 'Email',
-        value: 'tourismoffice.gmail.com'
+        value: 'drttourismoffice@gmail.com'
     }
 ];
 
@@ -659,7 +686,7 @@ const CIRCUITS = [
             'Sun protection — most of the day is outdoors'
         ],
         whereToSleep: [
-            "Antonio's Mandala Nature Park — camping allowed in designated areas"
+            `Antonio's "Mandala" Nature Park — camping allowed in designated areas`
         ],
         whyChoose: 'For visitors who want falls, swimming, and a mountain viewpoint in one barangay, with less travel time between stops than the cave circuit.'
     }

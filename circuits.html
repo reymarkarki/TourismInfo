@@ -37,10 +37,31 @@
   <h2 class="cx-h2" id="circuitList">Choose a tourism circuit</h2>
   <div class="cx-grid" id="cxGrid"></div>
 </main>
+<section id="contact">
+<div class="wrap">
+<div class="section-head small">
+<div class="eyebrow">Contact</div>
+<h2>Reach the tourism office</h2>
+</div>
+<div class="contact-layout">
+<div class="contact-grid" id="contactGrid"></div>
+<form class="contact-form" id="contactForm" novalidate>
+<label>Full name<input type="text" name="name" placeholder="Juan Dela Cruz" required autocomplete="name"></label>
+<label>Email<input type="email" name="email" placeholder="you@example.com" required autocomplete="email"></label>
+<label>Mobile number<input type="tel" name="phone" placeholder="+63 900 000 0000" autocomplete="tel"></label>
+<label>I am asking about<select name="topic"><option>General inquiry</option><option>Group tour or booking</option><option>Local tour guide</option><option>Tourist spot information</option><option >Circuit Inquiry</option></select></label>
+<label class="full">Message<textarea name="message" maxlength="500" placeholder="Tell us your travel dates, group size and which destinations interest you (up to 500 characters)." required></textarea></label>
+<button type="submit" class="btn btn-primary">Send message</button>
+</form>
+</div>
+</div>
+</section>
 <footer class="cx-foot"><div class="wrap"><span>&#xA9; 2026 Doña Remedios Trinidad Tourism Guide · Rising Devs</span><span>Municipal Hall, Pulong Sampalok, DRT, Bulacan</span></div></footer>
 <script src="categories.js"></script>
 <script src="data.js"></script>
 <script src="spot-details.js"></script>
 <script src="circuits.js"></script>
+<script scr="sript.js"></script>
+<script src="barangay/barangay-data.js" defer></script>
 </body>
 </html>

@@ -1,7 +1,4 @@
-/* circuits.js — Circuit Index (circuits.html) and Circuit Detail (circuit.html?id=...).
-   Reads CIRCUITS / CIRCUIT_START / SPOTS from data.js. Adding a circuit there
-   automatically adds a card here. Optional circuit fields shown only if present:
-   duration, difficulty, bestFor. */
+
 (function () {
   const esc = (s) => DRTCategories.esc(s == null ? "" : s);
   const spotById = (id) => SPOTS.find((s) => s.id === id) || null;
