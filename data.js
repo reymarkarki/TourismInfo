@@ -204,7 +204,7 @@ const SPOTS = [
 
         coordinates: null,
         rules: ["A local guide is strongly recommended, especially for the traverse toward Sumacbao River.", "Best attempted in dry weather; the trail can be hard to follow when overgrown.", "Inform the barangay tourism desk of your itinerary before heading out."],
-        mapQuery: 'MT. Corona, Kalawakan, Doña Remedios Trinidad, Bulacan'
+        mapQuery: 'MT. Secret, Camachile, Doña Remedios Trinidad, Bulacan'
 },
     
     /*Angeland*/
