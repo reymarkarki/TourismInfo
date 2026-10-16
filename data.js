@@ -615,7 +615,7 @@ const RULES = [
 const CONTACT_CARDS = [
     {
         label: 'Municipal Tourism Office',
-        value: 'Municipal Hall, Pulong Sampalok, Doña Remedios Trinidad, Bulacan'
+        value: '2nd Floor, Municipal Hall, Doña Remedios Trinidad, Bulacan'
     },
     {
         label: 'Office hours',
